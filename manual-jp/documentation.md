@@ -854,6 +854,7 @@ end
 ### ブロック引用符
 
 > Text from external sources, such as quotations from books or websites, can be quoted using `>` characters prepended to each line of the quote as follows.
+
 書籍やウェブサイトからの引用などの外部ソースからのテキストは、次のように引用符の各行の先頭に `> '文字を使用して引用することができます。
 
 ```
@@ -864,7 +865,10 @@ Here's a quote:
 > technical computing environments.
 ```
 
-<!-- Note that a single space must appear after the `>` character on each line. Quoted blocks may themselves contain other toplevel or inline elements. -->
+<!-- original -->
+> Note that a single space must appear after the `>` character on each line. Quoted blocks may themselves contain other toplevel or inline elements.
+<!-- original -->
+
 各行で `>` 文字の後ろにスペースが1つなければならないことに注意してください。 クォートされたブロック自体に、他のトップレベル要素またはインライン要素を含めることができます。
 
 <!-- ### Images -->
