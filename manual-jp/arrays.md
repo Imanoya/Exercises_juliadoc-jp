@@ -58,8 +58,9 @@ Julia配列ライブラリ全体は、ライブラリ関数によって入力が
 同様の振る舞いを示す必要がある場合は、ユーザーコードが変更可能な入力のコピーを作成するよう注意してください。
 
 <!-- ## Arrays -->
-##配列 
+## 配列 
 
+<!-- ### Basic Functions -->
 ### Basic Functions
 
 | Function               | Description                                                                      |
@@ -77,6 +78,7 @@ Julia配列ライブラリ全体は、ライブラリ関数によって入力が
 | [`strides(A)`](@ref)   | 各次元のタプル増分値                                         |
 
 ### Construction and Initialization
+### Construction and Initialization
 
 <!-- Many functions for constructing and initializing arrays are provided. -->
 配列の作成と初期化のための多くの関数が用意されています。
@@ -85,7 +87,7 @@ Julia配列ライブラリ全体は、ライブラリ関数によって入力が
 <!-- Most of these functions also accept a first input `T`, which is the element type of the array. -->
 これらの関数のほとんどは、配列の要素型である第1の入力`T`も受け入れます。
 <!-- If the type `T` is omitted it will default to [`Float64`](@ref). -->
-`T`型が省略された場合は、デフォルトで[`Float64`](@ ref)になります。
+`T`型が省略された場合は、デフォルトで[`Float64`](@ref)になります。
 
 
 | Function                           | Description                                                                                                           |
@@ -117,7 +119,7 @@ Julia配列ライブラリ全体は、ライブラリ関数によって入力が
 [^1]: *iid*, independently and identically distributed.
 
 <!-- The syntax `[A, B, C, ...]` constructs a 1-d array (vector) of its arguments. -->
-次の構文`[A、B、C、...]`は、1次元配列(ベクトル)の引数を構築します。
+次の構文 `[A、B、C、...]` は、1次元配列(ベクトル)の引数を構築します。
 <!-- If all arguments have a common [promotion type](@ref conversion-and-promotion) then they get converted to that type using `convert()`. -->
 すべての引数が共通の[プロモーションタイプ](@ref conversion-and-promotion)を持つ場合、それらは `convert()`を使ってそのタイプに変換されます。
 
@@ -235,7 +237,7 @@ Float32[ 0.25*x[i-1] + 0.5*x[i] + 0.25*x[i+1] for i=2:length(x)-1 ]
 <!-- Comprehensions can also be written without the enclosing square brackets, producing an object known as a generator. -->
 内包表現は、囲み角括弧を付けずに記入して、ジェネレータと呼ばれるオブジェクトを作成することもできます。
 <!-- This object can be iterated to produce values on demand, instead of allocating an array and storing them in advance (see [Iteration](@ref)). -->
-このオブジェクトは、配列を割り当てて事前に格納する代わりに、必要に応じて値を生成するために反復することができます([反復](@ ref)を参照)。
+このオブジェクトは、配列を割り当てて事前に格納する代わりに、必要に応じて値を生成するために反復することができます([反復](@ref)を参照)。
 このオブジェクトは、必要に応じて値を繰り返し生成できます、事前に配列を割り付けて格納しません。(参照 [Iteration](@ref))
 <!-- For example, the following expression sums a series without allocating memory: -->
 たとえば、次の式は、メモリを割り当てずに系列を合計します。
@@ -305,7 +307,7 @@ X = A[I_1, I_2, ..., I_n]
 ```
 
 <!--- where each `I_k` may be a scalar integer, an array of integers, or any other [supported index](@ref man-supported-index-types).  -->
-それぞれの `I_k`はスカラ整数、整数の配列、または他の[supported index](@ ref man-supported-index-types)です。
+それぞれの `I_k`はスカラ整数、整数の配列、または他の[supported index](@ref man-supported-index-types)です。
 #This includes [`Colon`](@ref) (`:`) to select all indices within the entire dimension, ranges of the form `a:c` or `a:b:c` to select contiguous or strided subsections, and arrays of booleans to select elements at their `true` indices.
 <!--- This includes [`Colon`] to select all indices within the entire dimension, ranges of the form `a:c` or `a:b:c` to select contiguous or strided subsections, and arrays of booleans to select elements at their `true` indices. -->
 これには、次元全体の中のすべてのインデックス、 `a：c`または` a：b：c`の範囲を選択して連続した部分またはストライドされた部分と真のインデックスで要素を選択するブール値の配列、を選択する[`Colon`]が含まれます。
@@ -359,7 +361,7 @@ julia> x[1, [2 3; 4 1]]
 -->
 `n：n-1 'という形式の空の範囲は、` n-1`と `n`の間のインデックス間の位置を示すために時々使用されます。
 <!-- For example, the [`searchsorted()`](@ref) function uses this convention to indicate the insertion point of a value not found in a sorted array: -->
-たとえば、[`searchsorted()`](@ ref)関数は、ソートされた配列に見つからない値の挿入ポイントを示すためにこの規約を使います：
+たとえば、[`searchsorted()`](@ref)関数は、ソートされた配列に見つからない値の挿入ポイントを示すためにこの規約を使います：
 
 
 ```jldoctest
@@ -381,9 +383,9 @@ A[I_1, I_2, ..., I_n] = X
 
 <!-- where each `I_k` may be a scalar integer, an array of integers, or any other [supported index](@ref man-supported-index-types). 
 -->
-それぞれの `I_k`はスカラ整数、整数の配列、または他の[サポートされるインデックス](@ ref man-supported-index-types)です。
+それぞれの `I_k`はスカラ整数、整数の配列、または他の[サポートされるインデックス](@ref man-supported-index-types)です。
 #This includes [`Colon`](@ref) (`:`) to select all indices within the entire dimension, ranges of the form `a:c` or `a:b:c` to select contiguous or strided subsections, and arrays of booleans to select elements at their `true` indices.
-これには、次元全体の中のすべてのインデックスを選択するための `` Colon`(@ ref)( `：`)、連続したサブセクションまたはストライドサブセクションを選択するための `a：c`または` a：b：c '論理値の要素を選択するブール値の配列
+これには、次元全体の中のすべてのインデックスを選択するための `` Colon`(@ref)( `：`)、連続したサブセクションまたはストライドサブセクションを選択するための `a：c`または` a：b：c '論理値の要素を選択するブール値の配列
 
 #If `X` is an array, it must have the same number of elements as the product of the lengths of the indices: `prod(length(I_1), length(I_2), ..., length(I_n))`. 
 `X`が配列の場合は、` prod(length(I_1)、length(I_2)、...、length(I_n)) `のインデックスの長さの積と同じ数の要素を持たなければなりません。
@@ -393,7 +395,7 @@ A[I_1, I_2, ..., I_n] = X
 `X`が配列でない場合、その値は` A`のすべての参照先に書き込まれます。
 
 <!--- Just as in [Indexing](@ref man-array-indexing), the `end` keyword may be used to represent the last index of each dimension within the indexing brackets, as determined by the size of the array being assigned into.  -->
-[Indexing](@ ref man-array-indexing)と同じように、 `end`キーワードは、割り付けられている配列のサイズによって決まるように、インデックス括弧内の各次元の最後のインデックスを表すために使用されます。
+[Indexing](@ref man-array-indexing)と同じように、 `end`キーワードは、割り付けられている配列のサイズによって決まるように、インデックス括弧内の各次元の最後のインデックスを表すために使用されます。
 <!--- Indexed assignment syntax without the `end` keyword is equivalent to a call to [`setindex!()`](@ref): -->
 `end`キーワードのないインデックス付きの代入構文は、[`setindex!() `](@ref)の呼び出しと同じです：
 
@@ -447,11 +449,11 @@ julia> x
    <!--- > * Arrays of `CartesianIndex{N}` (see below for more details) -->
    * `CartesianIndex {N}`の配列(詳細は下記参照)
 <!--- 3. An object that represents an array of scalar indices and can be converted to such by [`to_indices`](@ref). -->
-3. スカラーインデックスの配列を表し、[to_indices`](@ ref)によってそれに変換できるオブジェクト。
+3. スカラーインデックスの配列を表し、[to_indices`](@ref)によってそれに変換できるオブジェクト。
 <!--- By default this includes: -->
 デフォルトでは以下が含まれます：
     <!--- > * [`Colon()`](@ref) (`:`), which represents all indices within an entire dimension or across the entire array -->
-   * [`Colon()`](@ ref)(`：`)、ディメンション全体または配列全体にわたるすべてのインデックスを表します
+   * [`Colon()`](@ref)(`：`)、ディメンション全体または配列全体にわたるすべてのインデックスを表します
    <!--- >  * Arrays of booleans, which select elements at their `true` indices (see below for more details) -->
    * 真のインデックスで要素を選択するブール値の配列(詳細は下記参照)
 
@@ -541,7 +543,7 @@ julia> A[CartesianIndex.(indices(A, 1), indices(A, 2)), :]
 <!--- Often referred to as logical indexing or indexing with a logical mask, indexing by a boolean array selects elements at the indices where its values are `true`. -->
 論理的なインデックス付けまたは論理的なマスクによるインデックス付けと呼ばれることが多いが、ブール配列によるインデックス付けは、その値が「真」であるインデックスの要素を選択する。
 <!--- Indexing by a boolean vector `B` is effectively the same as indexing by the vector of integers that is returned by [`find(B)`](@ref). Similarly, indexing by a `N`-dimensional boolean array is effectively the same as indexing by the vector of `CartesianIndex{N}`s where its values are `true`.  -->
-ブール値ベクトル `B`によるインデックス付けは、[find(B)`](@ ref)によって返される整数ベクトルによるインデックス付けと事実上同じです。 同様に、 `N`次元ブール配列によるインデックス付けは、その値が` true`である `CartesianIndex {N}`のベクトルによるインデックス付けと事実上同じです。
+ブール値ベクトル `B`によるインデックス付けは、[find(B)`](@ref)によって返される整数ベクトルによるインデックス付けと事実上同じです。 同様に、 `N`次元ブール配列によるインデックス付けは、その値が` true`である `CartesianIndex {N}`のベクトルによるインデックス付けと事実上同じです。
 <!--- A logical index must be a vector of the same length as the dimension it indexes into, or it must be the only index provided and match the size and dimensionality of the array it indexes into.  -->
 論理索引は、索引付けする次元と同じ長さのベクトルでなければならず、索引付けされる唯一の索引でなければならず、索引付けされる配列のサイズと次元に一致しなければなりません。
 <!--- It is generally more efficient to use boolean arrays as indices directly instead of first calling [`find()`](@ref). -->
@@ -650,7 +652,7 @@ Base.IndexStyle(::Type{<:MyArray}) = IndexLinear()
 例えば, `[1, 2] + 3 == [4, 5]` and `[6, 4] / 2 == [3, 2]`.
 
 #Additionally, to enable convenient vectorization of mathematical and other operations, Julia [provides the dot syntax](@ref man-vectorized) `f.(args...)`, e.g. `sin.(x)` or `min.(x,y)`, for elementwise operations over arrays or mixtures of arrays and scalars (a [Broadcasting](@ref) operation); these have the additional advantage of "fusing" into a single loop when combined with other dot calls, e.g. `sin.(cos.(x))`.
-さらに、数学的演算や他の演算の便利なベクトル化を可能にするために、Julia [ドット構文を提供する](@ ref man-vectorized) `f(args ...)`などがあります。 ([Broadcasting](@ ref)演算)、または配列とスカラの混合物に対する要素ワイルド演算のために、 `sin(x)`または `min(x、y)`これらは、他のドット呼び出しと組み合わせると、単一のループに「融合する」という付加的な利点を有する。 `sin(cos(x))`である。
+さらに、数学的演算や他の演算の便利なベクトル化を可能にするために、Julia [ドット構文を提供する](@ref man-vectorized) `f(args ...)`などがあります。 ([Broadcasting](@ref)演算)、または配列とスカラの混合物に対する要素ワイルド演算のために、 `sin(x)`または `min(x、y)`これらは、他のドット呼び出しと組み合わせると、単一のループに「融合する」という付加的な利点を有する。 `sin(cos(x))`である。
 
 <!--- Also, *every* binary operator supports a [dot version](@ref man-dot-operators) that can be applied to arrays (and combinations of arrays and scalars) in such -->
 また、すべての* 2項演算子は、(配列とスカラーの組み合わせ)配列に適用できる[dot version](@ref man-dot-operators)をサポートしています
@@ -735,7 +737,7 @@ julia> string.(1:3, ". ", ["First", "Second", "Third"])
 ### 実装
 
 <!--- The base array type in Julia is the abstract type [`AbstractArray{T,N}`](@ref).  -->
-Juliaの基本配列型は抽象型[`AbstractArray {T、N}`](@ ref) です。
+Juliaの基本配列型は抽象型[`AbstractArray {T、N}`](@ref) です。
 <!--- It is parametrized by the number of dimensions `N` and the element type `T`.  -->
 これは次元数Nと要素タイプTでパラメータ化されます。 
 <!--- [`AbstractVector`](@ref) and [`AbstractMatrix`](@ref) are aliases for the 1-d and 2-d cases.  -->
@@ -750,38 +752,38 @@ Juliaの基本配列型は抽象型[`AbstractArray {T、N}`](@ ref) です。
 <!--- For example, elements might be computed on request rather than stored.  -->
 例えば、要素は格納されるのではなく要求に応じて計算されることがあります。
 #However, any concrete `AbstractArray{T,N}` type should generally implement at least [`size(A)`](@ref) (returning an `Int` tuple), [`getindex(A,i)`](@ref) and [`getindex(A,i1,...,iN)`](@ref getindex); mutable arrays should also implement [`setindex!()`](@ref). 
-しかし、具体的な `AbstractArray {T、N}`型は、一般に、少なくとも[`size(A)`](@ref)( `Int`タプルを返す)、[` getindex(A、i) `] @ref)と[`getindex(A、i1、...、iN)`](@ ref getindex);可変配列は[`setindex！()`](@ ref)も実装しなければなりません。
+しかし、具体的な `AbstractArray {T、N}`型は、一般に、少なくとも[`size(A)`](@ref)( `Int`タプルを返す)、[` getindex(A、i) `] @ref)と[`getindex(A、i1、...、iN)`](@ref getindex);可変配列は[`setindex！()`](@ref)も実装しなければなりません。
 <!--- It is recommended that these operations have nearly constant time complexity, or technically Õ(1) complexity, as otherwise some array functions may be unexpectedly slow.  -->
 これらの操作は、時間の複雑さがほぼ一定であるか、技術的には複雑であることが推奨されます。そうしないと、一部の配列関数が予期せず遅くなることがあります。
 #Concrete types should also typically provide a [`similar(A,T=eltype(A),dims=size(A))`](@ref) method, which is used to allocate a similar array for [`copy()`](@ref) and other out-of-place operations. 
-コンクリート型は、通常、[`copy()`のために同様の配列を割り当てるために使用される[`類似の(A、T = eltype(A)、dims = size(A))`](@ ref) ](@ ref)とその他のアウトオブプレース操作が含まれます。
+コンクリート型は、通常、[`copy()`のために同様の配列を割り当てるために使用される[`類似の(A、T = eltype(A)、dims = size(A))`](@ref) ](@ref)とその他のアウトオブプレース操作が含まれます。
 <!--- No matter how an `AbstractArray{T,N}` is represented internally, `T` is the type of object returned by *integer* indexing (`A[1, ..., 1]`, when `A` is not empty) and `N` should be the length of the tuple returned by [`size()`](@ref). -->
-`AbstractArray {T、N}`が内部的にどのように表現されていても、`T`は整数の索引付けによって返されるオブジェクトの型です(`A [1、...、1]空)`、 `N`は[size()`](@ ref) によって返されるタプルの長さでなければなりません。
+`AbstractArray {T、N}`が内部的にどのように表現されていても、`T`は整数の索引付けによって返されるオブジェクトの型です(`A [1、...、1]空)`、 `N`は[size()`](@ref) によって返されるタプルの長さでなければなりません。
 
 <!--- `DenseArray` is an abstract subtype of `AbstractArray` intended to include all arrays that are laid out at regular offsets in memory, and which can therefore be passed to external C and Fortran functions expecting this memory layout.  -->
 `DenseArray`は` AbstractArray`の抽象サブタイプであり、通常のオフセットでメモリに配置されたすべての配列を含み、このメモリレイアウトを期待する外部のCおよびFortran関数に渡すことができます。
 <!--- Subtypes should provide a method [`stride(A,k)`](@ref) that returns the "stride" of dimension `k`: increasing the index of dimension `k` by `1` should increase the index `i` of [`getindex(A,i)`](@ref) by [`stride(A,k)`](@ref).  -->
-サブタイプは、次元「k」の「ストライド」を返すメソッド[`stride(A、k)`](@ ref)を提供する必要があります：次元 `k`のインデックスを `1`で増加させるとインデックス `i` [`stind(A、k)`](@ ref)による[`getindex(A、i)`](@ref)
+サブタイプは、次元「k」の「ストライド」を返すメソッド[`stride(A、k)`](@ref)を提供する必要があります：次元 `k`のインデックスを `1`で増加させるとインデックス `i` [`stind(A、k)`](@ref)による[`getindex(A、i)`](@ref)
 <!--- If a pointer conversion method [`Base.unsafe_convert(Ptr{T}, A)`](@ref) is provided, the memory layout should correspond in the same way to these strides. -->
-ポインタ変換方法[`Base.unsafe_convert(Ptr {T}、A)`](@ ref) が提供されている場合、メモリレイアウトはこれらのストライドと同じ方法で対応する必要があります。
+ポインタ変換方法[`Base.unsafe_convert(Ptr {T}、A)`](@ref) が提供されている場合、メモリレイアウトはこれらのストライドと同じ方法で対応する必要があります。
 
 #The [`Array`](@ref) type is a specific instance of `DenseArray` where elements are stored in column-major order (see additional notes in [Performance Tips](@ref man-performance-tips)). 
 [`Array`](@ref)型は`DenseArray`の特定のインスタンスであり、要素は列メジャー順に格納されます([Performance Tips](@ref man-performance-tips)の補足を参照してください)。
 <!--- [`Vector`](@ref) and [`Matrix`](@ref) are aliases for the 1-d and 2-d cases.  -->
-[`Vector`](@ ref)と[` Matrix`](@ ref)は1-dと2-dの場合のエイリアスです。
+[`Vector`](@ref)と[` Matrix`](@ref)は1-dと2-dの場合のエイリアスです。
 <!--- Specific operations such as scalar indexing, assignment, and a few other basic storage-specific operations are all that have to be implemented for [`Array`](@ref), so that the rest of the array library can be implemented in a generic manner. -->
-スカラーインデックス、代入、その他いくつかの基本的なストレージ固有の操作などの特定の操作はすべて[`Array`](@ ref)に対して実装する必要があります。そのため、配列ライブラリの残りの部分は汎用方法。
+スカラーインデックス、代入、その他いくつかの基本的なストレージ固有の操作などの特定の操作はすべて[`Array`](@ref)に対して実装する必要があります。そのため、配列ライブラリの残りの部分は汎用方法。
 
 <!--- `SubArray` is a specialization of `AbstractArray` that performs indexing by reference rather than by copying.  -->
 `SubArray`は` AbstractArray`の特殊化で、コピーするのではなく参照でインデックスを実行します。
 <!--- A `SubArray` is created with the [`view()`](@ref) function, which is called the same way as [`getindex()`](@ref) (with an array and a series of index arguments).  -->
-[`view()`]](@ ref)の結果は、データがそのまま残っていることを除いて[`getindex()`](@ ref)の結果と同じに見えます。
+[`view()`]](@ref)の結果は、データがそのまま残っていることを除いて[`getindex()`](@ref)の結果と同じに見えます。
 #The result of [`view()`](@ref) looks the same as the result of [`getindex()`](@ref), except the data is left in place. 
-`` getindex() `](@ ref)(配列と一連のインデックス引数を持つ)と同じように呼ばれる[` view() `](@ref)関数で` SubArray`を作成します。 。
+`` getindex() `](@ref)(配列と一連のインデックス引数を持つ)と同じように呼ばれる[` view() `](@ref)関数で` SubArray`を作成します。 。
 [`view()`](@ref)は入力インデックスベクトルを `SubArray`オブジェクトに格納します。これは後で元の配列を間接的に索引付けするために使用できます。
 [`view()`](@ref) stores the input index vectors in a `SubArray` object, which can later be used to index the original array indirectly.  
 #By putting the [`@views`](@ref) macro in front of an expression or block of code, any `array[...]` slice in that expression will be converted to create a `SubArray` view instead.
-式またはブロックのコードの前に[`@views`](@ ref)マクロを置くことによって、その式の` array [...] `スライスは` SubArray`ビューを生成するように変換されます。
+式またはブロックのコードの前に[`@views`](@ref)マクロを置くことによって、その式の` array [...] `スライスは` SubArray`ビューを生成するように変換されます。
 
 #`StridedVector` and `StridedMatrix` are convenient aliases defined to make it possible for Julia to call a wider range of BLAS and LAPACK functions by passing them either [`Array`](@ref) or `SubArray` objects, and thus saving inefficiencies from memory allocation and copying.
 `StridedVector`と` StridedMatrix`はJuliaが `` Array``(@ref)または `SubArray`オブジェクトを渡すことでより広い範囲のBLAS関数とLAPACK関数を呼び出すことができるように定義された便利なエイリアスなので、非効率メモリの割り当てとコピーから。
@@ -839,7 +841,7 @@ Juliaには、疎ベクトルと[sparse matrices](https://en.wikipedia.org/wiki/
 <!--- In Julia, sparse matrices are stored in the [Compressed Sparse Column (CSC) format](https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_column_.28CSC_or_CCS.29). -->
 Juliaでは、疎行列は[Compressed Sparse Column(CSC)形式]に格納されます(https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_column_.28CSC_or_CCS.29)。
 <!--- Julia sparse matrices have the type [`SparseMatrixCSC{Tv,Ti}`](@ref), where `Tv` is the type of the stored values, and `Ti` is the integer type for storing column pointers and row indices.  -->
-Juliaの疎行列は、 `` SparseMatrixCSC {Tv、Ti} `(@ ref)型を持ち、` Tv`は格納された値の型、 `Ti`は列ポインタと行インデックスを格納する整数型です。
+Juliaの疎行列は、 `` SparseMatrixCSC {Tv、Ti} `(@ref)型を持ち、` Tv`は格納された値の型、 `Ti`は列ポインタと行インデックスを格納する整数型です。
 <!--- The internal representation of `SparseMatrixCSC` is as follows: -->
 `SparseMatrixCSC`の内部表現は以下の通りです：
 
@@ -877,11 +879,11 @@ CSC構造内に以前に記憶されていないエントリを一度に1つ挿�
 <!--- Such explicitly stored zeros are treated as structural nonzeros by many routines.  -->
 このように明示的に格納されたゼロは、多くのルーチンによって構造的非ゼロとして扱われます。
 <!--- The [`nnz()`](@ref) function returns the number of elements explicitly stored in the sparse data structure, including structural nonzeros.  -->
-[`nnz()`](@ ref)関数は、構造的なnonzerosを含む疎なデータ構造体に明示的に格納された要素の数を返します。
+[`nnz()`](@ref)関数は、構造的なnonzerosを含む疎なデータ構造体に明示的に格納された要素の数を返します。
 <!--- In order to count the exact number of numerical nonzeros, use [`countnz()`](@ref), which inspects every stored element of a sparse matrix.  -->
-数値nonzerosの正確な数を数えるには、[`countnz()`](@ ref)を使います。これは疎行列のすべての保存要素を検査します。
+数値nonzerosの正確な数を数えるには、[`countnz()`](@ref)を使います。これは疎行列のすべての保存要素を検査します。
 <!--- [`dropzeros()`](@ref), and the in-place [`dropzeros!()`](@ref), can be used to remove stored zeros from the sparse matrix. -->
-[`dropzeros()`](@ref) 、およびインプレース[`dropzeros！()`](@ ref)は、疎行列から保存されたゼロを削除するために使用できます。
+[`dropzeros()`](@ref) 、およびインプレース[`dropzeros！()`](@ref)は、疎行列から保存されたゼロを削除するために使用できます。
 
 ----
 
@@ -903,7 +905,7 @@ julia> dropzeros(A)
 <!--- Sparse vectors are stored in a close analog to compressed sparse column format for sparse matrices.  -->
 疎ベクトルは、疎行列のための密接なアナログから圧縮疎カラムフォーマットで記憶される。
 <!--- In Julia, sparse vectors have the type [`SparseVector{Tv,Ti}`](@ref) where `Tv` is the type of the stored values and `Ti` the integer type for the indices.  -->
-Juliaでは、スパースベクトルの型は[`SparseVector {Tv、Ti}`(@ ref)です。ここで `Tv`は格納された値の型で、` Ti`はインデックスの整数型です。
+Juliaでは、スパースベクトルの型は[`SparseVector {Tv、Ti}`(@ref)です。ここで `Tv`は格納された値の型で、` Ti`はインデックスの整数型です。
 <!--- The internal representation is as follows: -->
 内部表現は次のとおりです。
 
@@ -916,15 +918,15 @@ end
 ```
 
 <!--- As for [`SparseMatrixCSC`](@ref), the `SparseVector` type can also contain explicitly stored zeros.  -->
-[`Sparse Matrix CSC`](@ ref)に関しては、` Sparse Vector`型は明示的に格納されたゼロを含むこともできます。
+[`Sparse Matrix CSC`](@ref)に関しては、` Sparse Vector`型は明示的に格納されたゼロを含むこともできます。
 <!--- (See [Sparse Matrix Storage](@ref man-csc).). -->
-([Sparse Matrix Storage](@ ref man-csc)を参照してください)。
+([Sparse Matrix Storage](@ref man-csc)を参照してください)。
 
 <!--- ## Sparse Vector and Matrix Constructors -->
 ###疎ベクトルと行列コンストラクタ (Sparse Vector and Matrix Constructors) 
 
 <!--- The simplest way to create sparse arrays is to use functions equivalent to the [`zeros()`](@ref) and [`eye()`](@ref) functions that Julia provides for working with dense arrays.  -->
-疎配列を作成する最も簡単な方法は、[`zeros()`](@ ref)関数や[`eye()`](@ ref)関数に相当するjuliaが高密度配列へ提供する操作を使用することです。 
+疎配列を作成する最も簡単な方法は、[`zeros()`](@ref)関数や[`eye()`](@ref)関数に相当するjuliaが高密度配列へ提供する操作を使用することです。 
 <!--- To produce sparse arrays instead, you can use the same names with an `sp` prefix: -->
 疎配列を生成する代りに、同じ名前に `sp`という接頭辞を付けることができます：
 
@@ -941,7 +943,7 @@ julia> speye(3,5)
 ```
 
 <!--- The [`sparse()`](@ref) function is often a handy way to construct sparse arrays.  -->
-[`sparse()`](@ ref)関数は、しばしば、疎配列を構築する便利な方法です。
+[`sparse()`](@ref)関数は、しばしば、疎配列を構築する便利な方法です。
 <!--- For example, to construct a sparse matrix we can input a vector `I` of row indices, a vector `J` of column indices, and a vector `V` of stored values (this is also known as the [COO (coordinate) format](https://en.wikipedia.org/wiki/Sparse_matrix#Coordinate_list_.28COO.29)). -->
 例えば、疎行列を構成するために、行インデックスのベクトル「I」、列インデックスのベクトル「J」、および格納された値のベクトル「V」を入力することができる(これは[COO(座標) format](https://en.wikipedia.org/wiki/Sparse_matrix#Coordinate_list_.28COO.29))。
 <!--- `sparse(I,J,V)` then constructs a sparse matrix such that `S[I[k], J[k]] = V[k]`.  -->
@@ -991,7 +993,7 @@ julia> findn(R)
 ```
 
 <!--- Another way to create a sparse array is to convert a dense array into a sparse array using the [`sparse()`](@ref) function: -->
-疎配列を作成する別の方法は、密な配列を[`sparse()`](@ ref)関数を使って疎配列に変換することです：
+疎配列を作成する別の方法は、密な配列を[`sparse()`](@ref)関数を使って疎配列に変換することです：
 
 ```jldoctest
 julia> sparse(eye(5))
@@ -1009,9 +1011,9 @@ julia> sparse([1.0, 0.0, 1.0])
 ```
 
 <!--- You can go in the other direction using the [`Array`](@ref) constructor.  -->
-[`Array`](@ ref)コンストラクタを使う他の方法で初める事も出来ます。
+[`Array`](@ref)コンストラクタを使う他の方法で初める事も出来ます。
 <!--- The [`issparse()`](@ref) function can be used to query if a matrix is sparse. -->
-[`issparse()`](@ ref)関数は、行列が疎であるかどうかを調べるために使用できます。
+[`issparse()`](@ref)関数は、行列が疎であるかどうかを調べるために使用できます。
 
 
 ```jldoctest
@@ -1027,7 +1029,7 @@ true
 <!--- Indexing operations, especially assignment, are expensive, when carried out one element at a time. -->
 インデクシング操作、特に割り当ては、一度に1つの要素で実行されると高価です。
 <!--- In many cases it may be better to convert the sparse matrix into `(I,J,V)` format using [`findnz()`](@ref), manipulate the values or the structure in the dense vectors `(I,J,V)`, and then reconstruct the sparse matrix. -->
-多くの場合、[findnz() `](@ ref)を使用して疎行列を`(I、J、V) `フォーマットに変換し、密ベクトルの` I、 J、V) `を生成し、その後、疎行列を再構築する。
+多くの場合、[findnz() `](@ref)を使用して疎行列を`(I、J、V) `フォーマットに変換し、密ベクトルの` I、 J、V) `を生成し、その後、疎行列を再構築する。
 
 <!--- ## Correspondence of dense and sparse methods -->
 ###高密度メソッドと疎メソッドの対応 (Correspondence of dense and sparse methods)
@@ -1037,7 +1039,7 @@ true
 <!--- In general, methods that generate sparse matrices differ from their dense counterparts in that the resulting matrix follows the same sparsity pattern as a given sparse matrix `S`, or that the resulting sparse matrix has density `d`, i.e. each matrix element has a probability `d` of being non-zero. -->
 一般に、疎行列を生成する方法は、得られた行列が、所与の疎行列`S`と同じ疎行列パターンに従うか、または結果として生じる疎行列が密度`d`を有するという点で、それらの密な対応物とは異なる、 確率`d`は非ゼロである。
 <!--- Details can be found in the [Sparse Vectors and Matrices](@ref stdlib-sparse-arrays) section of the standard library reference. -->
-詳細は標準ライブラリリファレンスの[Sparse Vectors and Matrices](@ ref stdlib-sparse-arrays)セクションにあります。
+詳細は標準ライブラリリファレンスの[Sparse Vectors and Matrices](@ref stdlib-sparse-arrays)セクションにあります。
 
 
 
