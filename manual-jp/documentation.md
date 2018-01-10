@@ -847,15 +847,17 @@ end
 !!! note
     "Fenced" code blocks, as shown in the last example, should be prefered over indented code blocks since there is no way to specify what language an indented code block is written in.
 -->
-!!! 注意
+!!! note
     インデントされたコードブロックが書き込まれる言語を指定する方法がないため、最後の例に示すように、 "フェンス"コードブロックをインデントされたコードブロックより優先する必要があります。
 
 <!-- ### Block quotes -->
 ### ブロック引用符
 
+<!-- original -->
 > Text from external sources, such as quotations from books or websites, can be quoted using `>` characters prepended to each line of the quote as follows.
+<!-- original -->
 
-書籍やウェブサイトからの引用などの外部ソースからのテキストは、次のように引用符の各行の先頭に `> '文字を使用して引用することができます。
+書籍やウェブサイトからの引用などの外部ソースからのテキストは、次のように引用符の各行の先頭に `>` 文字を使用して引用することができます。
 
 ```
 Here's a quote:
@@ -1058,7 +1060,7 @@ And text below the line.
 <!-- Admonitions, like most other toplevel elements, can contain other toplevel elements. -->
 他の最上位要素と同様に、他のトップレベル要素も含むことができます。
 <!-- When no title text, specified after the admonition type in double quotes, is included then the title used will be the type of the block, i.e. `"Note"` in the case of the `note` admonition. -->
-二重引用符で囲んで指定された型の後に指定されたタイトルテキストが含まれていない場合、使用されるタイトルはブロックのタイプ、つまり `` note` 'の場合は `` Note "`になります。
+二重引用符で囲んで指定された型の後に指定されたタイトルテキストが含まれていない場合、使用されるタイトルはブロックのタイプ、つまり `"note"` の場合は `Note` になります。
 
 <!-- ## Markdown Syntax Extensions -->
 ## マークダウン構文拡張
