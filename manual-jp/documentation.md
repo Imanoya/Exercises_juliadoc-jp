@@ -1,7 +1,8 @@
-## Documentation
+
+<!-- # Documentation -->
 ＃ ドキュメンテーション
 
-#Julia enables package developers and users to document functions, types and other objects easily via a built-in documentation system since Julia 0.4.
+<!-- Julia enables package developers and users to document functions, types and other objects easily via a built-in documentation system since Julia 0.4. -->
 ジュリアは、パッケージ開発者やユーザーがJulia 0.4以降の組み込みドキュメントシステムを使用して、関数、型およびその他のオブジェクトを簡単に文書化することを可能にします。
 
 #The basic syntax is very simple: any string appearing at the top-level right before an object (function, macro, type or instance) will be interpreted as documenting it (these are called *docstrings*).
@@ -19,14 +20,15 @@ foo(xs::Array) = ...
 #Technically, any object can be associated with any other as metadata; Markdown happens to be the default, but one can construct other string macros and pass them to the `@doc` macro just as well.
 技術的には、どのオブジェクトも他のメタデータと関連付けることができます。 Markdownはデフォルトで行われますが、他の文字列マクロを作成して `@ doc`マクロに渡すこともできます。
 
-#Here is a more complex example, still using Markdown:
+<!-- Here is a more complex example, still using Markdown: -->
 Markdownを使用して、より複雑な例を次に示します。
 
 ````julia
 """
     bar(x[, y])
 
-Compute the Bar index between `x` and `y`. If `y` is missing, compute the Bar index between all pairs of columns of `x`.
+<!-- Compute the Bar index between `x` and `y`. If `y` is missing, compute the Bar index between all pairs of columns of `x`. -->
+`x`と` y`の間でBarインデックスを計算します。 `y`が指定されていない場合は、` x`のすべての列のペア間でBarインデックスを計算します。
 
 # Examples
 ```julia-repl
@@ -36,9 +38,8 @@ julia> bar([1, 2], [1, 2])
 """
 function bar(x, y) ...
 ````
-`x`と` y`の間でBarインデックスを計算します。 `y`が指定されていない場合は、` x`のすべての列のペア間でBarインデックスを計算します。
 
-#As in the example above, we recommend following some simple conventions when writing documentation:
+<!-- As in the example above, we recommend following some simple conventions when writing documentation: -->
 上記の例のように、ドキュメントを書くときの簡単な慣習に従うことをお勧めします：
 
 1. 
@@ -126,7 +127,7 @@ function bar(x, y) ...
    """
    ````
 
-# !!! warning
+<!-- > !!! warning -->
 !!!警告
    # Calling `rand` and other RNG-related functions should be avoided in doctests since they will not produce consistent outputs during different Julia sessions. 
     `rand`と他のRNG関連関数を呼び出すことは、異なるJuliaセッション中に一貫した出力を生成しないので、doctestでは避けるべきです。
@@ -197,12 +198,12 @@ function bar(x, y) ...
    # It it advised to add line breaks after 92 characters.
    それは92文字の後に改行を加えることを勧めました。
 
-### Accessing Documentation
-##ドキュメントへのアクセス
+<!-- ## Accessing Documentation -->
+### ドキュメントへのアクセス
 
-#Documentation can be accessed at the REPL or in [IJulia](https://github.com/JuliaLang/IJulia.jl) by typing `?` followed by the name of a function or macro, and pressing `Enter`. 
-ドキュメンテーションは、REPLまたは[IJulia]（https://github.com/JuliaLang/IJulia.jl）で、 `？`と続けて関数またはマクロの名前を入力し、Enterキーを押してアクセスできます。
-#For example,
+<!-- Documentation can be accessed at the REPL or in [IJulia](https://github.com/JuliaLang/IJulia.jl) by typing `?` followed by the name of a function or macro, and pressing `Enter`.  -->
+ドキュメンテーションは、REPL または [IJulia](https://github.com/JuliaLang/IJulia.jl) で、 `?` と続けて関数またはマクロの名前を入力し、Enterキーを押してアクセスできます。
+<!-- For example, -->
 例えば、
 
 ```julia
@@ -211,15 +212,15 @@ function bar(x, y) ...
 ?r""
 ```
 
-#will bring up docs for the relevant function, macro or string macro respectively. 
+<!-- will bring up docs for the relevant function, macro or string macro respectively.  -->
 それぞれ関連する関数、マクロ、または文字列マクロのドキュメントを表示します。
 #In [Juno](http://junolab.org) using `Ctrl-J, Ctrl-D` will bring up documentation for the object under the cursor.
-Ctrl-Jを使用している[Juno]（http://junolab.org）では、Ctrl-Dを押すと、オブジェクトのドキュメントがカーソルの下に表示されます。
+`Ctrl-J` を使用している [Juno](http://junolab.org) では、`Ctrl-D` を押すと、オブジェクトのドキュメントがカーソルの下に表示されます。
 
-### Functions & Methods
-##関数とメソッド
+<!-- ## Functions & Methods -->
+## 関数とメソッド
 
-#Functions in Julia may have multiple implementations, known as methods. 
+<!-- Functions in Julia may have multiple implementations, known as methods.  -->
 Juliaの関数には、メソッドと呼ばれる複数の実装があります。
 #While it's good practice for generic functions to have a single purpose, Julia allows methods to be documented individually if necessary. 
 ジェネリック関数が単一の目的を持つのがよい習慣ですが、Juliaは必要に応じてメソッドを個別に文書化することができます。
@@ -266,22 +267,22 @@ search: * .*
 #When retrieving documentation for a generic function, the metadata for each method is concatenated with the `catdoc` function, which can of course be overridden for custom types.
 ジェネリック関数のドキュメンテーションを取得するとき、各メソッドのメタデータは `catdoc`関数と連結されますが、これはもちろんカスタムタイプに対してオーバーライドすることもできます。
 
-### Advanced Usage
-##高度な使い方
+<!-- ## Advanced Usage -->
+## 高度な使い方
 
-#The `@doc` macro associates its first argument with its second in a per-module dictionary called `META`. 
-`@ doc`マクロは` META`と呼ばれるモジュールごとの辞書で第一引数と第二引数を関連付けます。
+<!-- The `@doc` macro associates its first argument with its second in a per-module dictionary called `META`.  -->
+`@doc` マクロは `META` と呼ばれるモジュールごとの辞書で第一引数と第二引数を関連付けます。
 #By default, documentation is expected to be written in Markdown, and the `doc""` string macro simply creates an object representing the Markdown content. 
-デフォルトでは、ドキュメンテーションはMarkdownで記述され、 `doc" "文字列マクロは単にMarkdownコンテンツを表すオブジェクトを作成します。
+デフォルトでは、ドキュメンテーションはMarkdownで記述され、 `doc""` 文字列マクロは単に Markdown コンテンツを表すオブジェクトを作成します。
 #In the future it is likely to do more advanced things such as allowing for relative image or link paths.
 将来的には、相対的な画像やリンクのパスを許可するなど、より高度な処理を行う可能性があります。
 
 #When used for retrieving documentation, the `@doc` macro (or equally, the `doc` function) will search all `META` dictionaries for metadata relevant to the given object and return it. 
-`@ doc`マクロ（あるいは` doc`関数）は、ドキュメントの検索に使用すると、指定されたオブジェクトに関連するメタデータのすべての `META`辞書を検索し、それを返します。
-#The returned object (some Markdown content, for example) will by default display itself intelligently. 
-返されたオブジェクト（例えば、Markdownの内容など）は、デフォルトでそれ自身をインテリジェントに表示します。
+`@doc` マクロ（あるいは `doc` 関数）は、ドキュメントの検索に使用すると、指定されたオブジェクトに関連するメタデータのすべての `META` 辞書を検索し、それを返します。
+<!-- The returned object (some Markdown content, for example) will by default display itself intelligently.  -->
+返されたオブジェクト（例えば、Markdown の内容など）は、デフォルトでそれ自身をインテリジェントに表示します。
 #This design also makes it easy to use the doc system in a programmatic way; for example, to re-use documentation between different versions of a function:
-また、この設計により、プログラマチックな方法でdocシステムを使いやすくなります。 たとえば、関数の異なるバージョン間でドキュメントを再利用するには：
+また、この設計により、プログラマチックな方法で doc システムを使いやすくなります。 たとえば、関数の異なるバージョン間でドキュメントを再利用するには：
 
 ```julia
 @doc "..." foo!
@@ -316,14 +317,14 @@ end
 #will add documentation to `f(x)` when the condition is `true`. Note that even if `f(x)` goes out of scope at the end of the block, its documentation will remain.
 条件が `true`のときに` f（x） `に文書を追加します。 `f（x）`がブロックの最後に範囲外になっても、その文書は残っていることに注意してください。
 
-#### Dynamic documentation
-###動的ドキュメント
+<!-- ### Dynamic documentation -->
+### 動的ドキュメント
 
 #Sometimes the appropriate documentation for an instance of a type depends on the field values of that instance, rather than just on the type itself. 
 場合によっては、型のインスタンスの適切なドキュメントは、型自体ではなく、そのインスタンスのフィールド値によって異なります。
 #In these cases, you can add a method to `Docs.getdoc` for your custom type that returns the documentation on a per-instance basis. 
-このような場合には、ドキュメンテーションをインスタンス単位で返すカスタム型のメソッドを `Docs.getdoc`に追加することができます。
-#For instance,
+このような場合には、ドキュメンテーションをインスタンス単位で返すカスタム型のメソッドを `Docs.getdoc` に追加することができます。
+<!-- For instance, -->
 例えば、
 
 ```julia
@@ -340,8 +341,8 @@ y = MyType("y")
 #`?x` will display "Documentation for MyType with value x" while `?y` will display "Documentation for MyType with value y".
 `？x`は` `xの値を持つMy Typeのドキュメンテーションを表示し、` `y``は` `yの値を持つMy Typeのドキュメンテーションを表示します。
 
-### Syntax Guide
-##構文ガイド
+<!-- ## Syntax Guide -->
+## 構文ガイド
 
 #A comprehensive overview of all documentable Julia syntax.
 すべての文書化可能なJulia構文の包括的な概要。
@@ -366,8 +367,8 @@ doc"""
 #`@doc_str` should only be used when the docstring contains `$` or `\` characters that should not be parsed by Julia such as LaTeX syntax or Julia source code examples containing interpolation.
 `@ doc_str`は、docstringがLaTeX構文や補間を含むJuliaソースコードの例のように、Juliaによって解析されるべきでない` $ `または` \ `文字を含む場合にのみ使用されるべきです。
 
-### Functions and Methods
-###関数とメソッド
+<!-- ## Functions and Methods -->
+## 関数とメソッド
 
 ```julia
 "..."
@@ -546,7 +547,7 @@ sym
 docstring `` ... ... ``を `sym`に関連付けられた値に追加します。 ユーザは `sym`の定義を文書化することを好むべきです。
 
 ### Multiple Objects
-###複数のオブジェクト
+### 複数のオブジェクト
 
 ```julia
 "..."
@@ -570,7 +571,7 @@ b
 このようにして、多くの表現が多数記述されています。 この構文は、バージョン `f`と` f！ `を変更したり変更したりするなど、2つの関数が関連している場合に便利です。
 
 ### Macro-generated code
-###マクロ生成コード
+### マクロ生成コード
 
 ```julia
 "..."
@@ -596,21 +597,21 @@ b
 Core.@__doc__
 ```
 
-### Markdown syntax
-##マークダウン構文
+<!-- ## Markdown syntax -->
+## マークダウン構文
 
 #The following markdown syntax is supported in Julia.
 Juliaでは、次のマークダウン構文がサポートされています。
 
-#### Inline elements
-###インライン要素
+<!-- ### Inline elements -->
+### インライン要素
 
 #Here "inline" refers to elements that can be found within blocks of text, i.e. paragraphs. 
 ここで、「インライン」とは、テキストのブロック、すなわち段落内で見つかることができる要素を指す。
 #These include the following elements.
 これらには、以下の要素が含まれます。
 
-#### Bold
+### Bold
 
 #Surround words with two asterisks, `**`, to display the enclosed text in boldface.
 囲まれたテキストを太字で表示するには、2つのアスタリスク「**」で囲む単語を囲みます。
@@ -619,8 +620,8 @@ Juliaでは、次のマークダウン構文がサポートされています。
 A paragraph containing a **bold** word.
 ```
 
-##### Italics
-####イタリック体
+<!-- #### Italics -->
+### イタリック体
 
 #Surround words with one asterisk, `*`, to display the enclosed text in italics.
 1つのアスタリスク（ `*`）で囲まれた単語を囲み、囲まれたテキストをイタリック体で表示します。
@@ -629,8 +630,8 @@ A paragraph containing a **bold** word.
 A paragraph containing an *emphasised* word.
 ```
 
-##### Literals
-####リテラル
+<!-- #### Literals -->
+#### リテラル
 
 #Surround text that should be displayed exactly as written with single backticks, ``` ` ``` .
 単一のバッククォート `` `` `` `で書かれたとおりに表示されるサラウンドテキスト。
@@ -677,8 +678,8 @@ A paragraph containing some ``\LaTeX`` markup.
 
 
 
-##### Links
-####リンク
+<!-- #### Links -->
+#### リンク
 
 <!-- Links to either external or internal addresses can be written using the following syntax, where the text enclosed in square brackets, `[ ]`, is the name of the link and the text enclosed in parentheses, `( )`, is the URL. -->
 外部アドレスまたは内部アドレスへのリンクは、次の構文を使用して記述することができます。ここで、角括弧[]で囲まれたテキストはリンクの名前で、括弧で囲まれたテキストは `（）`です。
@@ -724,8 +725,8 @@ Same as [`eigvals`](@ref), but saves space by overwriting the input `A`, instead
 !!! 注意
    上記の相互参照はMarkdown機能ではなく、基本的なJuliaのドキュメントを構築するために使用される[Documenter.jl]（https://github.com/JuliaDocs/Documenter.jl）に依存しています。
 
-#### Footnote references
-####脚注
+<!-- ### Footnote references -->
+#### 脚注
 
 <!-- Named and numbered footnote references can be written using the following syntax. -->
 名前付きおよび番号付きの脚注の参照は、次の構文を使用して記述することができます。
@@ -747,14 +748,14 @@ A paragraph containing a numbered footnote [^1] and a named one [^named].
      脚注に関連付けられたテキストは、脚注の参照と同じページ内のどこにでも書くことができます。
      脚注テキストの定義に使用する構文については、下記の[脚注]（@ ref）セクションで説明しています。
 
-### Toplevel elements
-###トップレベル要素
+<!-- ## Toplevel elements -->
+### トップレベル要素
 
 <!-- The following elements can be written either at the "toplevel" of a document or within another "toplevel" element. -->
 次の要素は、文書の "トップレベル"または別の "トップレベル"要素のいずれかに書き込むことができます。
 
-#### Paragraphs
-####段落
+<!-- ### Paragraphs -->
+### 段落
 
 <!-- A paragraph is a block of plain text, possibly containing any number of inline elements defined in the [Inline elements](@ref) section above, with one or more blank lines above and below it. -->
 パラグラフは、上記の[Inline elements]（@ ref）セクションで定義された任意の数のインライン要素を含み、その上と下に空白行が1つ以上あるプレーンテキストのブロックです。
@@ -774,8 +775,8 @@ A new line, but still part of the same paragraph.
 新しい行ですが、それでも同じ段落の一部です。
 ```
 
-#### Headers
-####ヘッダー
+<!-- ### Headers -->
+#### ヘッダー
 
 <!-- A document can be split up into different sections using headers. -->
 ドキュメントは、ヘッダーを使用して異なるセクションに分割できます。
@@ -804,8 +805,8 @@ A new line, but still part of the same paragraph.
     1つのドキュメント内でヘッダーのレベルが多すぎるのを避けてください。
     頻繁にネストされたドキュメントは、それを再構成する必要があるか、別のトピックをカバーするいくつかのページに分割する必要があることを示している可能性があります。
 
-#### Code blocks
-####コードブロック
+<!-- ### Code blocks -->
+### コードブロック
 
 <!-- Source code can be displayed as a literal block using an indent of four spaces as shown in the following example. -->
 ソースコードは、次の例に示すように4つの空白のインデントを使用してリテラルブロックとして表示できます。
@@ -849,10 +850,10 @@ end
 !!! 注意
     インデントされたコードブロックが書き込まれる言語を指定する方法がないため、最後の例に示すように、 "フェンス"コードブロックをインデントされたコードブロックより優先する必要があります。
 
-#### Block quotes
-####ブロック引用符
+<!-- ### Block quotes -->
+### ブロック引用符
 
-<!-- Text from external sources, such as quotations from books or websites, can be quoted using `>` characters prepended to each line of the quote as follows. -->
+> Text from external sources, such as quotations from books or websites, can be quoted using `>` characters prepended to each line of the quote as follows.
 書籍やウェブサイトからの引用などの外部ソースからのテキストは、次のように引用符の各行の先頭に `> '文字を使用して引用することができます。
 
 ```
@@ -864,10 +865,10 @@ Here's a quote:
 ```
 
 <!-- Note that a single space must appear after the `>` character on each line. Quoted blocks may themselves contain other toplevel or inline elements. -->
-各行で `> '文字の後ろにスペースが1つなければならないことに注意してください。 クォートされたブロック自体に、他のトップレベル要素またはインライン要素を含めることができます。
+各行で `>` 文字の後ろにスペースが1つなければならないことに注意してください。 クォートされたブロック自体に、他のトップレベル要素またはインライン要素を含めることができます。
 
-#### Images
-####画像
+<!-- ### Images -->
+#### 画像
 
 <!-- The syntax for images is similar to the link syntax mentioned above. -->
 イメージの構文は、上記のリンク構文と似ています。
@@ -878,8 +879,8 @@ Here's a quote:
 ![alternative text](link/to/image.png)
 ```
 
-#### Lists
-####リスト
+<!-- ### Lists -->
+### リスト
 
 <!-- Unordered lists can be written by prepending each item in a list with either `*`, `+`, or `-`. -->
 順序付けられていないリストは、各項目を `*`、 `+`、または `--`のいずれかでリストに追加することで記述できます。
@@ -922,7 +923,7 @@ Another list:
     The contents of each item in the list must line up with the first line of the item. 
     In the above example the fenced code block must be indented by four spaces to align with the `i` in `item two`.
 -->
-!!! 注意
+!!! note
      リスト内の各項目の内容は、項目の最初の行と一直線に並ばなければなりません。
      上記の例では、分離コードブロックは、「項目2」の「i」と整列するために4つのスペースでインデントされなければなりません。
 
@@ -946,8 +947,8 @@ Two ordered lists:
 <!-- As with unordered lists, ordered lists can contain nested toplevel elements. -->
 順序付けされていないリストと同様に、順序付けされたリストにはネストされたトップレベルの要素を含めることができます。
 
-#### Display equations
-###方程式を表示する
+<!-- ### Display equations -->
+### 方程式を表示する
 
 <!-- Large ``\LaTeX`` equations that do not fit inline within a paragraph may be written as display equations using a fenced code block with the "language" `math` as in the example below. -->
 パラグラフ内でインラインに収まらない大きな `` \ LaTeX``方程式は、以下の例のように "language" `math`を持つfencedコードブロックを使って表示方程式として書くことができます。
@@ -958,8 +959,8 @@ f(a) = \frac{1}{2\pi}\int_{0}^{2\pi} (\alpha+R\cos(\theta))d\theta
 ```
 ````
 
-### Footnotes
-###脚注
+<!-- ### Footnotes -->
+### 脚注
 
 <!-- This syntax is paired with the inline syntax for [Footnote references](@ref). -->
 この構文は、[脚注の参照]（@ ref）のインライン構文と対になっています。
@@ -988,12 +989,11 @@ f(a) = \frac{1}{2\pi}\int_{0}^{2\pi} (\alpha+R\cos(\theta))d\theta
 ```
 
 !!! note
-!!! 注意
    <!-- No checks are done during parsing to make sure that all footnote references have matching footnotes. -->
     すべての脚注の参照に一致する脚注があることを確認するために、解析中にチェックは行われません。
 
-#### Horizontal rules
-###水平ルール
+<!-- ### Horizontal rules -->
+### 水平ルール
 
 <!-- The equivalent of an `<hr>` HTML tag can be written using the following syntax: -->
 `<hr>` HTMLタグに相当するものは、次の構文を使って書くことができます：
@@ -1006,8 +1006,8 @@ Text above the line.
 And text below the line.
 ```
 
-### Tables
-###テーブル
+<!-- ### Tables -->
+### テーブル
 
 <!-- Basic tables can be written using the syntax described below. -->
 基本テーブルは、以下に説明する構文を使用して記述することができます。
@@ -1031,8 +1031,8 @@ And text below the line.
     A `:` character on either end of a column's header separator (the row containing `-` characters) specifies whether the row is left-aligned, right-aligned, or (when `:` appears on both ends) center-aligned. 
     Providing no `:` characters will default to right-aligning the column.
 
-### Admonitions
-###警告
+<!-- ### Admonitions -->
+### 警告
 
 <!-- Specially formatted blocks with titles such as "Notes", "Warning", or "Tips" are known as admonitions and are used when some part of a document needs special attention. -->
 "Notes"、 "Warning"、または "Tips"などのタイトルを持つ特別なフォーマットのブロックは、警告として知られており、文書の一部に特別な注意が必要な場合に使用されます。
@@ -1056,13 +1056,13 @@ And text below the line.
 <!-- When no title text, specified after the admonition type in double quotes, is included then the title used will be the type of the block, i.e. `"Note"` in the case of the `note` admonition. -->
 二重引用符で囲んで指定された型の後に指定されたタイトルテキストが含まれていない場合、使用されるタイトルはブロックのタイプ、つまり `` note` 'の場合は `` Note "`になります。
 
-### Markdown Syntax Extensions
-##マークダウン構文拡張
+<!-- ## Markdown Syntax Extensions -->
+## マークダウン構文拡張
 
 <!-- Julia's markdown supports interpolation in a very similar way to basic string literals, with the difference that it will store the object itself in the Markdown tree (as opposed to converting it to a string). -->
 Juliaのマークダウンは、基本的な文字列リテラルと非常によく似た方法で補間をサポートしています。オブジェクト自体をMarkdownツリーに格納するという違いがあります（文字列に変換するのではなく）。
 <!-- When the Markdown content is rendered the usual `show` methods will be called, and these can be overridden as usual. -->
-Markdownのコンテンツがレンダリングされると、通常の `show`メソッドが呼び出され、これらは通常通りオーバーライドできます。
+Markdownのコンテンツがレンダリングされると、通常の `show` メソッドが呼び出され、これらは通常通りオーバーライドできます。
 <!-- This design allows the Markdown to be extended with arbitrarily complex features (such as references) without cluttering the basic syntax. -->
 この設計により、Markdownを任意の複雑なフィーチャ（参照など）で拡張することができ、基本構文が乱雑になりません。
 

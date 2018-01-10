@@ -1,4 +1,5 @@
-<!--  Date and DateTime -->
+<!-- # Date and DateTime -->
+# 時間と日付
 
 ```@meta
 CurrentModule = Base.Dates

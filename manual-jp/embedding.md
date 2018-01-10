@@ -7,15 +7,15 @@
 しかし、反対が必要な状況があります：CコードからJulia関数を呼び出します。
 <!-- This can be used to integrate Julia code into a larger C/C++ project, without the need to rewrite everything in C/C++. -->
 これは、C/C++のすべてを書き直す必要なしに、Juliaコードをより大きなC/C++プロジェクトに統合するために使用できます。
-#Julia has a C API to make this possible. 
+<!-- Julia has a C API to make this possible.  -->
 Juliaにはこれを可能にするC APIがあります。
-#As almost all programming languages have some way to call C functions, the Julia C API can also be used to build further language bridges (e.g. calling Julia from Python or C#).
+<!-- As almost all programming languages have some way to call C functions, the Julia C API can also be used to build further language bridges (e.g. calling Julia from Python or C#). -->
 ほとんどすべてのプログラミング言語にはC関数を呼び出す方法があるため、Julia C APIを使用してさらに言語ブリッジを構築することもできます(PythonやC＃からJuliaを呼び出すなど)。
 
-## High-Level Embedding
-##ハイレベル埋め込み
+<!-- ## High-Level Embedding -->
+## ハイレベル埋め込み
 
-#We start with a simple C program that initializes Julia and calls some Julia code:
+<!-- We start with a simple C program that initializes Julia and calls some Julia code: -->
 Juliaを初期化し、Juliaコードを呼び出す簡単なCプログラムから始めます。
 
 ```c
@@ -40,37 +40,37 @@ int main(int argc, char *argv[])
 }
 ```
 
-#In order to build this program you have to put the path to the Julia header into the include path and link against `libjulia`. 
-このプログラムをビルドするには、Juliaヘッダへのパスをインクルードパスに入れ、 `libjulia`とリンクする必要があります。
-#For instance, when Julia is installed to `$JULIA_DIR`, one can compile the above test program `test.c` with `gcc` using:
-例えば、Juliaが `$ JULIA_DIR`にインストールされている場合、上記のテストプログラム` test.c`を `gcc`でコンパイルすることができます：
+<!-- In order to build this program you have to put the path to the Julia header into the include path and link against `libjulia`.  -->
+このプログラムをビルドするには、Juliaヘッダへのパスをインクルードパスに入れ、 `libjulia` とリンクする必要があります。
+<!-- For instance, when Julia is installed to `$JULIA_DIR`, one can compile the above test program `test.c` with `gcc` using: -->
+例えば、Juliaが `$JULIA_DIR` にインストールされている場合、上記のテストプログラム `test.c` を `gcc` でコンパイルすることができます：
 
 ```
 gcc -o test -fPIC -I$JULIA_DIR/include/julia -L$JULIA_DIR/lib test.c -ljulia $JULIA_DIR/lib/julia/libstdc++.so.6
 ```
 
-#Then if the environment variable `JULIA_HOME` is set to `$JULIA_DIR/bin`, the output `test` program can be executed.
-環境変数 `JULIA_HOME`が` $ JULIA_DIR / bin`に設定されていれば、出力 `test`プログラムを実行することができます。
+<!-- Then if the environment variable `JULIA_HOME` is set to `$JULIA_DIR/bin`, the output `test` program can be executed. -->
+環境変数 `JULIA_HOME` が `$JULIA_DIR/bin` に設定されていれば、出力 `test` プログラムを実行することができます。
 
-#Alternatively, look at the `embedding.c` program in the Julia source tree in the `examples/` folder.
-あるいは、 `examples /`フォルダのJuliaソースツリーの `embedding.c`プログラムを見てください。
-#The file `ui/repl.c` program is another simple example of how to set `jl_options` options while linking against `libjulia`.
-`ui / repl.c`ファイルは` libjulia`とのリンク時に `jl_options`オプションを設定する簡単な例です。
+<!-- Alternatively, look at the `embedding.c` program in the Julia source tree in the `examples/` folder. -->
+あるいは、 `examples/` フォルダのJuliaソースツリーの `embedding.c` プログラムを見てください。
+<!-- The file `ui/repl.c` program is another simple example of how to set `jl_options` options while linking against `libjulia`. -->
+`ui/repl.c` ファイルは `libjulia` とのリンク時に `jl_options` オプションを設定する簡単な例です。
 
-#The first thing that has to be done before calling any other Julia C function is to initialize Julia. 
+<!-- The first thing that has to be done before calling any other Julia C function is to initialize Julia.  -->
 他のJulia C関数を呼び出す前に最初にしなければならないことは、Juliaを初期化することです。
-#This is done by calling `jl_init`, which tries to automatically determine Julia's install location. 
-これは `jl_init`を呼び出すことによって行われ、Juliaのインストール場所を自動的に決定しようとします。
-#If you need to specify a custom location, or specify which system image to load, use `jl_init_with_image` instead.
-カスタムの場所を指定する必要がある場合や、読み込むシステムイメージを指定する場合は、代わりに `jl_init_with_image`を使用してください。
+<!-- This is done by calling `jl_init`, which tries to automatically determine Julia's install location.  -->
+これは `jl_init` を呼び出すことによって行われ、Juliaのインストール場所を自動的に決定しようとします。
+<!-- If you need to specify a custom location, or specify which system image to load, use `jl_init_with_image` instead. -->
+カスタムの場所を指定する必要がある場合や、読み込むシステムイメージを指定する場合は、代わりに `jl_init_with_image` を使用してください。
 
-#The second statement in the test program evaluates a Julia statement using a call to `jl_eval_string`.
-テストプログラムの2番目のステートメントは、 `jl_eval_string`の呼び出しを使用してJuliaステートメントを評価します。
+<!-- The second statement in the test program evaluates a Julia statement using a call to `jl_eval_string`. -->
+テストプログラムの2番目のステートメントは、 `jl_eval_string` の呼び出しを使用してJuliaステートメントを評価します。
 
-#Before the program terminates, it is strongly recommended to call `jl_atexit_hook`.  
-プログラムが終了する前に、 `jl_atexit_hook`を呼び出すことを強くお勧めします。
-#The above example program calls this before returning from `main`.
-上記のプログラム例は `main`から戻る前にこれを呼び出します。
+<!-- Before the program terminates, it is strongly recommended to call `jl_atexit_hook`.   -->
+プログラムが終了する前に、 `jl_atexit_hook` を呼び出すことを強くお勧めします。
+<!-- The above example program calls this before returning from `main`. -->
+上記のプログラム例は `main` から戻る前にこれを呼び出します。
 
 #!!! note
 !!! 注意
@@ -93,7 +93,7 @@ gcc -o test -fPIC -I$JULIA_DIR/include/julia -L$JULIA_DIR/lib test.c -ljulia $JU
    # This is not necessary when compiling a shared library.
    これは共有ライブラリをコンパイルするときは必要ありません。
 
-### Using julia-config to automatically determine build parameters
+<!-- ### Using julia-config to automatically determine build parameters -->
 ### julia-configを使ってビルドパラメータを自動的に決定する
 
 
@@ -104,8 +104,8 @@ gcc -o test -fPIC -I$JULIA_DIR/include/julia -L$JULIA_DIR/lib test.c -ljulia $JU
 #This script is located in the Julia shared data directory.
 このスクリプトはJulia共有データディレクトリにあります。
 
-#### Example
-####例
+<!-- ### Example -->
+### 例
 
 ```c
 #include <julia.h>
@@ -119,8 +119,8 @@ int main(int argc, char *argv[])
 }
 ```
 
-#### On the command line
-####コマンドラインで
+<!-- ### On the command line -->
+#### コマンドラインで
 
 #A simple use of this script is from the command line.  
 このスクリプトの簡単な使い方は、コマンドラインからのものです。
@@ -139,14 +139,14 @@ Usage: julia-config [--cflags|--ldflags|--ldlibs]
 /usr/local/julia/share/julia/julia-config.jl --cflags --ldflags --ldlibs | xargs gcc embed_example.c
 ```
 
-#### Use in Makefiles
-#### Makefileでの使用
+<!-- ### Use in Makefiles -->
+### Makefileでの使用
 
 #But in general, embedding projects will be more complicated than the above, and so the following allows general makefile support as well – assuming GNU make because of the use of the **shell** macro expansions. 
-しかし、一般に、プロジェクトの埋め込みは上記よりも複雑になるので、** shell **マクロ展開の使用のためGNU makeを想定して一般的なmakefileのサポートも可能になります。
+しかし、一般に、プロジェクトの埋め込みは上記よりも複雑になるので、**shell** マクロ展開の使用のためGNU make を想定して一般的な makefile のサポートも可能になります。
 #Additionally, though many times `julia-config.jl` may be found in the directory `/usr/local`, this is not necessarily the case, but Julia can be used to locate `julia-config.jl` too, and the makefile can be used to take advantage of that.  
-さらに、 `/ usr / local`ディレクトリに` julia-config.jl`が見つかることもありますが、必ずしもそうではありませんが、Juliaを使って `julia-config.jl`を探すことができます。 それを利用するためにmakefileを使うことができます。
-#The above example is extended to use a Makefile:
+さらに、 `/usr/local` ディレクトリに `julia-config.jl` が見つかることもありますが、必ずしもそうではありませんが、Juliaを使って `julia-config.jl` を探すことができます。 それを利用するためにmakefileを使うことができます。
+<!-- The above example is extended to use a Makefile: -->
 上記の例はMakefileを使うように拡張されています：
 
 ```
@@ -159,19 +159,19 @@ LDLIBS   += $(shell $(JL_SHARE)/julia-config.jl --ldlibs)
 all: embed_example
 ```
 
-#Now the build command is simply `make`.
-ビルドコマンドは単に `make`です。
+<!-- Now the build command is simply `make`. -->
+ビルドコマンドは単に `make` です。
 
-### Converting Types
-##型の変換
+<!-- ## Converting Types -->
+## 型の変換
 
-#Real applications will not just need to execute expressions, but also return their values to the host program. 
+<!-- Real applications will not just need to execute expressions, but also return their values to the host program.  -->
 実際のアプリケーションは式を実行するだけでなく、その値をホストプログラムに返すだけです。
 #`jl_eval_string` returns a `jl_value_t*`, which is a pointer to a heap-allocated Julia object. 
 `jl_eval_string`は` jl_value_t * `を返します。これは、ヒープに割り当てられたJuliaオブジェクトへのポインタです。
 #Storing simple data types like [`Float64`](@ref) in this way is called `boxing`, and extracting the stored primitive data is called `unboxing`. 
-このように[Float64`](@ ref)のような単純なデータ型を格納することを「ボクシング」と呼び、格納されたプリミティブデータを抽出することを「アンボックス化」といいます。
-#Our improved sample program that calculates the square root of 2 in Julia and reads back the result in C looks as follows:
+このように [Float64`](@ref) のような単純なデータ型を格納することを「ボクシング」と呼び、格納されたプリミティブデータを抽出することを「アンボックス化」といいます。
+<!-- Our improved sample program that calculates the square root of 2 in Julia and reads back the result in C looks as follows: -->
 Juliaで2の平方根を計算し、Cで結果を読み戻した改善されたサンプルプログラムは次のようになります：
 
 ```c
@@ -186,15 +186,15 @@ else {
 }
 ```
 
-#In order to check whether `ret` is of a specific Julia type, we can use the `jl_isa`, `jl_typeis`, or `jl_is_...` functions.
-`ret`が特定のJulia型であるかどうかを調べるために、` jl_isa`、 `jl_typeis`、または` jl_is _...`関数を使うことができます。
-#By typing `typeof(sqrt(2.0))` into the Julia shell we can see that the return type is [`Float64`](@ref) (`double` in C). 
-Juliaシェルに `typeof(sqrt(2.0))`と入力すると、戻り値の型は[`Float64`](@ ref)(Cの` double`)になります。
-#To convert the boxed Julia value into a C double the `jl_unbox_float64` function is used in the above code snippet.
-boxed Juliaの値をC doubleに変換するには、上記のコードスニペットで `jl_unbox_float64`関数を使用します。
+<!-- In order to check whether `ret` is of a specific Julia type, we can use the `jl_isa`, `jl_typeis`, or `jl_is_...` functions. -->
+`ret` が特定のJulia型であるかどうかを調べるために、 `jl_isa`, `jl_typeis`, または `jl_is _...` 関数を使うことができます。
+<!-- By typing `typeof(sqrt(2.0))` into the Julia shell we can see that the return type is [`Float64`](@ref) (`double` in C).  -->
+Juliaシェルに `typeof(sqrt(2.0))` と入力すると、戻り値の型は [`Float64`](@ref) (C の `double`) になります。
+<!-- To convert the boxed Julia value into a C double the `jl_unbox_float64` function is used in the above code snippet. -->
+boxed Juliaの値をC double に変換するには、上記のコードスニペットで `jl_unbox_float64` 関数を使用します。
 
-#Corresponding `jl_box_...` functions are used to convert the other way:
-対応する `jl_box _...`関数は、逆の変換に使用されます：
+<!-- Corresponding `jl_box_...` functions are used to convert the other way: -->
+対応する `jl_box _...` 関数は、逆の変換に使用されます：
 
 ```c
 jl_value_t *a = jl_box_float64(3.0);
@@ -202,11 +202,11 @@ jl_value_t *b = jl_box_float32(3.0f);
 jl_value_t *c = jl_box_int32(3);
 ```
 
-#As we will see next, boxing is required to call Julia functions with specific arguments.
+<!-- As we will see next, boxing is required to call Julia functions with specific arguments. -->
 次のように、ジュリア関数を特定の引数で呼び出すには、ボクシングが必要です。
 
-### Calling Julia Functions
-##ジュリア関数の呼び出し
+<!-- ## Calling Julia Functions -->
+## ジュリア関数の呼び出し
 
 #While `jl_eval_string` allows C to obtain the result of a Julia expression, it does not allow passing arguments computed in C to Julia. 
 `jl_eval_string`ではCがJulia式の結果を得ることができますが、Cで計算された引数をJuliaに渡すことはできません。
@@ -239,16 +239,16 @@ jl_value_t *jl_call(jl_function_t *f, jl_value_t **args, int32_t nargs)
 #Its second argument `args` is an array of `jl_value_t*` arguments and `nargs` is the number of arguments.
 第2引数 `args`は` jl_value_t * `引数の配列で、` nargs`は引数の数です。
 
-### Memory Management
-##メモリ管理
+<!-- ## Memory Management -->
+## メモリ管理
 
-#As we have seen, Julia objects are represented in C as pointers. 
+<!-- As we have seen, Julia objects are represented in C as pointers.  -->
 これまで見てきたように、JuliaオブジェクトはC言語でポインタとして表現されています。
-#This raises the question of who is responsible for freeing these objects.
+<!-- This raises the question of who is responsible for freeing these objects. -->
 これにより、これらのオブジェクトを解放する責任を負っているのかという疑問が生じます。
 
-#Typically, Julia objects are freed by a garbage collector (GC), but the GC does not automatically know that we are holding a reference to a Julia value from C. 
-通常、Juliaオブジェクトはガベージコレクタ(GC)によって解放されますが、GCは自動的にCからジュリア値への参照を保持していることを認識しません
+<!-- Typically, Julia objects are freed by a garbage collector (GC), but the GC does not automatically know that we are holding a reference to a Julia value from C.  -->
+通常、Juliaオブジェクトはガベージコレクタ (GC) によって解放されますが、 GC は自動的にCからジュリア値への参照を保持していることを認識しません
 #This means the GC can free objects out from under you, rendering pointers invalid.
 つまり、GCがあなたの下からオブジェクトを解放し、ポインタを無効にすることができます。
 

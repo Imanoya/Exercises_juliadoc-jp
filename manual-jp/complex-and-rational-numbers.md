@@ -1,5 +1,5 @@
 <!--- > Complex and Rational Numbers -->
-#複素数と有理数
+# 複素数と有理数
 
 <!--- Julia ships with predefined types representing both complex and rational numbers, and supports all standard [Mathematical Operations and Elementary Functions](@ref) on them.  -->
 Juliaは、複素数と有理数の両方を表す定義済みの型とともに出荷され、標準の[Mathematical Operations and Elementary Functions](@ref)をサポートしています。
@@ -7,7 +7,7 @@ Juliaは、複素数と有理数の両方を表す定義済みの型とともに
 [変換とプロモーション](@ ref変換とプロモーション)は、プリミティブでもコンポジットでも、あらかじめ定義された数値型の任意の組み合わせに対する操作が期待どおりに動作するように定義されています。
 
 <!--- ## Complex Numbers -->
-##複素数
+## 複素数
 
 <!--- The global constant [`im`](@ref) is bound to the complex number *i*, representing the principal square root of -1. -->
 グローバル定数[`im`](@ref)は、-1の主平方根を表す複素数* i *に束縛されます。

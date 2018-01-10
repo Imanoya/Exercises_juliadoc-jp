@@ -276,7 +276,7 @@ no
 ```
 
 ## Short-Circuit Evaluation
-##短絡評価
+## 短絡評価
 
 #Short-circuit evaluation is quite similar to conditional evaluation. 
 短絡評価は条件付き評価と非常によく似ています。
@@ -723,7 +723,7 @@ julia> Base.showerror(io::IO, e::MyUndefVarError) = print(io, e.var, " not defin
     しかし、関数の引数が大文字である場合など、大文字の最初の文字をそのまま使うのは時には意味があります： `size(A、1)== size(B、2)|| throw(DimensionMismatch( "Aは最初の次元を持つ...")) `。
 
 ### Errors
-###エラー
+### エラー
 
 #The [`error()`](@ref) function is used to produce an [`ErrorException`](@ref) that interrupts the normal flow of control.
 [`error()`](@ref)関数は、通常の制御フローを中断する[`ErrorException`](@ref)を生成するために使用されます。
@@ -772,7 +772,7 @@ Stacktrace:
 ```
 
 <!-- ## Warnings and informational messages-->
-###警告と情報メッセージ
+## 警告と情報メッセージ
 
 <!-- Julia also provides other functions that write messages to the standard error I/O, but do not throw any `Exception`s and hence do not interrupt execution:-->
 Juliaは、標準エラーI/Oにメッセージを書き込む他の関数も提供していますが、 `Exception`をスローしないため、実行を中断しません。
@@ -793,7 +793,7 @@ Stacktrace:
 ```
 
 ### The `try/catch` statement
-### `try/catch`文
+### `try/catch` 文
 
 <!-- The `try/catch` statement allows for `Exception`s to be tested for. -->
 `try / catch`文は、` Exception`がテストされることを可能にします。
@@ -887,7 +887,7 @@ julia> try error() end # Returns nothing
 Juliaは、より高度なエラー処理のために、[`rethrow()`](@ref)、[`backtrace()`](@ref)、[`catch_backtrace()`](@ref)関数を提供しています。
 
 <!-- ## `finally` Clauses-->
-### `finally`節
+## `finally`節
 
 <!-- In code that performs state changes or uses resources like files, there is typically clean-up work (such as closing files) that needs to be done when the code is finished. -->
 状態変更を実行するコードやファイルのようなリソースを使用するコードでは、コードが終了したときに行う必要のあるクリーンアップ作業(ファイルのクローズなど)が一般的です。
@@ -1040,7 +1040,7 @@ taskHdl = @task mytask(7)
 真のカーネルスレッドについては、[Parallel Computing](@ref)のトピックで説明します。
 
 <!-- ## Core task operations-->
-###コアタスクの操作
+## コアタスクの操作
 
 <!-- Let us explore the low level construct [`yieldto()`](@ref) to underestand how task switching works.-->
 低レベルの構文[`yieldto()`](@ref)を調べて、タスク切り替えの仕組みを調べてみましょう。
@@ -1077,7 +1077,7 @@ taskHdl = @task mytask(7)
    * [`task_local_storage()`](@ref)は、現在のタスクに固有のキー値ストアを操作します。
 
 <!-- ## Tasks and events -->
-###タスクとイベント
+## タスクとイベント
 
 <!-- Most task switches occur as a result of waiting for events such as I/O requests, and are performed by a scheduler included in the standard library.  -->
 ほとんどのタスクスイッチは、I/O要求などのイベントを待機した結果として発生し、標準ライブラリに含まれるスケジューラによって実行されます。
@@ -1112,7 +1112,7 @@ taskHdl = @task mytask(7)
 これは、[`schedule()`](@ref)を呼び出すか、[`@ schedule`](@ref)または[` @ async`](@ref)マクロを使用して行われます([Parallel Computing] ref)を参照してください)。
 
 <!-- ## Task states -->
-##タスクの状態
+## タスクの状態
 
 <!-- Tasks have a `state` field that describes their execution status.  -->
 タスクには、実行状態を記述する `state`フィールドがあります。

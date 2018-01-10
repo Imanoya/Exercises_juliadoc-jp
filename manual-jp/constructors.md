@@ -49,7 +49,7 @@ Juliaのオブジェクト構築システムは、これらすべての事例に
     このような状況では、文脈から、この用語は「コンストラクタ関数」ではなく「コンストラクタメソッド」を意味するために使用されることが一般的には明らかです。 特に、コンストラクタの特定のメソッドを他のすべてのメソッドから取り出すという意味でよく使用されます。
 
 <!-- # Oter Constructor Methods -->
-##外部コンストラクタメソッド
+## 外部コンストラクタメソッド
 
 #A constructor is just like any other function in Julia in that its overall behavior is defined by the combined behavior of its methods. 
 コンストラクタはJuliaの他の関数と同様に、メソッドの動作を組み合わせ全体的な振る舞いが定義されています。
@@ -187,7 +187,7 @@ T2(1)
 この分離は、典型的には非常に自然なものです。
 
 <!-- # Icomplete Initialization -->
-##不完全な初期化
+## 不完全な初期化
 
 <!-- Thefinal problem which has still not been addressed is construction of self-referential objects, or more generally, recursive data structures.  -->
 それでも対処されていない最終的な問題は、自己参照オブジェクト、またはより一般的には再帰的なデータ構造の構築です。
@@ -450,7 +450,7 @@ Point{Float64}(1.0, 0.5)
 さらに、コンストラクタは、型システム、メソッド、および複数のディスパッチのすべての機能を活用できるため、洗練された動作を定義するのは通常非常に簡単です。
 
 <!-- # Case Study: Rational -->
-##ケーススタディ：Rational
+## ケーススタディ：Rational
 
 #Perhaps the best way to tie all these pieces together is to present a real world example of a parametric composite type and its constructor methods. 
 おそらく、これらのすべての要素を結びつける最良の方法は、パラメトリックコンポジット型の実例とそのコンストラクタメソッドを提示することです。
@@ -559,7 +559,7 @@ false
 興味のある読者は、残りの[`rational.jl`](https://github.com/JuliaLang/julia/blob/master/base/rational.jl)を熟読することを検討するべきです：それは短く、自己完結型であり、実装しています基本的なジュリアタイプ全体。
 
 <!-- # [Constructors and Conversion](@id constructors-and-conversion) -->
-## [コンストラクタと変換](@ idコンストラクタと変換)
+## [コンストラクタと変換](@id コンストラクタと変換)
 
 #Constructors `T(args...)` in Julia are implemented like other callable objects: methods are added to their types. 
 Juliaでコンストラクタ`T(args ...)`は、他の呼び出し可能なオブジェクトのように実装されます。メソッドは型に追加されます。
@@ -576,17 +576,17 @@ Juliaでコンストラクタ`T(args ...)`は、他の呼び出し可能なオ�
 #`convert` is used extensively throughout Julia whenever one type needs to be converted to another (e.g. in assignment, [`ccall`](@ref), etcetera), and should generally only be defined (or successful) if the conversion is lossless. 
 `convert`は、あるタイプを別のタイプに変換する必要があるとき(例えば、代入、[`ccall`](@ref) など)、Julia全体で広く使われていて、変換がロスレスであれば一般的に定義されていて(成功)します。
 #For example, `convert(Int, 3.0)` produces `3`, but `convert(Int, 3.2)` throws an `InexactError`.
-たとえば、 `convert(Int、3.0)`は `3`を生成しますが、`convert(Int、3.2)`は`InexactError`をスローします。
+たとえば、 `convert(Int,3.0)` は `3`を生成しますが、`convert(Int,3.2)` は `InexactError` をスローします。
 #If you want to define a constructor for a lossless conversion from one type to another, you should probably define a `convert` method instead.
-ある型から別の型への可逆変換のためのコンストラクタを定義したい場合は、代わりに `convert`メソッドを定義するべきでしょう。
+ある型から別の型への可逆変換のためのコンストラクタを定義したい場合は、代わりに `convert` メソッドを定義するべきでしょう。
 
 #On the other hand, if your constructor does not represent a lossless conversion, or doesn't represent "conversion" at all, it is better to leave it as a constructor rather than a `convert` method.
-一方、あなたのコンストラクタがロスレスな変換を表していない場合や、 *変換*を全く表現していない場合は、 `convert`メソッドではなくコンストラクタとして残す方が良いでしょう。
+一方、あなたのコンストラクタがロスレスな変換を表していない場合や、 *変換*を全く表現していない場合は、 `convert` メソッドではなくコンストラクタとして残す方が良いでしょう。
 #For example, the `Array{Int}()` constructor creates a zero-dimensional `Array` of the type `Int`, but is not really a "conversion" from `Int` to an `Array`.
-たとえば、`Array {Int}()`コンストラクタは、`Int`型のゼロ次元の`Array`を作成し、実際には`Int`から`Array`への*変換*ではありません。
+たとえば、`Array {Int}()` コンストラクタは、`Int` 型のゼロ次元の `Array` を作成し、実際には `Int` から `Array` への *変換* ではありません。
 
 <!-- # Outer-only constructors -->
-##外部専用のコンストラクタ
+## 外部専用のコンストラクタ
 
 <!-- As we have seen, a typical parametric type has inner constructors that are called when type parameters are known; e.g. they apply to `Point{Int}` but not to `Point`.  -->
 これまで見てきたように、典型的なパラメトリック型には、型パラメータがわかっているときに呼び出される内部コンストラクタがあります。例えば`Point{Int}`には適用されますが、`Point`には適用されません。

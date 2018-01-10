@@ -101,7 +101,7 @@ This may have arisen from a call to the constructor AbstractFloat(...), since ty
 したがってJuliaでは、この操作をより明確にする為、専用の `parse()`関数を使わなければなりません。
 
 <!-- ## Defining New Conversions-->
-###新しいコンバージョンを定義する
+### 新しいコンバージョンを定義する
 
 <!-- To define a new conversion, simply provide a new method for `convert()`. -->
 新しい変換を定義するには、単に`convert()`へ新しいメソッドを提供するだけです。
