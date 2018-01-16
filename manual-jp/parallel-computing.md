@@ -845,12 +845,12 @@ Juliaの [`pmap()`](@ref) は、各関数呼び出しが大量の作業を行う
 <!-- Start -->
 > ## Synchronization With Remote References
 <!-- End -->
->##リモート参照との同期
+## リモート参照との同期
 
 <!-- Start -->
 > ## Scheduling
 <!-- End -->
->##スケジューリング
+## スケジューリング
 
 <!-- Start -->
 > Julia's parallel programming platform uses [Tasks (aka Coroutines)](@ref man-tasks) to switch among multiple computations. 
@@ -1022,47 +1022,55 @@ I/O を含む操作の例には、ファイルの読み書き、Web サービス
         @schedule foo()
     end
     ```
-<!-- Start -->
+   <!-- Start -->
    * > Channels are created via the `Channel{T}(sz)` constructor. 
+   <!-- End -->
    * チャネルは `Channel{T}(sz)` コンストラクタを介して生成されます。
-<!-- Start -->
+   <!-- Start -->
    * > The channel will only hold objects of type `T`. 
+   <!-- End -->
    * チャネルは `T`型のオブジェクトだけを保持します。
-<!-- Start -->
+   <!-- Start -->
    * > If the type is not specified, the channel can hold objects of any type. 
+   <!-- End -->
    * 型が指定されていない場合、チャネルは任意の型のオブジェクトを保持できます。
-<!-- Start -->
+   <!-- Start -->
    * > `sz` refers to the maximum number of elements that can be held in the channel at any time. 
+   <!-- End -->
    * `sz` はいつでもチャネルに保持できる要素の最大数を指します。
-<!-- Start -->
-   * For example, `Channel(32)` creates a channel that can hold a maximum of 32 objects of any type. 
+   <!-- Start -->
+   * > For example, `Channel(32)` creates a channel that can hold a maximum of 32 objects of any type. 
+   <!-- End -->
    * たとえば、 `Channel(32)` は任意のタイプのオブジェクトを最大32個保持できるチャネルを作成します。
-<!-- Start -->
+   <!-- Start -->
    * > A `Channel{MyType}(64)` can hold up to 64 objects of `MyType` at any time.
-<!-- Start -->
+   <!-- End -->
+   <!-- Start -->
    * `Channel{MyType}(64)` は `MyType` のオブジェクトをいつでも最大64個まで保持できます。
-   * 
-<!-- Start -->
-  # If a [`Channel`](@ref) is empty, readers (on a [`take!()`](@ref) call) will block until data is available. 
-    [`Channel`](@ref)が空の場合、(` `take！()` '(@ref)呼び出しで)データが利用可能になるまでブロックされます。
-   * 
-<!-- Start -->
-  # If a [`Channel`](@ref) is full, writers (on a [`put!()`](@ref) call) will block until space becomes available.
-   [`Channel`](@ref)がいっぱいになると、(` put！() `(@ ref)呼び出しのライターはスペースが利用可能になるまでブロックします。
-   * 
-<!-- Start -->
-  # [`isready()`](@ref) tests for the presence of any object in the channel, while [`wait()`](@ref) waits for an object to become available.
-   [`isready()`](@ref)はチャネル内のオブジェクトの存在をテストし、[`wait()`](@ ref)はオブジェクトが利用可能になるのを待ちます。
-   * 
-<!-- Start -->
-  # A [`Channel`](@ref) is in an open state initially. 
-    [`Channel`](@ref)は最初はオープン状態です。
-<!-- Start -->
-   > This means that it can be read from and written to freely via [`take!()`](@ref) and [`put!()`](@ref) calls. [`close()`](@ref) closes a [`Channel`](@ref).
-   つまり、[`take！()`](@ref) と [`put!()`](@ref) 呼び出しを使って自由に読み書きできます。 [`close()`](@ref) は[`Channel`](@ref) を閉じます。
-<!-- Start -->
-   > On a closed [`Channel`](@ref), [`put!()`](@ref) will fail. For example:
-   閉じた [`Channel`](@ref) では、 [`put!()`](@ref) は失敗します。例えば：
+   <!-- Start -->
+   * > If a [`Channel`](@ref) is empty, readers (on a [`take!()`](@ref) call) will block until data is available. 
+   <!-- End -->
+   * [`Channel`](@ref) が空の場合、([`take！()`](@ref) 呼び出しで) データが利用可能になるまでブロックされます。
+   <!-- Start -->
+   * > If a [`Channel`](@ref) is full, writers (on a [`put!()`](@ref) call) will block until space becomes available.
+   <!-- End -->
+   * [`Channel`](@ref)がいっぱいになると、([`put!()`](@ref) 呼び出し) のライターはスペースが利用可能になるまでブロックします。
+   <!-- Start -->
+   * > [`isready()`](@ref) tests for the presence of any object in the channel, while [`wait()`](@ref) waits for an object to become available.
+   <!-- End -->
+   * [`isready()`](@ref) はチャネル内のオブジェクトの存在をテストし、 [`wait()`](@ref) はオブジェクトが利用可能になるのを待ちます。
+   <!-- Start -->
+   * > A [`Channel`](@ref) is in an open state initially. 
+   <!-- End -->
+   * [`Channel`](@ref)は最初はオープン状態です。
+   <!-- Start -->
+   * > This means that it can be read from and written to freely via [`take!()`](@ref) and [`put!()`](@ref) calls. [`close()`](@ref) closes a [`Channel`](@ref).
+   <!-- End -->
+   * つまり、[`take！()`](@ref) と [`put!()`](@ref) 呼び出しを使って自由に読み書きできます。 [`close()`](@ref) は[`Channel`](@ref) を閉じます。
+   <!-- Start -->
+   * > On a closed [`Channel`](@ref), [`put!()`](@ref) will fail. For example:
+   <!-- End -->
+   * 閉じた [`Channel`](@ref) では、 [`put!()`](@ref) は失敗します。例えば：
 
 ```julia-repl
 julia> c = Channel(2);
@@ -1077,13 +1085,13 @@ ERROR: InvalidStateException("Channel is closed.",:closed)
 [...]
 ```
 
-<!-- Start -->
-   * 
-   #[`take!()`](@ref) and [`fetch()`](@ref) (which retrieves but does not remove the value) on a closed channel successfully return any existing values until it is emptied. 
-   閉じたチャンネルの[`take！()`](@ref)と[`fetch()`](@ref)は空になるまで正常に値を返します。
-<!-- Start -->
+   <!-- Start -->
+   * > [`take!()`](@ref) and [`fetch()`](@ref) (which retrieves but does not remove the value) on a closed channel successfully return any existing values until it is emptied. 
+   <!-- End -->
+   * 閉じたチャンネルの[`take！()`](@ref)と[`fetch()`](@ref)は空になるまで正常に値を返します。
+   <!-- Start -->
    > Continuing the above example:
-<!-- End -->
+   <!-- End -->
    上記の例を続けます：
 
 ```julia-repl
@@ -1223,7 +1231,7 @@ Juliaの将来のバージョンでは、複数のスレッドのタスクのス
 <!-- Start -->
 >## Remote References and AbstractChannels
 <!-- End -->
-##リモート参照と抽象チャンネル
+## リモート参照と抽象チャンネル
 
 <!-- Start -->
 > Remote references always refer to an implementation of an `AbstractChannel`.
@@ -1279,7 +1287,7 @@ Juliaの将来のバージョンでは、複数のスレッドのタスクのス
 <!-- Start -->
 > ## Channels and RemoteChannels
 <!-- End -->
-##チャネルとリモートチャネル
+## チャネルとリモートチャネル
 
 <!-- Start -->
    * 
@@ -1398,7 +1406,7 @@ julia> @elapsed while n > 0 # print out results
 <!-- Start -->
 > ## Remote References and Distributed Garbage Collection
 <!-- End -->
-##リモート参照と分散ガベージコレクション
+## リモート参照と分散ガベージコレクション
 
 <!-- Start -->
 > Objects referred to by remote references can be freed only when *all* held references in the cluster are deleted.
@@ -2070,7 +2078,7 @@ end
 <!-- Start -->
 > ## Cluster Managers with Custom Transports
 <!-- End -->
-##カスタムトランスポートを持つクラスタマネージャ
+## カスタムトランスポートを持つクラスタマネージャ
 
 <!-- Start -->
 > Replacing the default TCP/IP all-to-all socket connections with a custom transport layer is a little more involved. 
@@ -2250,7 +2258,7 @@ Juliaクラスタは、ローカルのラップトップ、部門クラスタ、
 <!-- Start -->
 > ## Cluster Cookie
 <!-- End -->
-##クラスタクッキー
+## クラスタクッキー
 
 <!-- Start -->
 > All processes in a cluster share the same cookie which, by default, is a randomly generated string on the master process:
@@ -2288,7 +2296,7 @@ Juliaクラスタは、ローカルのラップトップ、部門クラスタ、
 <!-- Start -->
 > ## Specifying Network Topology (Experimental)
 <!-- End -->
-##ネットワークトポロジの指定(実験的)
+## ネットワークトポロジの指定(実験的)
 
 <!-- Start -->
 > The keyword argument `topology` passed to `addprocs` is used to specify how the workers must be connected to each other:
@@ -2319,7 +2327,7 @@ Juliaクラスタは、ローカルのラップトップ、部門クラスタ、
 <!-- Start -->
 > ## Multi-Threading (Experimental)
 <!-- End -->
-##マルチスレッド(実験的)
+## マルチスレッド(実験的)
 
 <!-- Start -->
 > In addition to tasks, remote calls, and remote references, Julia from `v0.5` forwards will natively support multi-threading. 
