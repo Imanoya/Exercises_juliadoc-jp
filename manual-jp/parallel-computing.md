@@ -1784,71 +1784,102 @@ julia> @time advection_shared!(q,u);
 ジュリアプロセスの論理クラスタへの立ち上げ、管理、およびネットワーキングは、クラスタマネージャを介して行われます。
 <!-- Start -->
 > A `ClusterManager` is responsible for
-<!-- End -->
 `ClusterManager`は、
-   <!-- Start -->
-   * > launching worker processes in a cluster environment
-   <!-- End -->
-   * クラスタ環境でのワーカープロセスの起動
-   <!-- Start -->
-   * > managing events during the lifetime of each worker
-   <!-- End -->
-   * 各ワーカの生涯のイベント管理
-   <!-- Start -->
-   * > optionally, providing data transport
-   <!-- End -->
-   * オプションで、データ転送を提供する
+<!-- End -->
+
+<!-- Start -->
+
+* > launching worker processes in a cluster environment
+* クラスタ環境でのワーカープロセスの起動
+
+<!-- End -->
+<!-- Start -->
+
+* > managing events during the lifetime of each worker
+* 各ワーカの生涯のイベント管理
+
+<!-- End -->
+<!-- Start -->
+
+* > optionally, providing data transport
+* オプションで、データ転送を提供する
+
+<!-- End -->
 
 <!-- Start -->
 > A Julia cluster has the following characteristics:
-<!-- End -->
 Juliaクラスタの特徴は次のとおりです。
-
-   <!-- Start -->
-   * > The initial Julia process, also called the `master`, is special and has an `id` of 1.
-   <!-- End -->
-   * `master`とも呼ばれる最初のJuliaプロセスは特別で、` id`が1です。
-   <!-- Start -->
-   * > Only the `master` process can add or remove worker processes.
-   <!-- End -->
-   * `master`プロセスだけがワーカープロセスを追加または削除できます。
-   <!-- Start -->
-   * > All processes can directly communicate with each other.
-   <!-- End -->
-   * すべてのプロセスが互いに直接通信できます。
+<!-- End -->
 
 <!-- Start -->
-> Connections between workers (using the in-built TCP/IP transport) is established in the following manner:
-<!-- End -->
-作業者間の接続(組み込みの TCP/IP 転送を使用)は、次の方法で確立されます。
 
-   <!-- Start -->
-   * > [`addprocs()`](@ref) is called on the master process with a `ClusterManager` object.
-   <!-- End -->
-   * [`addprocs()`](@ref)は `ClusterManager`オブジェクトでマスタプロセス上で呼び出されます。
-   <!-- Start -->
-   * > [`addprocs()`](@ref) calls the appropriate [`launch()`](@ref) method which spawns required number of worker processes on appropriate machines.
-   <!-- End -->
-   * [`addprocs()`](@ref) は適切なマシン上で必要な数のワーカープロセスを生成する適切な [`launch()`](@ref) メソッドを呼び出します。
-   <!-- Start -->
-   * > Each worker starts listening on a free port and writes out its host and port information to [`STDOUT`](@ref).
-   <!-- End -->
-   * 各ワーカーは空いているポートでリッスンを開始し、そのホストとポート情報を [`STDOUT`](@ref) に書き出します。
-   <!-- Start -->
-   * > The cluster manager captures the [`STDOUT`](@ref) of each worker and makes it available to the master process.
-   <!-- End -->
-   * クラスタマネージャは、各作業者の[`STDOUT`](@ref)を取得し、それをマスタプロセスが利用できるようにします。
-   <!-- Start -->
-   * > The master process parses this information and sets up TCP/IP connections to each worker.
-   <!-- End -->
-   * マスタープロセスはこの情報を解析し、各ワーカーにTCP/IP接続を設定します。
-   <!-- Start -->
-   * > Every worker is also notified of other workers in the cluster.
-   <!-- End -->
-   すべてのワーカーにはクラスタ内の他のワーカーも通知されます。
+* > The initial Julia process, also called the `master`, is special and has an `id` of 1.
+* `master`とも呼ばれる最初のJuliaプロセスは特別で、` id`が1です。
+
+<!-- End -->
+
+<!-- Start -->
+
+* > Only the `master` process can add or remove worker processes.
+* `master`プロセスだけがワーカープロセスを追加または削除できます。
+
+<!-- End -->
+<!-- Start -->
+
+* > All processes can directly communicate with each other.
+* すべてのプロセスが互いに直接通信できます。
+
+<!-- End -->
+<!-- Start -->
+
+* > Connections between workers (using the in-built TCP/IP transport) is established in the following manner:
+* 作業者間の接続(組み込みの TCP/IP 転送を使用)は、次の方法で確立されます。
+
+<!-- End -->
+<!-- Start -->
+
+* > [`addprocs()`](@ref) is called on the master process with a `ClusterManager` object.
+* [`addprocs()`](@ref)は `ClusterManager`オブジェクトでマスタプロセス上で呼び出されます。
+
+<!-- End -->
+<!-- Start -->
+
+* > [`addprocs()`](@ref) calls the appropriate [`launch()`](@ref) method which spawns required number of worker processes on appropriate machines.
+* [`addprocs()`](@ref) は適切なマシン上で必要な数のワーカープロセスを生成する適切な [`launch()`](@ref) メソッドを呼び出します。
+
+<!-- End -->
+<!-- Start -->
+
+* > Each worker starts listening on a free port and writes out its host and port information to [`STDOUT`](@ref).
+* 各ワーカーは空いているポートでリッスンを開始し、そのホストとポート情報を [`STDOUT`](@ref) に書き出します。
+
+<!-- End -->
+<!-- Start -->
+
+* > The cluster manager captures the [`STDOUT`](@ref) of each worker and makes it available to the master process.
+* クラスタマネージャは、各作業者の[`STDOUT`](@ref)を取得し、それをマスタプロセスが利用できるようにします。
+
+<!-- End -->
+
+<!-- Start -->
+
+* > The master process parses this information and sets up TCP/IP connections to each worker.
+* マスタープロセスはこの情報を解析し、各ワーカーにTCP/IP接続を設定します。
+
+<!-- End -->
+<!-- Start -->
+
+  * > Every worker is also notified of other workers in the cluster.
+  * すべてのワーカーにはクラスタ内の他のワーカーも通知されます。
+
+<!-- End -->
+<!-- Start -->
+
    * > Each worker connects to all workers whose `id` is less than the worker's own `id`.
-   <!-- End -->
+
    * 各作業者は、「id」が自分の「id」よりも小さいすべての作業者に接続します。
+
+   <!-- End -->
    <!-- Start -->
    * > In this way a mesh network is established, wherein every worker is directly connected with every other worker.
    <!-- End -->
