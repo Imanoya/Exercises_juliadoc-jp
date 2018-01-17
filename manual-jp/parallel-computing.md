@@ -20,7 +20,7 @@
 <!-- End -->
 クラスタでは、特定のCPUが同じコンピュータ(ノード)内のRAMに最速でアクセスすることはかなり明らかです。
 <!---Start-->
-> Perhaps more surprisingly, similar issues are relevant on a typical multicore laptop, due to differences in the speed of main memory and the [cache](https://www.akkadia.org/drepper/cpumemory.pdf). 
+> Perhaps more surprisingly, similar issues are relevant on a typical multicore laptop, due to differences in the speed of main memory and the [cache](https://www.akkadia.org/drepper/cpumemory.pdf).
 <!-- End -->
 おそらくもっと驚くべきことに、メインメモリと[キャッシュ](https://www.akkadia.org/drepper/cpumemory.pdf)の速度の違いにより、同様の問題が典型的なマルチコアラップトップに関係していることでしょう。
 <!---Start-->
@@ -37,7 +37,7 @@ Juliaは、プログラムを別々のメモリドメイン内の複数のプロ
 <!-- End -->
 Juliaのメッセージパッシングの実装は、 MPI [^1] などの他の環境とは異なります。
 <!---Start-->
-> Communication in Julia is generally "one-sided", meaning that the programmer needs to explicitly manage only one process in a two-process operation. 
+> Communication in Julia is generally "one-sided", meaning that the programmer needs to explicitly manage only one process in a two-process operation.
 <!-- End -->
 Juliaでのコミュニケーションは一般的に「片面」です。つまり、プログラマは2プロセス操作で1つのプロセスのみを明示的に管理する必要があります。
 <!-- Start -->
@@ -50,7 +50,7 @@ Juliaでのコミュニケーションは一般的に「片面」です。つま
 <!-- End -->
 Juliaの並列プログラミングは、*リモート参照* と *リモート呼び出し* の2つのプリミティブで構築されています。
 <!-- Start -->
-> A remote reference is an object that can be used from any process to refer to an object stored on a particular process. 
+> A remote reference is an object that can be used from any process to refer to an object stored on a particular process.
 <!-- End -->
 リモート参照は、特定のプロセスに格納されているオブジェクトを参照するために、どのプロセスからでも使用できるオブジェクトです。
 <!-- Start -->
@@ -64,7 +64,7 @@ Juliaの並列プログラミングは、*リモート参照* と *リモート�
 リモート参照には、[`Future`](@ref) と [`RemoteChannel`](@ref) という2つの味があります。
 
 <!-- Start -->
-> A remote call returns a [`Future`](@ref) to its result. 
+> A remote call returns a [`Future`](@ref) to its result.
 <!-- End -->
 リモート呼び出しは、その結果に [`Future`](@ref) を返します。
 <!-- Start -->
@@ -86,15 +86,15 @@ Juliaの並列プログラミングは、*リモート参照* と *リモート�
 例えば、複数のプロセスは、同じリモート「チャネル」を参照することによって、それらの処理を調整することができる。
 
 <!-- Start -->
-> Each process has an associated identifier. 
+> Each process has an associated identifier.
 <!-- End -->
 各プロセスには、関連する識別子があります。
 <!-- Start -->
-> The process providing the interactive Julia prompt always has an `id` equal to 1. 
+> The process providing the interactive Julia prompt always has an `id` equal to 1.
 <!-- End -->
 対話式Juliaプロンプトを提供するプロセスは、常に1に等しい「id」を有する。
 <!-- Start -->
-> The processes used by default for parallel operations are referred to as "workers". When there is only one process, process 1 is considered a worker. 
+> The processes used by default for parallel operations are referred to as "workers". When there is only one process, process 1 is considered a worker.
 <!-- End -->
 パラレル操作でデフォルトで使用されるプロセスは、「ワーカー」と呼ばれます。プロセスが1つだけの場合、プロセス1は作業者と見なされます。
 <!-- Start -->
@@ -103,11 +103,11 @@ Juliaの並列プログラミングは、*リモート参照* と *リモート�
 それ以外の場合、ワーカーはプロセス1以外のすべてのプロセスとみなされます。
 
 <!-- Start -->
-> Let's try this out. 
+> Let's try this out.
 <!-- End -->
 これを試してみましょう。
 <!-- Start -->
-> Starting with `julia -p n` provides `n` worker processes on the local machine. 
+> Starting with `julia -p n` provides `n` worker processes on the local machine.
 <!-- End -->
 `julia -p n`はローカルマシン上で` n`ワーカープロセスを提供します。
 <!-- Start -->
@@ -131,11 +131,11 @@ julia> fetch(s)
 ```
 
 <!-- Start -->
-> The first argument to [`remotecall()`](@ref) is the function to call. 
+> The first argument to [`remotecall()`](@ref) is the function to call.
 <!-- End -->
 [`remotecall()`](@ref)の最初の引数は呼び出す関数です。
 <!-- Start -->
-> Most parallel programming in Julia does not reference specific processes or the number of processes available, but [`remotecall()`](@ref) is considered a low-level interface providing finer control. 
+> Most parallel programming in Julia does not reference specific processes or the number of processes available, but [`remotecall()`](@ref) is considered a low-level interface providing finer control.
 <!-- End -->
 Juliaのほとんどの並列プログラミングは、特定のプロセスや利用可能なプロセスの数を参照しませんが、[`remotecall()`](@ref) は、より細かい制御を提供する低レベルのインタフェースとみなされます。
 <!-- Start -->
@@ -144,7 +144,7 @@ Juliaのほとんどの並列プログラミングは、特定のプロセスや
 [`remotecall()`](@ref) の第二引数は、作業を行うプロセスの `id` であり、残りの引数は呼び出される関数に渡されます。
 
 <!-- Start -->
-> As you can see, in the first line we asked process 2 to construct a 2-by-2 random matrix, and in the second line we asked it to add 1 to it. The result of both calculations is available in the two futures, `r` and `s`. 
+> As you can see, in the first line we asked process 2 to construct a 2-by-2 random matrix, and in the second line we asked it to add 1 to it. The result of both calculations is available in the two futures, `r` and `s`.
 <!-- End -->
 ご覧のように、最初の行では、プロセス2に2行2列のランダムな行列を作成するよう依頼し、2行目で2行に1を追加するように指示しました。両方の計算の結果は、2つの先物、`r` および `s` で利用可能である。
 <!-- Start -->
@@ -153,15 +153,15 @@ Juliaのほとんどの並列プログラミングは、特定のプロセスや
 [`@spawnat`](@ref) マクロは、第1引数で指定されたプロセスの第2引数の式を評価します。
 
 <!-- Start -->
-> Occasionally you might want a remotely-computed value immediately. 
+> Occasionally you might want a remotely-computed value immediately.
 <!-- End -->
 場合によっては、すぐにリモートで計算された値が必要な場合があります。
 <!-- Start -->
-> This typically happens when you read from a remote object to obtain data needed by the next local operation. 
+> This typically happens when you read from a remote object to obtain data needed by the next local operation.
 <!-- End -->
 これは、通常、リモートオブジェクトから読み込んで次のローカル操作で必要なデータを取得するときに発生します。
 <!-- Start -->
-> The function [`remotecall_fetch()`](@ref) exists for this purpose. 
+> The function [`remotecall_fetch()`](@ref) exists for this purpose.
 <!-- End -->
 この目的のために [`remotecall_fetch()`](@ref) 関数が存在します。
 <!-- Start -->
@@ -210,7 +210,7 @@ julia> fetch(s)
 <!-- End -->
 `1 .+ r`の代わりに `1 .+ fetch(r)` を使ったことに注意してください。
 <!-- Start -->
-> This is because we do not know where the code will run, so in general a [`fetch()`](@ref) might be required to move `r` to the process doing the addition. 
+> This is because we do not know where the code will run, so in general a [`fetch()`](@ref) might be required to move `r` to the process doing the addition.
 <!-- End -->
 これはコードがどこで実行されるのかわからないためです。一般に、 `r` を追加するプロセスに [`fetch()`](@ref) が必要な場合があります。
 <!-- Start -->
@@ -275,7 +275,7 @@ ERROR: RemoteException(2, CapturedException(UndefVarError(Symbol("#rand2"))
 プロセス 1 は関数 `rand2` を知っていましたが、プロセス 2 は関数を認識しませんでした。
 
 <!-- Start -->
-> Most commonly you'll be loading code from files or packages, and you have a considerable amount of flexibility in controlling which processes load code. 
+> Most commonly you'll be loading code from files or packages, and you have a considerable amount of flexibility in controlling which processes load code.
 <!-- End -->
 最も一般的には、ファイルやパッケージからコードをロードし、コードをロードするプロセスを柔軟に制御できます。
 <!-- Start -->
@@ -368,7 +368,7 @@ julia -p <n> -L file1.jl -L file2.jl driver.jl
    * 上記の `-p`オプションで指定されたローカルクラスタ。
 
    <!-- Start -->
-   * > A cluster spanning machines using the `--machinefile` option. 
+   * > A cluster spanning machines using the `--machinefile` option.
     <!-- End -->
    * `--machinefile`オプションを使ってマシンを張るクラスタ。
    <!-- Start -->
@@ -397,7 +397,7 @@ julia -p <n> -L file1.jl -L file2.jl driver.jl
 ## データ移動
 
 <!-- Start -->
-> Sending messages and moving data constitute most of the overhead in a parallel program. 
+> Sending messages and moving data constitute most of the overhead in a parallel program.
 <!-- End -->
 メッセージの送信とデータの移動は、並列プログラムのオーバーヘッドの大半を占めます。
 <!-- Start -->
@@ -410,11 +410,11 @@ julia -p <n> -L file1.jl -L file2.jl driver.jl
 このためには、Juliaのさまざまな並列プログラミング構造によって実行されるデータ移動を理解することが重要です。
 
 <!-- Start -->
-> [`fetch()`](@ref) can be considered an explicit data movement operation, since it directly asks that an object be moved to the local machine. 
+> [`fetch()`](@ref) can be considered an explicit data movement operation, since it directly asks that an object be moved to the local machine.
 <!-- End -->
 [`fetch()`](@ref) は、オブジェクトがローカルマシンに移動することを直接要求するので、明示的なデータ移動操作と見なすことができます。
 <!-- Start -->
-> [`@spawn`](@ref) (and a few related constructs) also moves data, but this is not as obvious, hence it can be called an implicit data movement operation. 
+> [`@spawn`](@ref) (and a few related constructs) also moves data, but this is not as obvious, hence it can be called an implicit data movement operation.
 <!-- End -->
 [`@spawn`](@ref) (およびいくつかの関連する構造体) もデータを移動しますが、これは明白ではないので、暗黙のデータ移動操作と呼ばれることがあります。
 <!-- Start -->
@@ -455,11 +455,11 @@ julia> fetch(Bref);
 <!-- End -->
 違いはほんのわずかですが、実際は [`@spawn`](@ref) の動作のためにかなり重要です。
 <!-- Start -->
-> In the first method, a random matrix is constructed locally, then sent to another process where it is squared. 
+> In the first method, a random matrix is constructed locally, then sent to another process where it is squared.
 <!-- End -->
 第1の方法では、ランダムマトリクスがローカルに構築され、次にそれを二乗する別のプロセスに送られます。
 <!-- Start -->
-> In the second method, a random matrix is both constructed and squared on another process. 
+> In the second method, a random matrix is both constructed and squared on another process.
 <!-- End -->
 第2の方法では、ランダムマトリクス構築と2乗の両方が別プロセスで行われます。
 <!-- Start -->
@@ -468,19 +468,19 @@ julia> fetch(Bref);
 したがって、第2の方法は、第1の方法よりもはるかに少ないデータを送信します。
 
 <!-- Start -->
-> In this toy example, the two methods are easy to distinguish and choose from. However, in a real program designing data movement might require more thought and likely some measurement. 
+> In this toy example, the two methods are easy to distinguish and choose from. However, in a real program designing data movement might require more thought and likely some measurement.
 <!-- End -->
 このおもちゃの例では、2つの方法は区別して選択するのが簡単です。しかし、実際のプログラムでは、データの動きを設計するには、より多くの考えが必要であり、ある程度の測定が必要になることがあります
 <!-- Start -->
-> For example, if the first process needs matrix `A` then the first method might be better. 
+> For example, if the first process needs matrix `A` then the first method might be better.
 <!-- End -->
 例えば、最初のプロセスが行列 `A` を必要とする場合、最初のメソッドがより良いかもしれません。
 <!-- Start -->
-> Or, if computing `A` is expensive and only the current process has it, then moving it to another process might be unavoidable. 
+> Or, if computing `A` is expensive and only the current process has it, then moving it to another process might be unavoidable.
 <!-- End -->
 あるいは、 `A` を計算するのが高価で、現在のプロセスだけがそれを持っているならば、それを別のプロセスに移動することは避けられないでしょう。
 <!-- Start -->
-> Or, if the current process has very little to do between the [`@spawn`](@ref) and `fetch(Bref)`, it might be better to eliminate the parallelism altogether. 
+> Or, if the current process has very little to do between the [`@spawn`](@ref) and `fetch(Bref)`, it might be better to eliminate the parallelism altogether.
 <!-- End -->
 現在のプロセスが [`@spawn`](@ref) と `fetch(Bref)` の間に非常に少ない場合、並列性を完全に排除するほうが良いかもしれません。
 <!-- Start -->
@@ -501,7 +501,7 @@ julia> fetch(Bref);
 <!-- End -->
 `@spawn` を介してリモートで実行される式、または `remotecall` を使用してリモート実行のために指定されたクロージャは、グローバル変数を参照します。
 <!-- Start -->
-> Global bindings under module `Main` are treated a little differently compared to global bindings in other modules. 
+> Global bindings under module `Main` are treated a little differently compared to global bindings in other modules.
 <!-- End -->
 `Main` モジュールのグローバルバインディングは、他のモジュールのグローバルバインディングとは少し異なります。
 <!-- Start -->
@@ -515,7 +515,7 @@ remotecall_fetch(()->norm(A), 2)
 ```
 
 <!-- Start -->
->In this case [`norm`](@ref) is a function that takes 2D array as a parameter, and MUST be defined in the remote process.  
+>In this case [`norm`](@ref) is a function that takes 2D array as a parameter, and MUST be defined in the remote process.
 <!-- End -->
 この場合、[`norm`](@ref) は、2D 配列をパラメータとする関数であり、リモートプロセスで定義しなければなりません。
 <!-- Start -->
@@ -524,15 +524,15 @@ remotecall_fetch(()->norm(A), 2)
 リモートプロセスで定義され、適切なパラメータを受け入れる限り、 `norm` 以外の関数を使うことができます。
 
 <!-- Start -->
-> Note that `A` is a global variable defined in the local workspace. Worker 2 does not have a variable called `A` under `Main`. 
+> Note that `A` is a global variable defined in the local workspace. Worker 2 does not have a variable called `A` under `Main`.
 <!-- End -->
 `A` はローカルワークスペースで定義されたグローバル変数です。 Worker 2 には、 `Main` の下に `A` という変数がありません。
 <!-- Start -->
-> The act of shipping the closure `()->norm(A)` to worker 2 results in `Main.A` being defined on 2. 
+> The act of shipping the closure `()->norm(A)` to worker 2 results in `Main.A` being defined on 2.
 <!-- End -->
 クロージャー `()->norm(A)` をワーカー 2 に発送する行為は、 `Main.A` が 2 で定義される結果になります。
 <!-- Start -->
-> `Main.A` continues to exist on worker 2 even after the call `remotecall_fetch` returns. 
+> `Main.A` continues to exist on worker 2 even after the call `remotecall_fetch` returns.
 <!-- End -->
 `main.A` は、 `remotecall_fetch` 呼び出しが復帰した後でさえ、作業者 2 に存在し続けます。
 <!-- Start -->
@@ -551,11 +551,11 @@ remotecall_fetch(()->norm(A), 2)
    - グローバル定数はリモートノードでも定数として宣言されています。
 
    <!-- Start -->
-   - > Globals are re-sent to a destination worker only in the context of a remote call, and then only if its value has changed. 
+   - > Globals are re-sent to a destination worker only in the context of a remote call, and then only if its value has changed.
 <!-- End -->
    - グローバルコールは、リモート呼び出しのコンテキストでのみ宛先ワーカーに再送信され、その値が変更された場合にのみ送信されます。
    <!-- Start -->
-   > Also, the cluster does not synchronize global bindings across nodes. 
+   > Also, the cluster does not synchronize global bindings across nodes.
 <!-- End -->
    また、クラスタは、ノード間のグローバルバインドを同期しません。
    <!-- Start -->
@@ -581,7 +581,7 @@ remotecall_fetch(()->norm(A), 2)
 <!-- End -->
 ご存じのように、グローバルに関連付けられたメモリは、マスタで再割り当てされたときに収集されることがありますが、バインディングが引き続き有効であるため、ワーカーにはそのような動作は行われません。
 <!-- Start -->
-> [`clear!`](@ref) can be used to manually reassign specific globals on remote nodes to `nothing` once they are no longer required. 
+> [`clear!`](@ref) can be used to manually reassign specific globals on remote nodes to `nothing` once they are no longer required.
 <!-- End -->
 [`clear！`](@ref) は、リモートノード上の特定のグローバルをもう一度必要でなくなると、何もしないように手動で再割り当てするために使用できます。
 <!-- Start -->
@@ -590,7 +590,7 @@ remotecall_fetch(()->norm(A), 2)
 これにより、通常のガベージコレクションサイクルの一環として、関連付けられたメモリが解放されます。
 
 <!-- Start -->
-> Thus programs should be careful referencing globals in remote calls. In fact, it is preferable to avoid them altogether if possible. 
+> Thus programs should be careful referencing globals in remote calls. In fact, it is preferable to avoid them altogether if possible.
 <!-- End -->
 したがって、プログラムはリモート呼び出しでグローバルを参照するように注意する必要があります。 事実、可能ならばそれらを完全に避けることが望ましい。
 <!-- Start -->
@@ -633,15 +633,15 @@ julia>  From worker 2:                               A    800 bytes  10×10 Arra
 ## パラレルマップとループ
 
 <!-- Start -->
-> Fortunately, many useful parallel computations do not require data movement. 
+> Fortunately, many useful parallel computations do not require data movement.
 <!-- End -->
 幸いにも、多くの有用な並列計算では、データの移動は必要ありません。
 <!-- Start -->
-> A common example is a Monte Carlo simulation, where multiple processes can handle independent simulation trials simultaneously. 
+> A common example is a Monte Carlo simulation, where multiple processes can handle independent simulation trials simultaneously.
 <!-- End -->
 一般的な例は、複数のプロセスが独立したシミュレーション試行を同時に処理できるモンテカルロシミュレーションです。
 <!-- Start -->
-> We can use [`@spawn`](@ref) to flip coins on two processes. 
+> We can use [`@spawn`](@ref) to flip coins on two processes.
 <!-- End -->
 私たちは [`@spawn`](@ref) を使って2つのプロセスでコインを反転させることができます。
 <!-- Start -->
@@ -660,7 +660,7 @@ end
 ```
 
 <!-- Start -->
-> The function `count_heads` simply adds together `n` random bits. 
+> The function `count_heads` simply adds together `n` random bits.
 <!-- End -->
 `count_heads` 関数は単に `n` 個のランダムビットを加算します。
 <!-- Start -->
@@ -682,7 +682,7 @@ julia> fetch(a)+fetch(b)
 ```
 
 <!-- Start -->
-> This example demonstrates a powerful and often-used parallel programming pattern. 
+> This example demonstrates a powerful and often-used parallel programming pattern.
 <!-- End -->
 この例は、強力でよく使われる並列プログラミングパターンを示しています。
 <!-- Start -->
@@ -690,7 +690,7 @@ julia> fetch(a)+fetch(b)
 <!-- End -->
 多くの反復はいくつかのプロセスで独立して実行され、その結果はある機能を使用して結合されます。
 <!-- Start -->
-> The combination process is called a *reduction*, since it is generally tensor-rank-reducing: a vector of numbers is reduced to a single number, or a matrix is reduced to a single row or column, etc. 
+> The combination process is called a *reduction*, since it is generally tensor-rank-reducing: a vector of numbers is reduced to a single number, or a matrix is reduced to a single row or column, etc.
 <!-- End -->
 結合プロセスは、一般にテンソルランク削減であるため、* reduce *と呼ばれます。数字のベクトルが単一の数に減らされたり、行列が単一の行や列に縮小されたりします。
 <!-- Start -->
@@ -704,11 +704,11 @@ julia> fetch(a)+fetch(b)
 `f` は連想型であることが望ましいので、操作の実行順序は関係ありません。
 
 <!-- Start -->
-> Notice that our use of this pattern with `count_heads` can be generalized. 
+> Notice that our use of this pattern with `count_heads` can be generalized.
 <!-- End -->
 このパターンを `count_heads` で使用することは一般化できることに注意してください。
 <!-- Start -->
-> We used two explicit [`@spawn`](@ref) statements, which limits the parallelism to two processes. 
+> We used two explicit [`@spawn`](@ref) statements, which limits the parallelism to two processes.
 <!-- End -->
 2つの明示的な [`@spawn`](@ref) 文を使用して、並列性を2つのプロセスに限定しました。
 <!-- Start -->
@@ -723,11 +723,11 @@ end
 ```
 
 <!-- Start -->
-> This construct implements the pattern of assigning iterations to multiple processes, and combining them with a specified reduction (in this case `(+)`). 
+> This construct implements the pattern of assigning iterations to multiple processes, and combining them with a specified reduction (in this case `(+)`).
 <!-- End -->
 この構造体は、反復を複数のプロセスに割り当て、指定された縮小 (この場合は `(+)`) と組み合わせるというパターンを実装します。
 <!-- Start -->
->#The result of each iteration is taken as the value of the last expression inside the loop. 
+>#The result of each iteration is taken as the value of the last expression inside the loop.
 <!-- End -->
 各反復の結果は、ループ内の最後の式の値と見なされます。
 <!-- Start -->
@@ -736,11 +736,11 @@ end
 すべての並列ループ式自体が最終的な解答に評価されます。
 
 <!-- Start -->
-> Note that although parallel for loops look like serial for loops, their behavior is dramatically different. 
+> Note that although parallel for loops look like serial for loops, their behavior is dramatically different.
 <!-- End -->
 並列forループは直列forループのように見えますが、その動作は劇的に異なります。
 <!-- Start -->
-> In particular, the iterations do not happen in a specified order, and writes to variables or arrays will not be globally visible since iterations run on different processes. 
+> In particular, the iterations do not happen in a specified order, and writes to variables or arrays will not be globally visible since iterations run on different processes.
 <!-- End -->
 特に、反復は指定された順序で行われるわけではなく、反復は異なるプロセスで実行されるため、変数や配列への書き込みはグローバルには表示されません。
 <!-- Start -->
@@ -794,11 +794,11 @@ end
 ここで、各反復は、すべてのプロセスによって共有されるベクトル `a` からランダムに選択されたサンプルに `f` を適用します。
 
 <!-- Start -->
-> As you could see, the reduction operator can be omitted if it is not needed. 
+> As you could see, the reduction operator can be omitted if it is not needed.
 <!-- End -->
 ご覧のように、必要がない場合は省略することができます。
 <!-- Start -->
-> In that case, the loop executes asynchronously, i.e. it spawns independent tasks on all available workers and returns an array of [`Future`](@ref) immediately without waiting for completion. 
+> In that case, the loop executes asynchronously, i.e. it spawns independent tasks on all available workers and returns an array of [`Future`](@ref) immediately without waiting for completion.
 <!-- End -->
 この場合、ループは非同期的に実行されます。つまり、使用可能なすべてのワーカーで独立したタスクが生成され、完了を待たずに直ちに [`Future`](@ref) の配列が返されます。
 <!-- Start -->
@@ -807,11 +807,11 @@ end
 呼び出し側は、[`fetch()`](@ref) を呼び出すことによって、後で [`Future`](@ref) の補完を待つことも、ループの最後に補完を待つこともできます `@sync @parallel forのように、[`@sync`](@ref)
 
 <!-- Start -->
-> In some cases no reduction operator is needed, and we merely wish to apply a function to all integers in some range (or, more generally, to all elements in some collection). 
+> In some cases no reduction operator is needed, and we merely wish to apply a function to all integers in some range (or, more generally, to all elements in some collection).
 <!-- End -->
 場合によっては、減算演算子は必要なく、ある範囲内のすべての整数(またはより一般的には、あるコレクション内のすべての要素)に関数を適用したいだけです。
 <!-- Start -->
-> This is another useful operation called *parallel map*, implemented in Julia as the [`pmap()`](@ref) function. 
+> This is another useful operation called *parallel map*, implemented in Julia as the [`pmap()`](@ref) function.
 <!-- End -->
 これは、Juliaで [`pmap()`](@ref) 関数として実装された *parallel map* と呼ばれるもう1つの便利な操作です。
 <!-- Start -->
@@ -826,15 +826,15 @@ julia> pmap(svd, M);
 ```
 
 <!-- Start -->
-> Julia's [`pmap()`](@ref) is designed for the case where each function call does a large amount of work. 
+> Julia's [`pmap()`](@ref) is designed for the case where each function call does a large amount of work.
 <!-- End -->
 Juliaの [`pmap()`](@ref) は、各関数呼び出しが大量の作業を行う場合に設計されています。
 <!-- Start -->
->#In contrast, `@parallel for` can handle situations where each iteration is tiny, perhaps merely summing two numbers. 
+>#In contrast, `@parallel for` can handle situations where each iteration is tiny, perhaps merely summing two numbers.
 <!-- End -->
 対照的に、 `@parallel for` は各反復が小さい状況を扱うことができます。おそらく2つの数値を加算するだけです。
 <!-- Start -->
->#Only worker processes are used by both [`pmap()`](@ref) and `@parallel for` for the parallel computation. 
+>#Only worker processes are used by both [`pmap()`](@ref) and `@parallel for` for the parallel computation.
 <!-- End -->
 並列計算では、[`pmap()`](@ref) と `@parallel for` の両方でワーカープロセスだけが使用されます。
 <!-- Start -->
@@ -853,11 +853,11 @@ Juliaの [`pmap()`](@ref) は、各関数呼び出しが大量の作業を行う
 ## スケジューリング
 
 <!-- Start -->
-> Julia's parallel programming platform uses [Tasks (aka Coroutines)](@ref man-tasks) to switch among multiple computations. 
+> Julia's parallel programming platform uses [Tasks (aka Coroutines)](@ref man-tasks) to switch among multiple computations.
 <!-- End -->
 Juliaの並列プログラミングプラットフォームは、[Tasks(aka Coroutines)](@ref man-tasks) を使用して複数の計算を切り替えます。
 <!-- Start -->
-> Whenever code performs a communication operation like [`fetch()`](@ref) or [`wait()`](@ref), the current task is suspended and a scheduler picks another task to run. 
+> Whenever code performs a communication operation like [`fetch()`](@ref) or [`wait()`](@ref), the current task is suspended and a scheduler picks another task to run.
 <!-- End -->
 コードが [`fetch()`](@ref) や [`wait()`](@ref) のような通信操作を行うと、現在のタスクは中断され、スケジューラは実行する別のタスクを選択します。
 <!-- Start -->
@@ -865,15 +865,15 @@ Juliaの並列プログラミングプラットフォームは、[Tasks(aka Coro
 <!-- End -->
 
 <!-- Start -->
-> For many problems, it is not necessary to think about tasks directly. 
+> For many problems, it is not necessary to think about tasks directly.
 <!-- End -->
 多くの問題では、タスクについて直接考える必要はありません。
 <!-- Start -->
-> However, they can be used to wait for multiple events at the same time, which provides for *dynamic scheduling*. 
+> However, they can be used to wait for multiple events at the same time, which provides for *dynamic scheduling*.
 <!-- End -->
 ただし、同時に複数のイベントを待つために使用することができ、*動的スケジューリング* を提供します。
 <!-- Start -->
-> In dynamic scheduling, a program decides what to compute or where to compute it based on when other jobs finish. 
+> In dynamic scheduling, a program decides what to compute or where to compute it based on when other jobs finish.
 <!-- End -->
 動的スケジューリングでは、プログラムは、他のジョブがいつ終了するかに基づいて、計算対象や計算場所を決定します。
 <!-- Start -->
@@ -893,11 +893,11 @@ julia> pmap(svd, M);
 ```
 
 <!-- Start -->
-> If one process handles both 800×800 matrices and another handles both 600×600 matrices, we will not get as much scalability as we could. 
+> If one process handles both 800×800 matrices and another handles both 600×600 matrices, we will not get as much scalability as we could.
 <!-- End -->
 1つのプロセスが800×800の行列を処理し、別のプロセスが両方とも600×600の行列を処理する場合、我々は可能な限りスケーラビリティを得ることはできません。
 <!-- Start -->
-> The solution is to make a local task to "feed" work to each process when it completes its current task. 
+> The solution is to make a local task to "feed" work to each process when it completes its current task.
 <!-- End -->
 解決方法は、現在のタスクが完了したときに各プロセスに作業を「フィード」するローカルタスクを作成することです。
 <!-- Start -->
@@ -943,11 +943,11 @@ end
 <!-- End -->
 私たちは、それを使って各プロセスの「フィーダー」タスクを作成します。
 <!-- Start -->
-> Each task picks the next index that needs to be computed, then waits for its process to finish, then repeats until we run out of indexes. 
+> Each task picks the next index that needs to be computed, then waits for its process to finish, then repeats until we run out of indexes.
 <!-- End -->
 各タスクは、計算が必要な次のインデックスを選択し、そのプロセスが完了するのを待ってから、インデックスがなくなるまで繰り返します。
 <!-- Start -->
-> Note that the feeder tasks do not begin to execute until the main task reaches the end of the [`@sync`](@ref) block, at which point it surrenders control and waits for all the local tasks to complete before returning from the function. 
+> Note that the feeder tasks do not begin to execute until the main task reaches the end of the [`@sync`](@ref) block, at which point it surrenders control and waits for all the local tasks to complete before returning from the function.
 <!-- End -->
 フィーダタスクは、メインタスクが [`@sync`](@ref) ブロックの終わりに達するまで実行されないことに注意してください。この時点で、制御は取り消され、すべてのローカルタスクが完了するのを待ちます。関数。
 <!-- Start -->
@@ -969,7 +969,7 @@ end
 ## チャンネル
 
 <!-- Start -->
-> The section on [`Task`](@ref)s in [Control Flow](@ref) discussed the execution of multiple functions in a co-operative manner. 
+> The section on [`Task`](@ref)s in [Control Flow](@ref) discussed the execution of multiple functions in a co-operative manner.
 <!-- End -->
 [Control Flow](@ref) の [`Task`](@ref) のセクションは、複数の関数の実行を協調的に議論しました。
 <!-- Start -->
@@ -978,7 +978,7 @@ end
 [`Channel`](@ref) は、特に I/O 操作を含む実行中のタスク間でデータを渡すのに非常に便利です。
 
 <!-- Start -->
-> Examples of operations involving I/O include reading/writing to files, accessing web services, executing external programs, etc. 
+> Examples of operations involving I/O include reading/writing to files, accessing web services, executing external programs, etc.
 <!-- End -->
 I/O を含む操作の例には、ファイルの読み書き、Web サービスへのアクセス、外部プログラムの実行などがあります。
 <!-- Start -->
@@ -1023,23 +1023,23 @@ I/O を含む操作の例には、ファイルの読み書き、Web サービス
     end
     ```
    <!-- Start -->
-   * > Channels are created via the `Channel{T}(sz)` constructor. 
+   * > Channels are created via the `Channel{T}(sz)` constructor.
    <!-- End -->
    * チャネルは `Channel{T}(sz)` コンストラクタを介して生成されます。
    <!-- Start -->
-   * > The channel will only hold objects of type `T`. 
+   * > The channel will only hold objects of type `T`.
    <!-- End -->
    * チャネルは `T`型のオブジェクトだけを保持します。
    <!-- Start -->
-   * > If the type is not specified, the channel can hold objects of any type. 
+   * > If the type is not specified, the channel can hold objects of any type.
    <!-- End -->
    * 型が指定されていない場合、チャネルは任意の型のオブジェクトを保持できます。
    <!-- Start -->
-   * > `sz` refers to the maximum number of elements that can be held in the channel at any time. 
+   * > `sz` refers to the maximum number of elements that can be held in the channel at any time.
    <!-- End -->
    * `sz` はいつでもチャネルに保持できる要素の最大数を指します。
    <!-- Start -->
-   * > For example, `Channel(32)` creates a channel that can hold a maximum of 32 objects of any type. 
+   * > For example, `Channel(32)` creates a channel that can hold a maximum of 32 objects of any type.
    <!-- End -->
    * たとえば、 `Channel(32)` は任意のタイプのオブジェクトを最大32個保持できるチャネルを作成します。
    <!-- Start -->
@@ -1048,7 +1048,7 @@ I/O を含む操作の例には、ファイルの読み書き、Web サービス
    <!-- Start -->
    * `Channel{MyType}(64)` は `MyType` のオブジェクトをいつでも最大64個まで保持できます。
    <!-- Start -->
-   * > If a [`Channel`](@ref) is empty, readers (on a [`take!()`](@ref) call) will block until data is available. 
+   * > If a [`Channel`](@ref) is empty, readers (on a [`take!()`](@ref) call) will block until data is available.
    <!-- End -->
    * [`Channel`](@ref) が空の場合、([`take！()`](@ref) 呼び出しで) データが利用可能になるまでブロックされます。
    <!-- Start -->
@@ -1060,11 +1060,11 @@ I/O を含む操作の例には、ファイルの読み書き、Web サービス
    <!-- End -->
    * [`isready()`](@ref) はチャネル内のオブジェクトの存在をテストし、 [`wait()`](@ref) はオブジェクトが利用可能になるのを待ちます。
    <!-- Start -->
-   * > A [`Channel`](@ref) is in an open state initially. 
+   * > A [`Channel`](@ref) is in an open state initially.
    <!-- End -->
    * [`Channel`](@ref)は最初はオープン状態です。
    <!-- Start -->
-   * > This means that it can be read from and written to freely via [`take!()`](@ref) and [`put!()`](@ref) calls. [`close()`](@ref) closes a [`Channel`](@ref).
+   * > This means that it can be read from and written to freely via [`take!()`](@ref) and [`put!()`](@ref) calls.[`close()`](@ref) closes a [`Channel`](@ref).
    <!-- End -->
    * つまり、[`take！()`](@ref) と [`put!()`](@ref) 呼び出しを使って自由に読み書きできます。 [`close()`](@ref) は[`Channel`](@ref) を閉じます。
    <!-- Start -->
@@ -1086,7 +1086,7 @@ ERROR: InvalidStateException("Channel is closed.",:closed)
 ```
 
    <!-- Start -->
-   * > [`take!()`](@ref) and [`fetch()`](@ref) (which retrieves but does not remove the value) on a closed channel successfully return any existing values until it is emptied. 
+   * > [`take!()`](@ref) and [`fetch()`](@ref) (which retrieves but does not remove the value) on a closed channel successfully return any existing values until it is emptied.
    <!-- End -->
    * 閉じたチャンネルの[`take！()`](@ref)と[`fetch()`](@ref)は空になるまで正常に値を返します。
    <!-- Start -->
@@ -1110,7 +1110,7 @@ ERROR: InvalidStateException("Channel is closed.",:closed)
 ```
 
 <!-- Start -->
-> A `Channel` can be used as an iterable object in a `for` loop, in which case the loop runs as long as the `Channel` has data or is open. 
+> A `Channel` can be used as an iterable object in a `for` loop, in which case the loop runs as long as the `Channel` has data or is open.
 <!-- End -->
 `Channel` は `for` ループ内の反復可能オブジェクトとして使用することができます。この場合、 `Channel` がデータを持つか開いている限りループが実行されます。
 <!-- Start -->
@@ -1151,7 +1151,7 @@ julia> data = [i for i in c]
 ```
 
 <!-- Start -->
-> Consider a simple example using channels for inter-task communication. 
+> Consider a simple example using channels for inter-task communication.
 <!-- End -->
 タスク間通信にチャネルを使用する簡単な例を考えてみましょう。
 <!-- Start -->
@@ -1159,7 +1159,7 @@ julia> data = [i for i in c]
 <!-- End -->
 1つの `jobs` チャンネルからデータを処理するための4つのタスクを開始します。 id(`job_id`) で識別されるジョブがチャネルに書き込まれます。
 <!-- Start -->
-> Each task in this simulation reads a `job_id`, waits for a random amout of time and writes back a tuple of `job_id` and the simulated time to the results channel. 
+> Each task in this simulation reads a `job_id`, waits for a random amout of time and writes back a tuple of `job_id` and the simulated time to the results channel.
 <!-- End -->
 このシミュレーションの各タスクは `job_id` を読み取り、ランダムな時間を待って `job_id` のタプルとシミュレートされた時間を結果チャンネルに書き戻します。
 <!-- Start -->
@@ -1216,11 +1216,11 @@ julia> @elapsed while n > 0 # print out results
 ```
 
 <!-- Start -->
-> The current version of Julia multiplexes all tasks onto a single OS thread. 
+> The current version of Julia multiplexes all tasks onto a single OS thread.
 <!-- End -->
 現在のバージョンのJuliaは、すべてのタスクを単一のOSスレッドに多重化します。
 <!-- Start -->
-> Thus, while tasks involving I/O operations benefit from parallel execution, compute bound tasks are effectively executed sequentially on a single OS thread. 
+> Thus, while tasks involving I/O operations benefit from parallel execution, compute bound tasks are effectively executed sequentially on a single OS thread.
 <!-- End -->
 したがって、I/O 操作を含むタスクはパラレル実行の恩恵を受けますが、バインドされたタスクは単一のOSスレッドで効率的に順次実行されます。
 <!-- Start -->
@@ -1253,7 +1253,7 @@ Juliaの将来のバージョンでは、複数のスレッドのタスクのス
 書き換え可能な [`RemoteChannel`](@ref) は、任意のタイプとサイズのチャンネル、または `AbstractChannel` の他の実装を指すことができます。
 
 <!-- Start -->
-> The constructor `RemoteChannel(f::Function, pid)()` allows us to construct references to channels holding more than one value of a specific type. 
+> The constructor `RemoteChannel(f::Function, pid)()` allows us to construct references to channels holding more than one value of a specific type.
 <!-- End -->
 コンストラクタ `RemoteChannel(f::Function,pid)()` は、特定の型の複数の値を保持するチャネルへの参照を構築することを可能にします。
 <!-- Start -->
@@ -1262,7 +1262,7 @@ Juliaの将来のバージョンでは、複数のスレッドのタスクのス
 `f()` は `pid` で実行される関数で、 `AbstractChannel` を返さなければなりません。
 
 <!-- Start -->
-> For example, `RemoteChannel(()->Channel{Int}(10), pid)`, will return a reference to a channel of type `Int` and size 10. 
+> For example, `RemoteChannel(()->Channel{Int}(10), pid)`, will return a reference to a channel of type `Int` and size 10.
 <!-- End -->
 たとえば、 `RemoteChannel(()->Channel{Int}(10), pid)` は、 `Int` 型とサイズ10のチャネルへの参照を返します。
 <!-- Start -->
@@ -1289,47 +1289,51 @@ Juliaの将来のバージョンでは、複数のスレッドのタスクのス
 <!-- End -->
 ## チャネルとリモートチャネル
 
-<!-- Start -->
-   * 
-   # A [`Channel`](@ref) is local to a process. 
-    [`Channel`](@ref)はプロセスにとってローカルです。
-<!-- Start -->
-   # Worker 2 cannot directly refer to a `Channel` on worker 3 and vice-versa. 
-    作業者2は、作業者3の「チャネル」を直接参照することはできず、その逆も可能である。
-<!-- Start -->
-   # A [`RemoteChannel`](@ref), however, can put and take values across workers.
-    しかし、[`` RemoteChannel`](@ref)は、ワーカー間で値を設定したり取り込んだりすることができます。
+   <!-- Start -->
+   * > A [`Channel`](@ref) is local to a process.
+   <!-- End -->
+   * [`Channel`](@ref) はプロセスにとってローカルです。
+   <!-- Start -->
+   * > Worker 2 cannot directly refer to a `Channel` on worker 3 and vice-versa.
+   <!-- End -->
+   * 作業者2は、作業者3の「チャネル」を直接参照することはできず、その逆も可能である。
+   <!-- Start -->
+   * > A [`RemoteChannel`](@ref), however, can put and take values across workers.
+   <!-- End -->
+   *しかし、[`` RemoteChannel`](@ref)は、ワーカー間で値を設定したり取り込んだりすることができます。
 
-<!-- Start -->
-   * 
-   # A [`RemoteChannel`](@ref) can be thought of as a *handle* to a `Channel`.
-   [`RemoteChannel`](@ref)は` Channel`への*ハンドル*と考えることができます。
-<!-- Start -->
-   * 
-   # The process id, `pid`, associated with a [`RemoteChannel`](@ref) identifies the process where the backing store, i.e., the backing `Channel` exists.
-   [`RemoteChannel`](@ref)に関連付けられたプロセスid、` pid`は、バッキングストア、つまりバッキング `Channel`が存在するプロセスを識別します。
-<!-- Start -->
-   * 
-   # Any process with a reference to a [`RemoteChannel`](@ref) can put and take items from the channel.
-   [`RemoteChannel`](@ref)への参照を持つプロセスはすべてチャンネルから項目を出し入れできます。
-<!-- Start -->
-   # Data is automatically sent to (or retrieved from) the process a [`RemoteChannel`](@ref) is associated with.
-    データは、[`RemoteChannel`](@ref)が関連付けられているプロセスに自動的に送信(または取得)されます。
-<!-- Start -->
-   * 
-   # Serializing  a `Channel` also serializes any data present in the channel. 
-    `Channel`をシリアライズすると、そのチャンネルに存在するデータもシリアライズされます。
-<!-- Start -->
-   # Deserializing it therefore effectively makes a copy of the original object.
-    したがって、それを逆シリアル化すると、効果的に元のオブジェクトのコピーが作成されます。
-<!-- Start -->
-   * 
-   # On the other hand, serializing a [`RemoteChannel`](@ref) only involves the serialization of an identifier that identifies the location and instance of `Channel` referred to by the handle. 
-   一方、[`RemoteChannel`](@ref)のシリアライズは、ハンドルによって参照される` Channel`の位置とインスタンスを識別する識別子のシリアライズのみを含みます。
-<!-- Start -->
-   # A deserialized [`RemoteChannel`](@ref) object (on any worker), therefore also points to the same backing store as the original.
-<!-- End -->
-   逆シリアル化された[`RemoteChannel`](@ref)オブジェクトは(ワーカー上で)、元のバッキングストアと同じバッキングストアを指しています。
+   <!-- Start -->
+   * > A [`RemoteChannel`](@ref) can be thought of as a *handle* to a `Channel`.
+   <!-- End -->
+   * [`RemoteChannel`](@ref) は `Channel` への *ハンドル* と考えることができます。
+   <!-- Start -->
+   * > The process id, `pid`, associated with a [`RemoteChannel`](@ref) identifies the process where the backing store, i.e., the backing `Channel` exists.
+   <!-- End -->
+   * [`RemoteChannel`](@ref) に関連付けられたプロセスid、 `pid` は、バッキングストア、つまりバッキング `Channel` が存在するプロセスを識別します。
+   <!-- Start -->
+   * > Any process with a reference to a [`RemoteChannel`](@ref) can put and take items from the channel.
+   <!-- End -->
+   [`RemoteChannel`](@ref) への参照を持つプロセスはすべてチャンネルから項目を出し入れできます。
+   <!-- Start -->
+   * > Data is automatically sent to (or retrieved from) the process a [`RemoteChannel`](@ref) is associated with.
+   <!-- End -->
+   * データは、[`RemoteChannel`](@ref)が関連付けられているプロセスに自動的に送信(または取得)されます。
+   <!-- Start -->
+   * > Serializing  a `Channel` also serializes any data present in the channel.
+   <!-- End -->
+   * `Channel` をシリアライズすると、そのチャンネルに存在するデータもシリアライズされます。
+   <!-- Start -->
+   * > Deserializing it therefore effectively makes a copy of the original object.
+   <!-- End -->
+   * したがって、それを逆シリアル化すると、効果的に元のオブジェクトのコピーが作成されます。
+   <!-- Start -->
+   * > On the other hand, serializing a [`RemoteChannel`](@ref) only involves the serialization of an identifier that identifies the location and instance of `Channel` referred to by the handle.
+   <!-- End -->
+   * 一方、[`RemoteChannel`](@ref) のシリアライズは、ハンドルによって参照される `Channel` の位置とインスタンスを識別する識別子のシリアライズのみを含みます。
+   <!-- Start -->
+   * A deserialized [`RemoteChannel`](@ref) object (on any worker), therefore also points to the same backing store as the original.
+   <!-- End -->
+   * 逆シリアル化された [`RemoteChannel`](@ref) オブジェクトは(ワーカー上で)、元のバッキングストアと同じバッキングストアを指しています。
 
 <!-- Start -->
 > The channels example from above can be modified for interprocess communication, as shown below.
@@ -1337,15 +1341,15 @@ Juliaの将来のバージョンでは、複数のスレッドのタスクのス
 上記のチャネルの例は、以下に示すように、プロセス間通信用に変更できます。
 
 <!-- Start -->
-> We start 4 workers to process a single `jobs` remote channel. 
+> We start 4 workers to process a single `jobs` remote channel.
 <!-- End -->
 1つの `jobs`リモートチャネルを処理するために4人の作業者を開始します。
 <!-- Start -->
-> Jobs, identified by an id (`job_id`), are written to the channel. 
+> Jobs, identified by an id (`job_id`), are written to the channel.
 <!-- End -->
 id (`job_id`) で識別されるジョブがチャネルに書き込まれます。
 <!-- Start -->
-> Each remotely executing task in this simulation reads a `job_id`, waits for a random amount of time and writes back a tuple of `job_id`, time taken and its own `pid` to the results channel. 
+> Each remotely executing task in this simulation reads a `job_id`, waits for a random amount of time and writes back a tuple of `job_id`, time taken and its own `pid` to the results channel.
 <!-- End -->
 このシミュレーションでは、リモートで実行されている各タスクは `job_id` を読み取り、ランダムな時間だけ待機し、 `job_id` のタプル、取得した時間と自身の `pid` を結果チャンネルに書き戻します。
 <!-- Start -->
@@ -1418,7 +1422,7 @@ julia> @elapsed while n > 0 # print out results
 <!-- End -->
 値が格納されているノードは、どの従業員に参照があるかを追跡します。
 <!-- Start -->
-> Every time a [`RemoteChannel`](@ref) or a (unfetched) [`Future`](@ref) is serialized to a worker, the node pointed to by the reference is notified. 
+> Every time a [`RemoteChannel`](@ref) or a (unfetched) [`Future`](@ref) is serialized to a worker, the node pointed to by the reference is notified.
 <!-- End -->
 [`RemoteChannel`](@ref) または(未取得) [`Future`](@ref) がワーカーにシリアライズされるたびに、参照によって指し示されるノードが通知されます。
 <!-- Start -->
@@ -1452,15 +1456,15 @@ julia> @elapsed while n > 0 # print out results
 オブジェクトがローカルでガベージコレクト *されたとき* は、オブジェクトのサイズとシステム内の現在のメモリ圧に依存することに注意することが重要です。
 
 <!-- Start -->
-> In case of remote references, the size of the local reference object is quite small, while the value stored on the remote node may be quite large. 
+> In case of remote references, the size of the local reference object is quite small, while the value stored on the remote node may be quite large.
 <!-- End -->
 リモート参照の場合、ローカル参照オブジェクトのサイズは非常に小さいのに対して、リモートノードに格納された値はかなり大きい場合があります。
 <!-- Start -->
-> Since the local object may not be collected immediately, it is a good practice to explicitly call [`finalize()`](@ref) on local instances of a [`RemoteChannel`](@ref), or on unfetched [`Future`](@ref)s. 
+> Since the local object may not be collected immediately, it is a good practice to explicitly call [`finalize()`](@ref) on local instances of a [`RemoteChannel`](@ref), or on unfetched [`Future`](@ref)s.
 <!-- End -->
 ローカルオブジェクトはすぐには収集されない可能性があるので、 [`RemoteChannel`](@ref) のローカルインスタンス、または未完成の[`Future`](@ref)s。
 <!-- Start -->
-> Since calling [`fetch()`](@ref) on a [`Future`](@ref) also removes its reference from the remote store, this is not required on fetched [`Future`](@ref)s. 
+> Since calling [`fetch()`](@ref) on a [`Future`](@ref) also removes its reference from the remote store, this is not required on fetched [`Future`](@ref)s.
 <!-- End -->
 [`Future`](@ref) で[`fetch()`](@ref) を呼び出すと、リモートストアから参照が削除されるので、フェッチされた[`Future`](@ref) では不要です。
 <!-- Start -->
@@ -1476,18 +1480,18 @@ julia> @elapsed while n > 0 # print out results
 <!-- Start -->
 > ## [Shared Arrays](@id man-shared-arrays)
 <!-- End -->
-## [共有配列](@ idのman-shared-arrays)
+## [共有配列](@id man-shared-arrays)
 
 <!-- Start -->
-> Shared Arrays use system shared memory to map the same array across many processes. 
+> Shared Arrays use system shared memory to map the same array across many processes.
 <!-- End -->
 共有アレイは、システム共有メモリを使用して、同じアレイを多くのプロセスにマップします。
 <!-- Start -->
-> While there are some similarities to a [`DArray`](https://github.com/JuliaParallel/DistributedArrays.jl), the behavior of a [`SharedArray`](@ref) is quite different. 
+> While there are some similarities to a [`DArray`](https://github.com/JuliaParallel/DistributedArrays.jl), the behavior of a [`SharedArray`](@ref) is quite different.
 <!-- End -->
 [`DArray`](https://github.com/JuliaParallel/DistributedArrays.jl) にはいくつかの類似点がありますが、[`SharedArray`](@ref) の動作は全く異なります。
 <!-- Start -->
-> In a [`DArray`](https://github.com/JuliaParallel/DistributedArrays.jl), each process has local access to just a chunk of the data, and no two processes share the same chunk; in contrast, in a [`SharedArray`](@ref) each "participating" process has access to the entire array.  
+> In a [`DArray`](https://github.com/JuliaParallel/DistributedArrays.jl), each process has local access to just a chunk of the data, and no two processes share the same chunk; in contrast, in a [`SharedArray`](@ref) each "participating" process has access to the entire array.
 <!-- End -->
 [`DArray`](https://github.com/JuliaParallel/DistributedArrays.jl) では、各プロセスはデータのちょうどへのローカルアクセスを持ち、2つのプロセスが同じチャンクを共有することはありません。対照的に、 [`SharedArray`](@ref) では、各"参加 "プロセスは配列全体にアクセスできます。
 <!-- Start -->
@@ -1496,15 +1500,15 @@ julia> @elapsed while n > 0 # print out results
 [`SharedArray`](@ref) は、同じマシン上の2つ以上のプロセスに大量のデータを共同でアクセスさせたい場合に適しています。
 
 <!-- Start -->
-> [`SharedArray`](@ref) indexing (assignment and accessing values) works just as with regular arrays, and is efficient because the underlying memory is available to the local process. 
+> [`SharedArray`](@ref) indexing (assignment and accessing values) works just as with regular arrays, and is efficient because the underlying memory is available to the local process.
 <!-- End -->
 [`SharedArray`](@ref) インデックス付け(代入とアクセスの値)は、通常の配列と同様に動作し、ローカルのプロセスで使用できるメモリがあるため効率的です。
 <!-- Start -->
-> Therefore, most algorithms work naturally on [`SharedArray`](@ref)s, albeit in single-process mode. 
+> Therefore, most algorithms work naturally on [`SharedArray`](@ref)s, albeit in single-process mode.
 <!-- End -->
 したがって、ほとんどのアルゴリズムはシングルプロセスモードではあるが、[SharedArray`](@ref)で自然に動作します。
 <!-- Start -->
-> In cases where an algorithm insists on an [`Array`](@ref) input, the underlying array can be retrieved from a [`SharedArray`](@ref) by calling [`sdata()`](@ref). 
+> In cases where an algorithm insists on an [`Array`](@ref) input, the underlying array can be retrieved from a [`SharedArray`](@ref) by calling [`sdata()`](@ref).
 <!-- End -->
 アルゴリズムが [`Array`](@ref) 入力を主張する場合、 [`sdata()`] (@ref) を呼び出すことによって、基礎配列を [` SharedArray`](@ref) から取り出すことができます。
 <!-- Start -->
@@ -1522,7 +1526,7 @@ SharedArray{T,N}(dims::NTuple; init=false, pids=Int[])
 ```
 
 <!-- Start -->
-> which creates an `N`-dimensional shared array of a bits type `T` and size `dims` across the processes specified by `pids`. 
+> which creates an `N`-dimensional shared array of a bits type `T` and size `dims` across the processes specified by `pids`.
 <!-- End -->
 これは、 `pids` で指定されたプロセスの間でビットタイプ `T` とサイズ `dims` の `N-` 次元共有配列を作成します。
 <!-- Start -->
@@ -1531,7 +1535,7 @@ SharedArray{T,N}(dims::NTuple; init=false, pids=Int[])
 分散配列とは異なり、共有配列は、 `pids` という名前の引数で指定された参加ワーカー(および同じホスト上にある場合は作成プロセス)からのみアクセスできます。
 
 <!-- Start -->
-> If an `init` function, of signature `initfn(S::SharedArray)`, is specified, it is called on all the participating workers. 
+> If an `init` function, of signature `initfn(S::SharedArray)`, is specified, it is called on all the participating workers.
 <!-- End -->
 シグネチャ `initfn(S::SharedArray)` の `init` 関数が指定されている場合、それはすべての参加するワーカーに対して呼び出されます。
 <!-- Start -->
@@ -1568,7 +1572,7 @@ julia> S
 ```
 
 <!-- Start -->
-> [`Base.localindexes()`](@ref) provides disjoint one-dimensional ranges of indexes, and is sometimes convenient for splitting up tasks among processes. 
+> [`Base.localindexes()`](@ref) provides disjoint one-dimensional ranges of indexes, and is sometimes convenient for splitting up tasks among processes.
 <!-- End -->
 [`Base.localindexes()`](@ref) は、一意の1次元インデックス範囲を提供し、時にはプロセス間でタスクを分割するのに便利です。
 <!-- Start -->
@@ -1585,7 +1589,7 @@ julia> S = SharedArray{Int,2}((3,4), init = S -> S[indexpids(S):length(procs(S))
 ```
 
 <!-- Start -->
-> Since all processes have access to the underlying data, you do have to be careful not to set up conflicts. 
+> Since all processes have access to the underlying data, you do have to be careful not to set up conflicts.
 <!-- End -->
 すべてのプロセスが基礎となるデータにアクセスできるため、競合を設定しないように注意する必要があります。
 <!-- Start -->
@@ -1618,15 +1622,15 @@ q[i,j,t+1] = q[i,j,t] + u[i,j,t]
 ```
 
 <!-- Start -->
-> In this case, if we try to split up the work using a one-dimensional index, we are likely to run into trouble: if `q[i,j,t]` is near the end of the block assigned to one worker and `q[i,j,t+1]` is near the beginning of the block assigned to another, it's very likely that `q[i,j,t]` will not be ready at the time it's needed for computing `q[i,j,t+1]`. 
+> In this case, if we try to split up the work using a one-dimensional index, we are likely to run into trouble: if `q[i,j,t]` is near the end of the block assigned to one worker and `q[i,j,t+1]` is near the beginning of the block assigned to another, it's very likely that `q[i,j,t]` will not be ready at the time it's needed for computing `q[i,j,t+1]`.
 <!-- End -->
 この場合、1次元のインデックスを使用して作業を分割しようとすると、問題が発生する可能性が高くなります。q[i,j,t] が1人の作業者に割り当てられたブロックの終わりに近く、 `q[i,j,t+1]` が別のブロックに割り当てられたブロックの先頭に近い場合、 `q[i,j,t]` が qを計算するために必要な時には、` [i,j,t + 1]` となる。
 <!-- Start -->
-> In such cases, one is better off chunking the array manually. 
+> In such cases, one is better off chunking the array manually.
 <!-- End -->
 そのような場合は、アレイを手動でチャンクするほうがよいでしょう。
 <!-- Start -->
-> Let's split along the second dimension. 
+> Let's split along the second dimension.
 <!-- End -->
 2番目の次元に沿って分割しましょう。
 <!-- Start -->
@@ -1757,7 +1761,7 @@ julia> @time advection_shared!(q,u);
 ### 共有配列と分散ガベージコレクション
 
 <!-- Start -->
-> Like remote references, shared arrays are also dependent on garbage collection on the creating node to release references from all participating workers. 
+> Like remote references, shared arrays are also dependent on garbage collection on the creating node to release references from all participating workers.
 <!-- End -->
 リモート参照と同様に、共有配列も、作成ノード上のガベージコレクションに依存して、参加しているすべてのワーカーからの参照を解放します。
 <!-- Start -->
@@ -1775,69 +1779,79 @@ julia> @time advection_shared!(q,u);
 ## ClusterManagers
 
 <!-- Start -->
-> The launching, management and networking of Julia processes into a logical cluster is done via cluster managers. 
+> The launching, management and networking of Julia processes into a logical cluster is done via cluster managers.
 <!-- End -->
 ジュリアプロセスの論理クラスタへの立ち上げ、管理、およびネットワーキングは、クラスタマネージャを介して行われます。
 <!-- Start -->
 > A `ClusterManager` is responsible for
 <!-- End -->
 `ClusterManager`は、
-   * 
    <!-- Start -->
-   # launching worker processes in a cluster environment
-   クラスタ環境でのワーカープロセスの起動
+   * > launching worker processes in a cluster environment
+   <!-- End -->
+   * クラスタ環境でのワーカープロセスの起動
    <!-- Start -->
-   * 
-   # managing events during the lifetime of each worker
-   各ワーカの生涯のイベント管理
+   * > managing events during the lifetime of each worker
+   <!-- End -->
+   * 各ワーカの生涯のイベント管理
    <!-- Start -->
-   * 
-   # optionally, providing data transport
-   オプションで、データ転送を提供する
+   * > optionally, providing data transport
+   <!-- End -->
+   * オプションで、データ転送を提供する
 
 <!-- Start -->
 > A Julia cluster has the following characteristics:
 <!-- End -->
 Juliaクラスタの特徴は次のとおりです。
 
-   * 
-   # The initial Julia process, also called the `master`, is special and has an `id` of 1.
-    `master`とも呼ばれる最初のJuliaプロセスは特別で、` id`が1です。
-   * 
-   # Only the `master` process can add or remove worker processes.
-    `master`プロセスだけがワーカープロセスを追加または削除できます。
-   * 
-   # All processes can directly communicate with each other.
-    すべてのプロセスが互いに直接通信できます。
+   <!-- Start -->
+   * > The initial Julia process, also called the `master`, is special and has an `id` of 1.
+   <!-- End -->
+   * `master`とも呼ばれる最初のJuliaプロセスは特別で、` id`が1です。
+   <!-- Start -->
+   * > Only the `master` process can add or remove worker processes.
+   <!-- End -->
+   * `master`プロセスだけがワーカープロセスを追加または削除できます。
+   <!-- Start -->
+   * > All processes can directly communicate with each other.
+   <!-- End -->
+   * すべてのプロセスが互いに直接通信できます。
 
 <!-- Start -->
 > Connections between workers (using the in-built TCP/IP transport) is established in the following manner:
 <!-- End -->
 作業者間の接続(組み込みの TCP/IP 転送を使用)は、次の方法で確立されます。
 
-   * 
-   # [`addprocs()`](@ref) is called on the master process with a `ClusterManager` object.
-   [`addprocs()`](@ref)は `ClusterManager`オブジェクトでマスタプロセス上で呼び出されます。
-   * 
-   # [`addprocs()`](@ref) calls the appropriate [`launch()`](@ref) method which spawns required number of worker processes on appropriate machines.
-   [`addprocs()`](@ref)は適切なマシン上で必要な数のワーカープロセスを生成する適切な[`launch()`](@ref)メソッドを呼び出します。
-   * 
-   # Each worker starts listening on a free port and writes out its host and port information to [`STDOUT`](@ref).
-   各ワーカーは空いているポートでリッスンを開始し、そのホストとポート情報を[`STDOUT`](@ref)に書き出します。
-   * 
-   # The cluster manager captures the [`STDOUT`](@ref) of each worker and makes it available to the master process.
-   クラスタマネージャは、各作業者の[`STDOUT`](@ref)を取得し、それをマスタプロセスが利用できるようにします。
-   * 
-   # The master process parses this information and sets up TCP/IP connections to each worker.
-   マスタープロセスはこの情報を解析し、各ワーカーにTCP/IP接続を設定します。
-   * 
-   # Every worker is also notified of other workers in the cluster.
+   <!-- Start -->
+   * > [`addprocs()`](@ref) is called on the master process with a `ClusterManager` object.
+   <!-- End -->
+   * [`addprocs()`](@ref)は `ClusterManager`オブジェクトでマスタプロセス上で呼び出されます。
+   <!-- Start -->
+   * > [`addprocs()`](@ref) calls the appropriate [`launch()`](@ref) method which spawns required number of worker processes on appropriate machines.
+   <!-- End -->
+   * [`addprocs()`](@ref) は適切なマシン上で必要な数のワーカープロセスを生成する適切な [`launch()`](@ref) メソッドを呼び出します。
+   <!-- Start -->
+   * > Each worker starts listening on a free port and writes out its host and port information to [`STDOUT`](@ref).
+   <!-- End -->
+   * 各ワーカーは空いているポートでリッスンを開始し、そのホストとポート情報を [`STDOUT`](@ref) に書き出します。
+   <!-- Start -->
+   * > The cluster manager captures the [`STDOUT`](@ref) of each worker and makes it available to the master process.
+   <!-- End -->
+   * クラスタマネージャは、各作業者の[`STDOUT`](@ref)を取得し、それをマスタプロセスが利用できるようにします。
+   <!-- Start -->
+   * > The master process parses this information and sets up TCP/IP connections to each worker.
+   <!-- End -->
+   * マスタープロセスはこの情報を解析し、各ワーカーにTCP/IP接続を設定します。
+   <!-- Start -->
+   * > Every worker is also notified of other workers in the cluster.
+   <!-- End -->
    すべてのワーカーにはクラスタ内の他のワーカーも通知されます。
-   * 
-   # Each worker connects to all workers whose `id` is less than the worker's own `id`.
-   各作業者は、「id」が自分の「id」よりも小さいすべての作業者に接続します。
-   * 
-   # In this way a mesh network is established, wherein every worker is directly connected with every other worker.
+   * > Each worker connects to all workers whose `id` is less than the worker's own `id`.
+   <!-- End -->
+   * 各作業者は、「id」が自分の「id」よりも小さいすべての作業者に接続します。
+   <!-- Start -->
+   * > In this way a mesh network is established, wherein every worker is directly connected with every other worker.
+   <!-- End -->
    このようにして、すべての作業者が他のすべての作業者と直接接続されたメッシュネットワークが確立される。
 
 <!-- Start -->
@@ -1849,12 +1863,14 @@ Juliaクラスタの特徴は次のとおりです。
 > Julia provides two in-built cluster managers:
 <!-- End -->
 Juliaには、2つの組み込みクラスタマネージャがあります。
-   * 
-   # `LocalManager`, used when [`addprocs()`](@ref) or [`addprocs(np::Integer)`](@ref) are called
-   [`addprocs()`](@ref)または[`addprocs(np :: Integer)`](@ ref)が呼び出されたときに使われる `LocalManager`
-   * 
-   # `SSHManager`, used when [`addprocs(hostnames::Array)`](@ref) is called with a list of hostnames
-    `` addprocs(hostnames :: Array) `](@ref)がホスト名のリストと共に呼び出されたときに使われる` SSHManager`
+   <!-- Start -->
+   * > `LocalManager`, used when [`addprocs()`](@ref) or [`addprocs(np::Integer)`](@ref) are called
+   <!-- End -->
+   * [`addprocs()`](@ref) または [`addprocs(np::Integer)`](@ref) が呼び出されたときに使われる `LocalManager`
+   <!-- Start -->
+   * > `SSHManager`, used when [`addprocs(hostnames::Array)`](@ref) is called with a list of hostnames
+   <!-- End -->
+   * [`addprocs(hostnames::Array)`](@ref) がホスト名のリストと共に呼び出されたときに使われる `SSHManager`
 
 <!-- Start -->
 > `LocalManager` is used to launch additional workers on the same host, thereby leveraging multi-core and multi-processor hardware.
@@ -1865,15 +1881,18 @@ Juliaには、2つの組み込みクラスタマネージャがあります。
 > Thus, a minimal cluster manager would need to:
 <!-- End -->
 したがって、最小限のクラスタ・マネージャは、以下を行う必要があります。
-   * 
-   # be a subtype of the abstract `ClusterManager`
-    抽象クラス「ClusterManager」のサブタイプにする
-   * 
-   # implement [`launch()`](@ref), a method responsible for launching new workers
-    新しいワーカーを起動する方法である[`launch()`](@ref)を実装する
-   * 
-   # implement [`manage()`](@ref), which is called at various events during a worker's lifetime (for example, sending an interrupt signal)
-    作業者の生存期間中にさまざまなイベントで呼び出される(例えば、割り込み信号を送信する)[manage() `](@ref)
+   <!-- Start -->
+   * > be a subtype of the abstract `ClusterManager`
+   <!-- End -->
+   * 抽象クラス「ClusterManager」のサブタイプにする
+   <!-- Start -->
+   * > implement [`launch()`](@ref), a method responsible for launching new workers
+   <!-- End -->
+   * 新しいワーカーを起動する方法である [`launch()`](@ref) を実装する
+   <!-- Start -->
+   * > implement [`manage()`](@ref), which is called at various events during a worker's lifetime (for example, sending an interrupt signal)
+   <!-- End -->
+   * 作業者の生存期間中にさまざまなイベントで呼び出される(例えば、割り込み信号を送信する) [`manage()`](@ref)
 
 <!-- Start -->
 > [`addprocs(manager::FooManager)`](@ref addprocs) requires `FooManager` to implement:
@@ -1914,25 +1933,29 @@ end
 <!-- End -->
 [`launch()`](@ref)メソッドは以下の引数をとります：
 
-  * 
-    `manager::ClusterManager`: the cluster manager that [`addprocs()`](@ref) is called with
-    `manager :: ClusterManager`：[` addprocs() `](@ref)が呼び出されたクラスタマネージャ
-  * 
-    `params::Dict`: all the keyword arguments passed to [`addprocs()`](@ref)
-    `params :: Dict`：[addprocs()`](@ref)に渡されたすべてのキーワード引数
-  * 
-    `launched::Array`: the array to append one or more `WorkerConfig` objects to
-    `launch :: Array`：1つ以上の` WorkerConfig`オブジェクトを追加する配列
-  * 
-    `c::Condition`: the condition variable to be notified as and when workers are launched
-    `c :: Condition`：ワーカーの起動時に通知される条件変数
+   <!-- Start -->
+   * > `manager::ClusterManager`: the cluster manager that [`addprocs()`](@ref) is called with
+   <!-- End -->
+   * `manager::ClusterManager`: [`addprocs()`](@ref) が呼び出されたクラスタマネージャ
+   <!-- Start -->
+   * > `params::Dict`: all the keyword arguments passed to [`addprocs()`](@ref)
+   <!-- End -->
+   * `params::Dict`: [`addprocs()`](@ref) に渡されたすべてのキーワード引数
+   <!-- Start -->
+   * > `launched::Array`: the array to append one or more `WorkerConfig` objects to
+   <!-- End -->
+   * `launch::Array`: 1つ以上の `WorkerConfig` オブジェクトを追加する配列
+   <!-- Start -->
+   * > `c::Condition`: the condition variable to be notified as and when workers are launched
+   <!-- End -->
+   * `c::Condition`: ワーカーの起動時に通知される条件変数
 
 <!-- Start -->
-> The [`launch()`](@ref) method is called asynchronously in a separate task. 
+> The [`launch()`](@ref) method is called asynchronously in a separate task.
 <!-- End -->
 [`launch()`](@ref) メソッドは別のタスクで非同期に呼び出されます。
 <!-- Start -->
-> The termination of this task signals that all requested workers have been launched. 
+> The termination of this task signals that all requested workers have been launched.
 <!-- End -->
 このタスクが終了すると、要求されたすべてのワーカーが起動したことが通知されます。
 <!-- Start -->
@@ -1950,7 +1973,7 @@ end
 コマンドライン引数 `--worker[=<cookie>]` を指定すると、起動されたプロセスは TCP/IP ソケットを介して設定されたワーカーと接続として初期化されます。
 
 <!-- Start -->
-> All workers in a cluster share the same [cookie](#cluster-cookie) as the master. 
+> All workers in a cluster share the same [cookie](#cluster-cookie) as the master.
 <!-- End -->
 クラスタ内のすべてのワーカーは、マスターと同じ[cookie](＃cluster-cookie)を共有します。
 <!-- Start -->
@@ -1976,7 +1999,7 @@ listenする特定のアドレスはオプションの引数 `--bind-to bind_add
 これは、マルチホームホストに便利です。
 
 <!-- Start -->
-> As an example of a non-TCP/IP transport, an implementation may choose to use MPI, in which case `--worker` must NOT be specified. 
+> As an example of a non-TCP/IP transport, an implementation may choose to use MPI, in which case `--worker` must NOT be specified.
 <!-- End -->
 non-TCP/IP トランスポートの例として、実装はMPIの使用を選択することができます。この場合、 `--worker` を指定してはいけません。
 <!-- Start -->
@@ -2018,62 +2041,81 @@ end
 ```
 
 <!-- Start -->
-#Most of the fields in `WorkerConfig` are used by the inbuilt managers. 
+#Most of the fields in `WorkerConfig` are used by the inbuilt managers.
 `WorkerConfig`のフィールドのほとんどは、ビルドされたマネージャによって使用されます。
 <!-- Start -->
 > Custom cluster managers would typically specify only `io` or `host` / `port`:
 <!-- End -->
 カスタムクラスタマネージャは通常、 `io` や `host` / `port` だけを指定します：
 
-   * 
-   #If `io` is specified, it is used to read host/port information. 
-    `io`を指定すると、ホスト/ポート情報の読み込みに使用されます。
-   #A Julia worker prints out its bind address and port at startup. 
-    Juliaワーカーは起動時にバインドアドレスとポートを表示します。
-   #This allows Julia workers to listen on any free port available instead of requiring worker ports to be configured manually.
-    これにより、Juliaワーカーは、ワーカーポートを手動で設定する必要はなく、使用可能な空きポートで待機することができます。
-   * 
-   #If `io` is not specified, `host` and `port` are used to connect.
-    `io`を指定しないと、` host`と `port`が接続に使用されます。
-   * 
-   #`count`, `exename` and `exeflags` are relevant for launching additional workers from a worker.
-   `count`、` exename`と `exeflags`は、追加のワーカーをワーカーから起動するのに関係します。
-   #For example, a cluster manager may launch a single worker per node, and use that to launch additional workers.
-   たとえば、クラスタマネージャはノードごとに1人のワーカーを起動し、それを使用して追加のワーカーを起動することができます。
+   <!-- Start -->
+   * > If `io` is specified, it is used to read host/port information.
+   <!-- End -->
+   * `io` を指定すると、ホスト/ポート情報の読み込みに使用されます。
+   <!-- Start -->
+   * > A Julia worker prints out its bind address and port at startup.
+   <!-- End -->
+   * Juliaワーカーは起動時にバインドアドレスとポートを表示します。
+   <!-- Start -->
+   * > This allows Julia workers to listen on any free port available instead of requiring worker ports to be configured manually.
+   <!-- End -->
+   * これにより、Juliaワーカーは、ワーカーポートを手動で設定する必要はなく、使用可能な空きポートで待機することができます。
+   <!-- Start -->
+   * > If `io` is not specified, `host` and `port` are used to connect.
+   <!-- End -->
+   * `io` を指定しないと、 `host` と `port` が接続に使用されます。
+   <!-- Start -->
+   * > `count`, `exename` and `exeflags` are relevant for launching additional workers from a worker.
+   <!-- End -->
+   * `count`, `exename` と `exeflags` は、追加のワーカーをワーカーから起動するのに関係します。
+   <!-- Start -->
+   * > For example, a cluster manager may launch a single worker per node, and use that to launch additional workers.
+   <!-- End -->
+   * たとえば、クラスタマネージャはノードごとに1人のワーカーを起動し、それを使用して追加のワーカーを起動することができます。
 
-       * 
-       #`count` with an integer value `n` will launch a total of `n` workers.
-        整数値 `n`で` count`を実行すると `n`個の作業者が起動します。
-       * 
-       #`count` with a value of `:auto` will launch as many workers as the number of cores on that machine.
-        `：auto 'の値を持つ` count`は、そのマシン上のコアの数だけ多くのワーカを起動します。
-       * 
-       #`exename` is the name of the `julia` executable including the full path.
-        `exename`はフルパスを含む` julia`実行可能ファイルの名前です。
-       * 
-       #`exeflags` should be set to the required command line arguments for new workers.
-        `exeflags`は、新しいワーカーのために必要なコマンドライン引数に設定する必要があります。
-   * 
-   #`tunnel`, `bind_addr`, `sshflags` and `max_parallel` are used when a ssh tunnel is required to connect to the workers from the master process.
-   `tunnel`、` bind_addr`、 `sshflags`、` max_parallel`は、マスタプロセスからワーカーに接続するためにsshトンネルが必要な場合に使用されます。
-   * 
-   #`userdata` is provided for custom cluster managers to store their own worker-specific information.
-   `userdata`はカスタムクラスタ管理者が独自のワーカー固有情報を保存するために用意されています。
+       <!-- Start -->
+       *> `count` with an integer value `n` will launch a total of `n` workers.
+       <!-- End -->
+
+       * 整数値 `n`で` count`を実行すると `n`個の作業者が起動します。
+       <!-- Start -->
+       *> `count` with a value of `:auto` will launch as many workers as the number of cores on that machine.
+       * `:auto' の値を持つ` count`は、そのマシン上のコアの数だけ多くのワーカを起動します。
+       <!-- End -->
+
+       <!-- Start -->
+       * > `exename` is the name of the `julia` executable including the full path.
+       * `exename`はフルパスを含む` julia`実行可能ファイルの名前です。
+       <!-- End -->
+       <!-- Start -->
+       * > `exeflags` should be set to the required command line arguments for new workers.
+       * `exeflags` は、新しいワーカーのために必要なコマンドライン引数に設定する必要があります。
+       <!-- End -->
+   <!-- Start -->
+   * > `tunnel`, `bind_addr`, `sshflags` and `max_parallel` are used when a ssh tunnel is required to connect to the workers from the master process.
+   * `tunnel`, `bind_addr`, `sshflags`, `max_parallel` は、マスタプロセスからワーカーに接続するためにsshトンネルが必要な場合に使用されます。
+   <!-- End -->
+   <!-- Start -->
+   * > `userdata` is provided for custom cluster managers to store their own worker-specific information.
+   * `userdata` はカスタムクラスタ管理者が独自のワーカー固有情報を保存するために用意されています。
+   <!-- End -->
 
 <!-- Start -->
 > `manage(manager::FooManager, id::Integer, config::WorkerConfig, op::Symbol)` is called at different times during the worker's lifetime with appropriate `op` values:
-<!-- End -->
 `manage(manager::FooManager, id::Integer, config::WorkerConfig, op::Symbol)` はワーカーの生存期間中に適切な `op` 値で呼び出されます：
-   * 
-   #with `:register`/`:deregister` when a worker is added / removed from the Julia worker pool.
-   *
-    Juliaワーカープールにワーカーが追加/削除されたときに `：register` /`：deregister`を実行します。
-   * 
-   #with `:interrupt` when `interrupt(workers)` is called. The `ClusterManager` should signal the appropriate worker with an interrupt signal.
-   `interrupt(workers)`が呼び出されたときに `：interrupt`と呼ばれます。 `ClusterManager`は、適切な作業者に割り込み信号を知らせます。
-   * 
-   #with `:finalize` for cleanup purposes.
-    `：finalize`をクリーンアップの目的で使用します。
+<!-- End -->
+   <!-- Start -->
+   * > with `:register`/`:deregister` when a worker is added / removed from the Julia worker pool.
+   * Juliaワーカープールにワーカーが追加/削除されたときに `:register` / `:deregister` を実行します。
+   <!-- End -->
+   <!-- Start -->
+   * > with `:interrupt` when `interrupt(workers)` is called. The `ClusterManager` should signal the appropriate worker with an interrupt signal.
+   * `interrupt(workers)` が呼び出されたときに `:interrupt` と呼ばれます。 `ClusterManager` は、適切な作業者に割り込み信号を知らせます。
+   <!-- End -->
+   <!-- Start -->
+   * > with `:finalize` for cleanup purposes.
+   <!-- End -->
+   * `:finalize` をクリーンアップの目的で使用します。
 
 <!-- Start -->
 > ## Cluster Managers with Custom Transports
@@ -2081,11 +2123,11 @@ end
 ## カスタムトランスポートを持つクラスタマネージャ
 
 <!-- Start -->
-> Replacing the default TCP/IP all-to-all socket connections with a custom transport layer is a little more involved. 
+> Replacing the default TCP/IP all-to-all socket connections with a custom transport layer is a little more involved.
 <!-- End -->
 デフォルトのTCP / IP all-to-allソケット接続をカスタムトランスポートレイヤーに置き換えることはもう少し複雑です。
 <!-- Start -->
-> Each Julia process has as many communication tasks as the workers it is connected to. 
+> Each Julia process has as many communication tasks as the workers it is connected to.
 <!-- End -->
 各ジュリアプロセスには、接続先の従業員と同数の通信タスクがあります。
 <!-- Start -->
@@ -2093,18 +2135,22 @@ end
 <!-- End -->
 たとえば、all-to-allメッシュ・ネットワークで32プロセスのジュリア・クラスタを考えてみましょう。
 
-   * 
-   #Each Julia process thus has 31 communication tasks.
-    したがって、各ジュリアプロセスには31の通信タスクがあります。
-   * 
-   #Each task handles all incoming messages from a single remote worker in a message-processing loop.
-    各タスクは、メッセージ処理ループ内の単一のリモートワーカーからのすべての着信メッセージを処理します。
-   * 
-   #The message-processing loop waits on an `IO` object (for example, a `TCPSocket` in the default implementation), reads an entire message, processes it and waits for the next one.
-   メッセージ処理ループは、 `IO`オブジェクト(例えば、デフォルトの実装では` TCPSocket`)を待ち、メッセージ全体を読み込み、それを処理して次のメッセージを待ちます。
-   * 
-   #Sending messages to a process is done directly from any Julia task--not just communication tasks--again, via the appropriate `IO` object.
-   プロセスへのメッセージの送信は、通信タスクだけでなく、適切な `IO`オブジェクトを介して、ジュリアタスクから直接実行されます。
+   <!-- Start -->
+   * > Each Julia process thus has 31 communication tasks.
+   * したがって、各ジュリアプロセスには31の通信タスクがあります。
+   <!-- End -->
+   <!-- Start -->
+   * > Each task handles all incoming messages from a single remote worker in a message-processing loop.
+   * 各タスクは、メッセージ処理ループ内の単一のリモートワーカーからのすべての着信メッセージを処理します。
+   <!-- End -->
+   <!-- Start -->
+   * > The message-processing loop waits on an `IO` object (for example, a `TCPSocket` in the default implementation), reads an entire message, processes it and waits for the next one.
+   * メッセージ処理ループは、 `IO` オブジェクト(例えば、デフォルトの実装では `TCPSocket`) を待ち、メッセージ全体を読み込み、それを処理して次のメッセージを待ちます。
+   <!-- End -->
+   <!-- Start -->
+   * > Sending messages to a process is done directly from any Julia task--not just communication tasks--again, via the appropriate `IO` object.
+   プロセスへのメッセージの送信は、通信タスクだけでなく、適切な `IO` オブジェクトを介して、ジュリアタスクから直接実行されます。
+   <!-- End -->
 
 <!-- Start -->
 >Replacing the default transport requires the new implementation to set up connections to remote workers and to provide appropriate `IO` objects that the message-processing loops can wait on.
@@ -2140,7 +2186,7 @@ kill(manager::FooManager, pid::Int, config::WorkerConfig)
 `BufferStream`は ` IO` のように振る舞うインメモリ `IOBuffer` です。これは非同期に扱うことができるストリームです。
 
 <!-- Start -->
-> Folder `examples/clustermanager/0mq` contains an example of using ZeroMQ to connect Julia workers in a star topology with a 0MQ broker in the middle. 
+> Folder `examples/clustermanager/0mq` contains an example of using ZeroMQ to connect Julia workers in a star topology with a 0MQ broker in the middle.
 <!-- End -->
 `examples/clustermanager/0mq` フォルダには、ZeroMQを使用してスタートポロジ内のJuliaワーカーと 0MQ ブローカを途中で接続する例が含まれています。
 <!-- Start -->
@@ -2153,31 +2199,45 @@ kill(manager::FooManager, pid::Int, config::WorkerConfig)
 <!-- End -->
 #カスタムトランスポートを使用する場合：
 
-   * 
-   #Julia workers must NOT be started with `--worker`. 
-    Juliaワーカーは `--worker`で始めるべきではありません。
-   #Starting with `--worker` will result in the newly launched workers defaulting to the TCP/IP socket transport implementation.
-    `--worker`で始まると、新しく起動されたワーカーはTCP / IPソケット転送実装にデフォルト設定されます。
-   * 
-   #For every incoming logical connection with a worker, `Base.process_messages(rd::IO, wr::IO)()` must be called. 
-    ワーカーとの着信論理接続ごとに、 `Base.process_messages(rd :: IO、wr :: IO)()`を呼び出さなければなりません。
-   #This launches a new task that handles reading and writing of messages from/to the worker represented by the `IO` objects.
-    これは、 `IO`オブジェクトによって表される作業者から/へのメッセージの読み書きを処理する新しいタスクを起動します。
-   * 
-   #`init_worker(cookie, manager::FooManager)` MUST be called as part of worker process initialization.
-    `init_worker(cookie、manager :: FooManager)`はワーカープロセス初期化の一部として呼び出さなければなりません。
-   * 
-   #Field `connect_at::Any` in `WorkerConfig` can be set by the cluster manager when [`launch()`](@ref) is called. 
-   [`launch()`](@ref)が呼び出されると、 `WorkerConfig`の` connect_at :: Any`フィールドはクラスタマネージャによって設定されます。
-   #The value of this field is passed in in all [`connect()`](@ref) callbacks. 
-   このフィールドの値はすべての[`connect()`](@ref)コールバックで渡されます。
-   #Typically, it carries information on *how to connect* to a worker. 
-    典型的には、*作業者に*接続する方法に関する情報を持ちます。
-   #For example, the TCP/IP socket transport uses this field to specify the `(host, port)` tuple at which to connect to a worker.
-   たとえば、TCP / IPソケット転送では、このフィールドを使用してワーカーに接続するタプル(ホスト、ポート)を指定します。
+   <!-- Start -->
+   * > Julia workers must NOT be started with `--worker`.
+   * Juliaワーカーは `--worker` で始めるべきではありません。
+   <!-- End -->
+   <!-- Start -->
+   * > Starting with `--worker` will result in the newly launched workers defaulting to the TCP/IP socket transport implementation.
+   * `--worker` で始まると、新しく起動されたワーカーは TCP/IP ソケット転送実装にデフォルト設定されます。
+   <!-- End -->
+   <!-- Start -->
+   * > For every incoming logical connection with a worker, `Base.process_messages(rd::IO, wr::IO)()` must be called.
+   * ワーカーとの着信論理接続ごとに、 `Base.process_messages(rd::IO, wr::IO)()` を呼び出さなければなりません。
+   <!-- End -->
+   <!-- Start -->
+   * > This launches a new task that handles reading and writing of messages from/to the worker represented by the `IO` objects.
+   * これは、 `IO` オブジェクトによって表される作業者から/へのメッセージの読み書きを処理する新しいタスクを起動します。
+   <!-- End -->
+   <!-- Start -->
+   * > `init_worker(cookie, manager::FooManager)` MUST be called as part of worker process initialization.
+   * `init_worker(cookie, manager::FooManager)` はワーカープロセス初期化の一部として呼び出さなければなりません。
+   <!-- End -->
+   <!-- Start -->
+   * > Field `connect_at::Any` in `WorkerConfig` can be set by the cluster manager when [`launch()`](@ref) is called.
+   * [`launch()`](@ref) が呼び出されると、 `WorkerConfig` の `connect_at::Any` フィールドはクラスタマネージャによって設定されます。
+   <!-- End -->
+   <!-- Start -->
+   * > The value of this field is passed in in all [`connect()`](@ref) callbacks.
+   * このフィールドの値はすべての [`connect()`](@ref) コールバックで渡されます。
+   <!-- End -->
+   <!-- Start -->
+   * > Typically, it carries information on *how to connect* to a worker.
+   * 典型的には、*作業者に*接続する方法に関する情報を持ちます。
+   <!-- End -->
+   <!-- Start -->
+   * > For example, the TCP/IP socket transport uses this field to specify the `(host, port)` tuple at which to connect to a worker.
+   * たとえば、 TCP/IP ソケット転送では、このフィールドを使用してワーカーに接続するタプル`(host, port)` を指定します。
+   <!-- End -->
 
 <!-- Start -->
->`kill(manager, pid, config)` is called to remove a worker from the cluster. 
+>`kill(manager, pid, config)` is called to remove a worker from the cluster.
 <!-- End -->
 `kill(manager、pid、config)` は、クラスタからワーカーを削除するために呼び出されます。
 <!-- Start -->
@@ -2200,7 +2260,7 @@ kill(manager::FooManager, pid::Int, config::WorkerConfig)
 ## LocalManagerとSSHManagerのネットワーク要件
 
 <!-- Start -->
-> Julia clusters are designed to be executed on already secured environments on infrastructure such as local laptops, departmental clusters, or even the cloud. 
+> Julia clusters are designed to be executed on already secured environments on infrastructure such as local laptops, departmental clusters, or even the cloud.
 <!-- End -->
 Juliaクラスタは、ローカルのラップトップ、部門クラスタ、クラウドなどのインフラストラクチャ上の既に保護された環境で実行されるように設計されています。
 <!-- Start -->
@@ -2208,52 +2268,83 @@ Juliaクラスタは、ローカルのラップトップ、部門クラスタ、
 <!-- End -->
 このセクションでは、組み込みの `LocalManager`と` SSHManager`のネットワークセキュリティ要件について説明します：
 
-   * 
-   #The master process does not listen on any port. It only connects out to the workers.
-   マスタープロセスはどのポートでもリッスンしません。それは労働者にしかつながりません。
-   * 
-   #Each worker binds to only one of the local interfaces and listens on an ephemeral port number assigned by the OS.
-   各ワーカーは、ローカルインタフェースの1つのみにバインドし、OSによって割り当てられた一時的なポート番号をリッスンします。
-   * 
-   #`LocalManager`, used by `addprocs(N)`, by default binds only to the loopback interface. 
-   `addprocs(N)`によって使用される `LocalManager`は、デフォルトではループバックインタフェースにのみバインドされます。
-   #This means that workers started later on remote hosts (or by anyone with malicious intentions) are unable to connect to the cluster. 
-   これは、後でリモートホスト(または悪意のある人物)によって開始されたワーカーがクラスタに接続できないことを意味します。
-   #An `addprocs(4)` followed by an `addprocs(["remote_host"])` will fail.
-   `addprocs(4)`に続けて `addprocs([" remote_host "])`が失敗します。
-   #Some users may need to create a cluster comprising their local system and a few remote systems.
-   一部のユーザーは、ローカルシステムといくつかのリモートシステムを含むクラスタを作成する必要があります。
-   #This can be done by explicitly requesting `LocalManager` to bind to an external network interface via the `restrict` keyword argument: `addprocs(4; restrict=false)`.
-   これは、 `restrict`キーワード引数を介して外部ネットワークインターフェースにバインドする` LocalManager`を明示的に要求することによって行うことができます： `addprocs(4; restrict = false)`。
-   * 
-   #`SSHManager`, used by `addprocs(list_of_remote_hosts)`, launches workers on remote hosts via SSH.
-   `addprocs(list_of_remote_hosts)`によって使用される `SSHManager`は、SSH経由でリモートホスト上のワーカーを起動します。
-   #By default SSH is only used to launch Julia workers. 
-   デフォルトでは、SSHはJuliaワーカーの起動にのみ使用されます。
-   #Subsequent master-worker and worker-worker connections use plain, unencrypted TCP/IP sockets. 
-   後続のマスタワーカーとワーカー/ワーカの接続では、暗号化されていない単純なTCP / IPソケットが使用されます。
-   #The remote hosts must have passwordless login enabled.
-   リモートホストでパスワードなしログインが有効になっている必要があります。
-   #Additional SSH flags or credentials may be specified via keyword argument `sshflags`.
-   追加のSSHフラグや信用証明書は、キーワード引数 `sshflags`で指定することができます。
-   * 
-   #`addprocs(list_of_remote_hosts; tunnel=true, sshflags=<ssh keys and other flags>)` is useful when we wish to use SSH connections for master-worker too. 
-   `addprocs(list_of_remote_hosts; tunnel = true、sshflags = <ssh keysと他のフラグ>)は、マスターワーカーにもSSH接続を使いたいときに便利です。
-   #A typical scenario for this is a local laptop running the Julia REPL (i.e., the master) with the rest of the cluster on the cloud, say on Amazon EC2. 
-   これに対する典型的なシナリオは、Julia REPL(すなわち、マスター)をクラウド上のクラスタの他の部分、例えばAmazon EC2上で実行しているローカルラップトップです。
-   #In this case only port 22 needs to be opened at the remote cluster coupled with SSH client authenticated via public key infrastructure (PKI). 
-   この場合、公開鍵インフラストラクチャ(PKI)を介して認証されたSSHクライアントと結合したリモートクラスタでは、ポート22のみを開く必要があります。
-   #Authentication credentials can be supplied via `sshflags`, for example ```sshflags=`-e <keyfile>` ```.
-   認証資格証明は、 `` `sshflags =` -e <keyfile> `` ``のような `` sshflags ''を通して供給することができます。
+   <!-- Start -->
+   * > The master process does not listen on any port. It only connects out to the workers.
+   * マスタープロセスはどのポートでもリッスンしません。それは worker にしかつながりません。
+   <!-- End -->
+   <!-- Start -->
+   * > Each worker binds to only one of the local interfaces and listens on an ephemeral port number assigned by the OS.
+   * 各ワーカーは、ローカルインタフェースの1つのみにバインドし、OS によって割り当てられた一時的なポート番号をリッスンします。
+   <!-- End -->
+   <!-- Start -->
+   * > `LocalManager`, used by `addprocs(N)`, by default binds only to the loopback interface.
+   * `addprocs(N)` によって使用される `LocalManager` は、デフォルトではループバックインタフェースにのみバインドされます。
+   <!-- End -->
+   <!-- Start -->
+   * > This means that workers started later on remote hosts (or by anyone with malicious intentions) are unable to connect to the cluster.
+   * これは、後でリモートホスト(または悪意のある人物)によって開始されたワーカーがクラスタに接続できないことを意味します。
+   <!-- End -->
+   <!-- Start -->
+   * > An `addprocs(4)` followed by an `addprocs(["remote_host"])` will fail.
+   * `addprocs(4)` に続けて `addprocs(["remote_host"])` が失敗します。
+   <!-- End -->
+   <!-- Start -->
+   * > Some users may need to create a cluster comprising their local system and a few remote systems.
+   * 一部のユーザーは、ローカルシステムといくつかのリモートシステムを含むクラスタを作成する必要があります。
+   <!-- End -->
+   <!-- Start -->
+   * > This can be done by explicitly requesting `LocalManager` to bind to an external network interface via the `restrict` keyword argument: `addprocs(4; restrict=false)`.
+   * これは、 `restrict` キーワード引数を介して外部ネットワークインターフェースにバインドする `LocalManager` を明示的に要求することによって行うことができます： `addprocs(4; restrict = false)` 。
+   <!-- End -->
+   <!-- Start -->
+   * > `SSHManager`, used by `addprocs(list_of_remote_hosts)`, launches workers on remote hosts via SSH.
+   * `addprocs(list_of_remote_hosts)` によって使用される `SSHManager` は、SSH 経由でリモートホスト上のワーカーを起動します。
+   <!-- End -->
+   <!-- Start -->
+   * > By default SSH is only used to launch Julia workers.
+   * デフォルトでは、SSH はJuliaワーカーの起動にのみ使用されます。
+   <!-- End -->
+   <!-- Start -->
+   * > Subsequent master-worker and worker-worker connections use plain, unencrypted TCP/IP sockets.
+   * 後続のマスタワーカーとワーカー/ワーカの接続では、暗号化されていない単純な TCP/IP ソケットが使用されます。
+   <!-- End -->
+   <!-- Start -->
+   * > The remote hosts must have passwordless login enabled.
+   * リモートホストでパスワードなしログインが有効になっている必要があります。
+   <!-- End -->
+   <!-- Start -->
+   * > Additional SSH flags or credentials may be specified via keyword argument `sshflags`.
+   * 追加の SSH フラグや信用証明書は、キーワード引数 `sshflags` で指定することができます。
+   <!-- End -->
+   <!-- Start -->
+   * > `addprocs(list_of_remote_hosts; tunnel=true, sshflags=<ssh keys and other flags>)` is useful when we wish to use SSH connections for master-worker too.
+   * `addprocs(list_of_remote_hosts; tunnel = true、sshflags=<ssh keys と他のフラグ>)` は、マスターワーカーにも SSH 接続を使いたいときに便利です。
+   <!-- End -->
+   <!-- Start -->
+   * > A typical scenario for this is a local laptop running the Julia REPL (i.e., the master) with the rest of the cluster on the cloud, say on Amazon EC2.
+   * これに対する典型的なシナリオは、Julia REPL (すなわち、マスター) をクラウド上のクラスタの他の部分、例えば Amazon EC2上で実行しているローカルラップトップです。
+   <!-- End -->
+   <!-- Start -->
+   * > In this case only port 22 needs to be opened at the remote cluster coupled with SSH client authenticated via public key infrastructure (PKI).
+   * この場合、公開鍵インフラストラクチャ (PKI) を介して認証された SSH クライアントと結合したリモートクラスタでは、ポート22のみを開く必要があります。
+   <!-- End -->
+   <!-- Start -->
+   * > Authentication credentials can be supplied via `sshflags`, for example ```sshflags=`-e <keyfile>` ```.
+   * 認証資格証明は、 ```sshflags =`-e <keyfile>` ``` のような `sshflags' を通して供給することができます。
+   <!-- End -->
 
-   * 
-   #In an all-to-all topology (the default), all workers connect to each other via plain TCP sockets.
+   <!-- Start -->
+   * > In an all-to-all topology (the default), all workers connect to each other via plain TCP sockets.
    オールトゥオールトポロジ(デフォルト)では、すべてのワーカーが単純なTCPソケットを介して相互に接続します。
-   #The security policy on the cluster nodes must thus ensure free connectivity between workers for the ephemeral port range (varies by OS).
+   <!-- End -->
+   <!-- Start -->
+   * > The security policy on the cluster nodes must thus ensure free connectivity between workers for the ephemeral port range (varies by OS).
    したがって、クラスタノードのセキュリティポリシーは、エフェメラルポート範囲(OSによって異なる)のためのワーカー間の自由な接続性を保証する必要があります。
-   * 
-   #Securing and encrypting all worker-worker traffic (via SSH) or encrypting individual messages can be done via a custom ClusterManager.
-   SSHによるすべてのワーカー・ワーカー・トラフィックの保護と暗号化、または個々のメッセージの暗号化は、カスタムClusterManagerを使用して実行できます。
+   <!-- End -->
+   <!-- Start -->
+   * > Securing and encrypting all worker-worker traffic (via SSH) or encrypting individual messages can be done via a custom ClusterManager.
+   * SSH によるすべてのワーカー・ワーカー・トラフィックの保護と暗号化、または個々のメッセージの暗号化は、カスタムClusterManager を使用して実行できます。
+   <!-- End -->
 
 <!-- Start -->
 > ## Cluster Cookie
@@ -2265,24 +2356,34 @@ Juliaクラスタは、ローカルのラップトップ、部門クラスタ、
 <!-- End -->
 クラスタ内のすべてのプロセスは、同じクッキーを共有します。これは、デフォルトでマスタプロセス上でランダムに生成された文字列です。
 
-   * 
-   #[`Base.cluster_cookie()`](@ref) returns the cookie, while `Base.cluster_cookie(cookie)()` sets it and returns the new cookie.
-   [`Base.cluster_cookie()`](@ref)はクッキーを返し、 `Base.cluster_cookie(cookie)()`はそれを設定して新しいクッキーを返します。
-   * 
-   #All connections are authenticated on both sides to ensure that only workers started by the master are allowed to connect to each other.
-   すべての接続が両側で認証され、マスタによって開始されたワーカーのみが互いに接続できるようになります。
-   * 
-   #The cookie may be passed to the workers at startup via argument `--worker=<cookie>`. 
-   クッキーは、起動時に `--worker = <cookie> '引数を介してワーカーに渡されます。
-   #If argument `--worker` is specified without the cookie, the worker tries to read the cookie from its standard input (STDIN). 
-   クッキーなしで引数 `--worker`が指定された場合、ワーカーは標準入力(STDIN)からクッキーを読み込もうとします。
-   #The STDIN is closed immediately after the cookie is retrieved.
-   STDINは、クッキーが取得された直後に閉じられます。
-   * 
-   #ClusterManagers can retrieve the cookie on the master by calling [`Base.cluster_cookie()`](@ref).
-   ClusterManagersは[`Base.cluster_cookie()`](@ref)を呼び出してマスター上のクッキーを取得できます。
-   #Cluster managers not using the default TCP/IP transport (and hence not specifying `--worker`) must call `init_worker(cookie, manager)` with the same cookie as on the master.
-   デフォルトTCP / IP転送を使用しない(したがって `--worker`を指定しない)クラスタ管理者は、マスターと同じクッキーで` init_worker(cookie、manager) `を呼び出さなければなりません。
+   <!-- Start -->
+   * > [`Base.cluster_cookie()`](@ref) returns the cookie, while `Base.cluster_cookie(cookie)()` sets it and returns the new cookie.
+   * [`Base.cluster_cookie()`](@ref) はクッキーを返し、 `Base.cluster_cookie(cookie)()` はそれを設定して新しいクッキーを返します。
+   <!-- End -->
+   <!-- Start -->
+   * > All connections are authenticated on both sides to ensure that only workers started by the master are allowed to connect to each other.
+   * すべての接続が両側で認証され、マスタによって開始されたワーカーのみが互いに接続できるようになります。
+   <!-- End -->
+   <!-- Start -->
+   * > The cookie may be passed to the workers at startup via argument `--worker=<cookie>`.
+   * クッキーは、起動時に `--worker = <cookie>` 引数を介してワーカーに渡されます。
+   <!-- End -->
+   <!-- Start -->
+   * > If argument `--worker` is specified without the cookie, the worker tries to read the cookie from its standard input (STDIN).
+   * クッキーなしで引数 `--worker` が指定された場合、ワーカーは標準入力 (STDIN) からクッキーを読み込もうとします。
+   <!-- End -->
+   <!-- Start -->
+   * > The STDIN is closed immediately after the cookie is retrieved.
+   * STDINは、クッキーが取得された直後に閉じられます。
+   <!-- End -->
+   <!-- Start -->
+   * > ClusterManagers can retrieve the cookie on the master by calling [`Base.cluster_cookie()`](@ref).
+   * ClusterManagers は [`Base.cluster_cookie()`](@ref) を呼び出してマスター上のクッキーを取得できます。
+   <!-- End -->
+   <!-- Start -->
+   * > Cluster managers not using the default TCP/IP transport (and hence not specifying `--worker`) must call `init_worker(cookie, manager)` with the same cookie as on the master.
+   * デフォルト TCP/IP 転送を使用しない (したがって `--worker`を指定しない) クラスタ管理者は、マスターと同じクッキーで `init_worker(cookie、manager)` を呼び出さなければなりません。
+   <!-- End -->
 
 <!-- Start -->
 > Note that environments requiring higher levels of security can implement this via a custom `ClusterManager`.
@@ -2303,20 +2404,25 @@ Juliaクラスタは、ローカルのラップトップ、部門クラスタ、
 <!-- End -->
 `addprocs`に渡されるキーワード引数` topology`は、ワーカー同士の接続方法を指定するために使用されます。
 
-   * 
-   #`:all_to_all`, the default: all workers are connected to each other.
-     `：all_to_all`、デフォルト：すべてのワーカーが互いに接続されています。
-   * 
-   #`:master_slave`: only the driver process, i.e. `pid` 1, has connections to the workers.
-     `：master_slave`：ドライバプロセス、つまり` pid` 1のみがワーカーに接続しています。
-   * 
-   #`:custom`: the `launch` method of the cluster manager specifies the connection topology via the fields `ident` and `connect_idents` in `WorkerConfig`. 
-   `：custom`：クラスタマネージャの` launch`メソッドは `WorkerConfig`の` ident`と `connect_idents`フィールドを使って接続トポロジを指定します。
-   #A worker with a cluster-manager-provided identity `ident` will connect to all workers specified in `connect_idents`.
-   クラスタマネージャが提供するID「ident」を持つワーカーは、 `connect_ident`で指定されたすべてのワーカーに接続します。
+   <!-- Start -->
+   * > `:all_to_all`, the default: all workers are connected to each other.
+   * `:all_to_all`, デフォルト：すべてのワーカーが互いに接続されています。
+   <!-- End -->
+   <!-- Start -->
+   * > `:master_slave`: only the driver process, i.e. `pid` 1, has connections to the workers.
+   * `:master_slave`: ドライバプロセス、つまり `pid` 1のみがワーカーに接続しています。
+   <!-- End -->
+   <!-- Start -->
+   * > `:custom`: the `launch` method of the cluster manager specifies the connection topology via the fields `ident` and `connect_idents` in `WorkerConfig`.
+   * `:custom`: クラスタマネージャの `launch` メソッドは `WorkerConfig` の `ident` と `connect_idents` フィールドを使って接続トポロジを指定します。
+   <!-- End -->
+   <!-- Start -->
+   * > A worker with a cluster-manager-provided identity `ident` will connect to all workers specified in `connect_idents`.
+   * クラスタマネージャが提供する ID `ident` を持つワーカーは、 `connect_ident` で指定されたすべてのワーカーに接続します。
+   <!-- End -->
 
 <!-- Start -->
-> Currently, sending a message between unconnected workers results in an error. 
+> Currently, sending a message between unconnected workers results in an error.
 <!-- End -->
 現在、未接続のワーカー間でメッセージを送信するとエラーが発生します。
 <!-- Start -->
@@ -2330,7 +2436,7 @@ Juliaクラスタは、ローカルのラップトップ、部門クラスタ、
 ## マルチスレッド(実験的)
 
 <!-- Start -->
-> In addition to tasks, remote calls, and remote references, Julia from `v0.5` forwards will natively support multi-threading. 
+> In addition to tasks, remote calls, and remote references, Julia from `v0.5` forwards will natively support multi-threading.
 <!-- End -->
 タスク、リモートコール、およびリモート参照に加えて、 `v0.5`フォワードからのJuliaは、ネイティブにマルチスレッドをサポートします。
 <!-- Start -->
@@ -2344,7 +2450,7 @@ Juliaクラスタは、ローカルのラップトップ、部門クラスタ、
 ### セットアップ
 
 <!-- Start -->
-> By default, Julia starts up with a single thread of execution. 
+> By default, Julia starts up with a single thread of execution.
 <!-- End -->
 デフォルトでは、Juliaは単一の実行スレッドで起動します。
 <!-- Start -->
@@ -2358,7 +2464,7 @@ julia> Threads.nthreads()
 ```
 
 <!-- Start -->
-> The number of threads Julia starts up with is controlled by an environment variable called `JULIA_NUM_THREADS`. 
+> The number of threads Julia starts up with is controlled by an environment variable called `JULIA_NUM_THREADS`.
 <!-- End -->
 Juliaが起動するスレッドの数は、 `JULIA_NUM_THREADS`という環境変数によって制御されます。
 <!-- Start -->
@@ -2371,11 +2477,11 @@ export JULIA_NUM_THREADS=4
 ```
 
 <!-- Start -->
-> (The above command works on bourne shells on Linux and OSX. 
+> (The above command works on bourne shells on Linux and OSX.
 <!-- End -->
 (上記のコマンドは、LinuxおよびOSXのbourneシェルで動作します。
 <!-- Start -->
-> Note that if you're using a C shell on these platforms, you should use the keyword `set` instead of `export`. 
+> Note that if you're using a C shell on these platforms, you should use the keyword `set` instead of `export`.
 <!-- End -->
 これらのプラットフォームでCシェルを使用している場合は、 `export`の代わりにキーワード` set`を使うべきです。
 <!-- Start -->
@@ -2410,7 +2516,7 @@ julia> Threads.threadid()
 
 
 <!-- Start -->
-> Let's work a simple example using our native threads. 
+> Let's work a simple example using our native threads.
 ネイティブスレッドを使用した簡単な例を試してみましょう。
 <!-- End -->
 <!-- Start -->
@@ -2434,7 +2540,7 @@ julia> a = zeros(10)
 ```
 
 <!-- Start -->
-> Let us operate on this array simultaneously using 4 threads. 
+> Let us operate on this array simultaneously using 4 threads.
 <!-- End -->
 この配列を同時に4つのスレッドで操作してみましょう。
 <!-- Start -->
@@ -2443,7 +2549,7 @@ julia> a = zeros(10)
 各スレッドはスレッドIDを各場所に書き込ませます。
 
 <!-- Start -->
-> Julia supports parallel loops using the [`Threads.@threads`](@ref) macro. 
+> Julia supports parallel loops using the [`Threads.@threads`](@ref) macro.
 <!-- End -->
 Juliaは [`Threads.@threads`](@ref) マクロを使って並列ループをサポートしています。
 <!-- Start -->
@@ -2488,15 +2594,15 @@ julia> a
 ## @threadcall(実験的)
 
 <!-- Start -->
-> All I/O tasks, timers, REPL commands, etc are multiplexed onto a single OS thread via an event loop. A patched version of libuv ([http://docs.libuv.org/en/v1.x/](http://docs.libuv.org/en/v1.x/)) provides this functionality. 
+> All I/O tasks, timers, REPL commands, etc are multiplexed onto a single OS thread via an event loop. A patched version of libuv ([http://docs.libuv.org/en/v1.x/](http://docs.libuv.org/en/v1.x/)) provides this functionality.
 <!-- End -->
 すべての I/O タスク、タイマー、REPL コマンドなどは、イベントループを介して単一のOSスレッドに多重化されます。 libuv([http://docs.libuv.org/en/v1.x/](http://docs.libuv.org/ja/v1.x/)) のパッチ版では、この機能が提供されています。
 <!-- Start -->
-> Yield points provide for co-operatively scheduling multiple tasks onto the same OS thread. 
+> Yield points provide for co-operatively scheduling multiple tasks onto the same OS thread.
 <!-- End -->
 歩留まりポイントは、複数のタスクを同じOSスレッドに協調的にスケジューリングする機能を提供します。
 <!-- Start -->
-> I/O tasks and timers yield implicitly while waiting for the event to occur. 
+> I/O tasks and timers yield implicitly while waiting for the event to occur.
 <!-- End -->
 I/O タスクとタイマーは、イベントが発生するのを待つ間に暗黙的に発生します。
 <!-- Start -->
@@ -2505,11 +2611,11 @@ I/O タスクとタイマーは、イベントが発生するのを待つ間に�
 [`yield()`](@ref) を明示的に呼び出すと、ほかのタスクをスケジュールすることができます。
 
 <!-- Start -->
-> Thus, a task executing a [`ccall`](@ref) effectively prevents the Julia scheduler from executing any other tasks till the call returns. 
+> Thus, a task executing a [`ccall`](@ref) effectively prevents the Julia scheduler from executing any other tasks till the call returns.
 <!-- End -->
 したがって、 [`ccall`](@ref) を実行するタスクは、Juliaスケジューラがコールが戻るまで他のタスクを実行することを効果的に防ぎます。
 <!-- Start -->
-> This is true for all calls into external libraries. 
+> This is true for all calls into external libraries.
 <!-- End -->
 これは、外部ライブラリへのすべての呼び出しに当てはまります。
 <!-- Start -->
@@ -2518,7 +2624,7 @@ I/O タスクとタイマーは、イベントが発生するのを待つ間に�
 例外は、Julia(それは yield することがあります)または `jl_yield()` を呼び出すCコード(Cの [`yield()`](@ref) )をコールするカスタムCコードへの呼び出しです。
 
 <!-- Start -->
-> Note that while Julia code runs on a single thread (by default), libraries used by Julia may launch their own internal threads. 
+> Note that while Julia code runs on a single thread (by default), libraries used by Julia may launch their own internal threads.
 <!-- End -->
 Juliaコードは単一スレッド(デフォルト)で実行されますが、Juliaが使用するライブラリは独自の内部スレッドを起動する可能性があります。
 <!-- Start -->
@@ -2527,23 +2633,23 @@ Juliaコードは単一スレッド(デフォルト)で実行されますが、J
 たとえば、BLASライブラリは、マシン上にコアがあるものと同じ数のスレッドを開始することができます。
 
 <!-- Start -->
-> The `@threadcall` macro addresses scenarios where we do not want a `ccall` to block the main Julia event loop. 
+> The `@threadcall` macro addresses scenarios where we do not want a `ccall` to block the main Julia event loop.
 <!-- End -->
 `@threadcall` マクロは `ccall` がメインのJuliaイベントループをブロックしないようにするシナリオを扱います。
 <!-- Start -->
-> It schedules a C function for execution in a separate thread. 
+> It schedules a C function for execution in a separate thread.
 <!-- End -->
 別のスレッドで実行するためのC関数をスケジュールします。
 <!-- Start -->
-> A threadpool with a default size of 4 is used for this. The size of the threadpool is controlled via environment variable `UV_THREADPOOL_SIZE`. 
+> A threadpool with a default size of 4 is used for this. The size of the threadpool is controlled via environment variable `UV_THREADPOOL_SIZE`.
 <!-- End -->
 これには、デフォルトサイズ4のスレッドプールが使用されます。スレッドプールのサイズは、環境変数 `UV_THREADPOOL_SIZE` によって制御されます。
 <!-- Start -->
-> While waiting for a free thread, and during function execution once a thread is available, the requesting task (on the main Julia event loop) yields to other tasks. 
+> While waiting for a free thread, and during function execution once a thread is available, the requesting task (on the main Julia event loop) yields to other tasks.
 <!-- End -->
 フリーのスレッドを待つ間、そしてスレッドが利用可能になった後に関数が実行されている間は、(メインのJuliaイベントループ上の)要求タスクは他のタスクに帰着します。
 <!-- Start -->
-> Note that `@threadcall` does not return till the execution is complete. 
+> Note that `@threadcall` does not return till the execution is complete.
 <!-- End -->
 `@ threadcall` は実行が完了するまで戻りません。
 <!-- Start -->
@@ -2563,11 +2669,18 @@ Juliaコードは単一スレッド(デフォルト)で実行されますが、J
 
 [^1]:
    <!-- Start -->
-   #In this context, MPI refers to the MPI-1 standard. 
+   > In this context, MPI refers to the MPI-1 standard.
    この文脈において、MPIはMPI-1標準を指す。
-   #Beginning with MPI-2, the MPI standards committee introduced a new set of communication mechanisms, collectively referred to as Remote Memory Access (RMA). 
-    MPI標準委員会は、MPI-2から、リモートメモリアクセス(RMA)と総称される新しい通信メカニズムを導入しました。
-   #The motivation for adding RMA to the MPI standard was to facilitate one-sided communication patterns. 
+   <!-- End -->
+   <!-- Start -->
+   > Beginning with MPI-2, the MPI standards committee introduced a new set of communication mechanisms, collectively referred to as Remote Memory Access (RMA).
+   MPI標準委員会は、MPI-2から、リモートメモリアクセス(RMA)と総称される新しい通信メカニズムを導入しました。
+   <!-- End -->
+   <!-- Start -->
+   > The motivation for adding RMA to the MPI standard was to facilitate one-sided communication patterns.
     MPI標準にRMAを追加する動機は、片面通信パターンを容易にすることでした。
-   #For additional information on the latest MPI standard, see [http://mpi-forum.org/docs](http://mpi-forum.org/docs/). 
-    最新のMPI標準に関する追加情報については、[http://mpi-forum.org/docs](http://mpi-forum.org/docs/)を参照してください。
+   <!-- End -->
+   <!-- Start -->
+   > For additional information on the latest MPI standard, see [http://mpi-forum.org/docs](http://mpi-forum.org/docs/).
+   最新のMPI標準に関する追加情報については、[http://mpi-forum.org/docs](http://mpi-forum.org/docs/)を参照してください。
+   <!-- End -->
