@@ -454,7 +454,7 @@ An important point to note is that there is no loss in performance if the progra
 
 ## Primitive Types
 
-##プリミティブ型
+> ## プリミティブ型
 
 <!-- END -->
 
@@ -694,20 +694,28 @@ This may seem odd at first, but it has several advantages:
 <!-- END -->
 
 <!-- Start -->
-*  It can be more efficient. 
-> * より効率的にすることができます。
+
+* It can be more efficient. 
+* > より効率的にすることができます。
+
 <!-- END -->
 <!-- Start -->
-*  Some structs can be packed efficiently into arrays, and in some cases the compiler is able to avoid allocating immutable objects entirely.
-> * いくつかの構造体を効率的に配列にパックすることができ、場合によっては、コンパイラが不変オブジェクトを完全に割り当てることを避けることができます。
+
+* Some structs can be packed efficiently into arrays, and in some cases the compiler is able to avoid allocating immutable objects entirely.
+* > いくつかの構造体を効率的に配列にパックすることができ、場合によっては、コンパイラが不変オブジェクトを完全に割り当てることを避けることができます。
+
 <!-- END -->
 <!-- Start -->
-*  It is not possible to violate the invariants provided by the type's constructors.
-> * 型のコンストラクタによって提供される不変量に違反することはできません。
+
+* It is not possible to violate the invariants provided by the type's constructors.
+* > 型のコンストラクタによって提供される不変量に違反することはできません。
+
 <!-- END -->
 <!-- Start -->
-*  Code using immutable objects can be easier to reason about.
-> * 不変オブジェクトを使用するコードは、推論するのが簡単になります。
+
+* Code using immutable objects can be easier to reason about.
+* > 不変オブジェクトを使用するコードは、推論するのが簡単になります。
+
 <!-- END -->
 
 <!-- Start -->
@@ -802,12 +810,16 @@ To recap, two essential properties define immutability in Julia:
 <!-- END -->
 
 <!-- Start -->
-*  An object with an immutable type is passed around (both in assignment statements and in function calls) by copying, whereas a mutable type is passed around by reference.
+
+* An object with an immutable type is passed around (both in assignment statements and in function calls) by copying, whereas a mutable type is passed around by reference.
 * > 不変型のオブジェクトは、コピーによって代入文と関数呼び出しの両方で渡されますが、変更可能な型は参照渡しされます。
+
 <!-- END -->
 <!-- Start -->
-*  It is not permitted to modify the fields of a composite immutable type.
+
+* It is not permitted to modify the fields of a composite immutable type.
 * > コンポジット不変型のフィールドを変更することはできません。
+
 <!-- END -->
 
 <!-- Start -->
@@ -848,19 +860,27 @@ They share the same key properties:
 <!-- END -->
 
 <!-- Start -->
-*  They are explicitly declared.
+
+* They are explicitly declared.
 * > それらは明示的に宣言されています。
+
 <!-- Start -->
-*  They have names.
-* >  彼らは名前を持っています。
+
+* They have names.
+* > 彼らは名前を持っています。
+
 <!-- END -->
 <!-- Start -->
-*  They have explicitly declared supertypes.
+
+* They have explicitly declared supertypes.
 * > 彼らは明示的にスーパータイプを宣言しています。
+
 <!-- END -->
 <!-- Start -->
-*  They may have parameters.
-* >  彼らはパラメータを持つかもしれません。
+
+* They may have parameters.
+* > 彼らはパラメータを持つかもしれません。
+
 <!-- END -->
 
 <!-- Start -->
@@ -1080,22 +1100,28 @@ This is for practical reasons: while any instance of `Point{Float64}` may concep
 <!-- END -->
 
 <!-- Start -->
-*  An instance of `Point{Float64}` can be represented compactly and efficiently as an immediate pair of 64-bit values;
-> * 「Point {Float64}」のインスタンスは、64ビット値の直近のペアとしてコンパクトかつ効率的に表現できます。
+
+* An instance of `Point{Float64}` can be represented compactly and efficiently as an immediate pair of 64-bit values;
+> * `Point{Float64}` のインスタンスは、64ビット値の直近のペアとしてコンパクトかつ効率的に表現できます。
+
 <!-- END -->
 <!-- Start -->
-*  An instance of `Point{Real}` must be able to hold any pair of instances of [`Real`](@ref). 
-> * Point {Real}のインスタンスは、[`Real`](@ ref)のインスタンスのペアを保持できなければなりません。
+
+* An instance of `Point{Real}` must be able to hold any pair of instances of [`Real`](@ref). 
+> * Point{Real}のインスタンスは、 [`Real`](@ref) のインスタンスのペアを保持できなければなりません。
+
 <!-- END -->
 <!-- Start -->
-*  Since objects that are instances of `Real` can be of arbitrary size and structure, in practice an instance of `Point{Real}` must be represented as a pair of pointers to individually allocated `Real` objects.
-* > Realのインスタンスであるオブジェクトは任意の大きさと構造を持つことができるので、実際にはPoint {Real}のインスタンスは個々に割り当てられた `Real`オブジェクトへのポインタの対として表現されなければなりません。
+
+* Since objects that are instances of `Real` can be of arbitrary size and structure, in practice an instance of `Point{Real}` must be represented as a pair of pointers to individually allocated `Real` objects.
+* > `Real` のインスタンスであるオブジェクトは任意の大きさと構造を持つことができるので、実際には `Point{Real}` のインスタンスは個々に割り当てられた `Real`オブジェクトへのポインタの対として表現されなければなりません。
+
 <!-- END -->
 
 
 <!-- Start -->
 The efficiency gained by being able to store `Point{Float64}` objects with immediate values is magnified enormously in the case of arrays: an `Array{Float64}` can be stored as a contiguous memory block of 64-bit floating-point values, whereas an `Array{Real}` must be an array of pointers to individually allocated [`Real`](@ref) objects -- which may well be [boxed](https://en.wikipedia.org/wiki/Object_type_%28object-oriented_programming%29#Boxing) 64-bit floating-point values, but also might be arbitrarily large, complex objects, which are declared to be implementations of the `Real` abstract type.
-> `Point {Float64}`オブジェクトを即値で格納できることによって得られる効率は、配列の場合には非常に大きくなります。 `Array {Float64}`は、64ビット浮動小数点値の連続したメモリブロックとして格納できます `Array {Real}`は個々に割り当てられた[`Real`](@ref)オブジェクトへのポインタの配列でなければなりません - (boxed)(https://en.wikipedia.org/wiki/ Object_type_％28object-oriented_programming％29＃Boxing)64ビット浮動小数点値だけでなく、 `Real`抽象型の実装であると宣言されている任意の大きさの複雑なオブジェクトでも構いません。
+> `Point{Float64}`オブジェクトを即値で格納できることによって得られる効率は、配列の場合には非常に大きくなります。 `Array{Float64}` は、64ビット浮動小数点値の連続したメモリブロックとして格納できます `Array{Real}` は個々に割り当てられた[`Real`](@ref)オブジェクトへのポインタの配列でなければなりません - (boxed)(https://en.wikipedia.org/wiki/ Object_type_％28object-oriented_programming％29＃Boxing)64ビット浮動小数点値だけでなく、 `Real` 抽象型の実装であると宣言されている任意の大きさの複雑なオブジェクトでも構いません。
 <!-- END -->
 
 <!-- Start -->
@@ -1450,20 +1476,28 @@ However, there are three key differences:
 <!-- END -->
 
 <!-- Start -->
-*  Tuple types may have any number of parameters.
+
+* Tuple types may have any number of parameters.
 * > タプル型は、任意の数のパラメータを持つことができます。
+
 <!-- END -->
 <!-- Start -->
-*  Tuple types are *covariant* in their parameters: `Tuple{Int}` is a subtype of `Tuple{Any}`. 
-* > タプルの型は、それらのパラメータで*共変*です： `Tuple {Int}`は `Tuple {Any} 'のサブタイプです。
+
+* Tuple types are *covariant* in their parameters: `Tuple{Int}` is a subtype of `Tuple{Any}`. 
+* > タプルの型は、それらのパラメータで*共変*です： `Tuple{Int}`は `Tuple{Any}` のサブタイプです。
+
 <!-- END -->
 <!-- Start -->
-*  Therefore `Tuple{Any}` is considered an abstract type, and tuple types are only concrete if their parameters are.
-* > したがって、 `Tuple {Any}`は抽象型とみなされ、タプル型はそのパラメータが指定されている場合にのみ具体的です。
+
+* Therefore `Tuple{Any}` is considered an abstract type, and tuple types are only concrete if their parameters are.
+* > したがって、 `Tuple{Any}`は抽象型とみなされ、タプル型はそのパラメータが指定されている場合にのみ具体的です。
+
 <!-- END -->
 <!-- Start -->
-*  Tuples do not have field names; fields are only accessed by index.
+
+* Tuples do not have field names; fields are only accessed by index.
 * > タプルにはフィールド名はありません。 フィールドはインデックスによってのみアクセスされます。
+
 <!-- END -->
 
 <!-- Start -->
@@ -1641,7 +1675,7 @@ This meaning applies to Julia's singleton types, but with that caveat that only 
 
 ## Parametric Primitive Types
 
-> ##パラメトリックプリミティブ型
+> ## パラメトリックプリミティブ型
 
 <!-- END -->
 
@@ -1671,7 +1705,7 @@ Thus, `Ptr{Float64}` and `Ptr{Int64}` are distinct types, even though they have 
 <!-- END -->
 <!-- Start -->
 And of course, all specific pointer types are subtypes of the umbrella `Ptr` type:
-> なので当然、すべての特定のポインタ型は、傘型 `Ptr`型のサブタイプです：
+> なので当然、すべての特定のポインタ型は、傘型 `Ptr` 型のサブタイプです：
 <!-- END -->
 
 ```jldoctest
@@ -2220,32 +2254,47 @@ At present, the interface consists of several possible interactions:
 > 現在、インタフェースはいくつかの相互作用から成り立っています。
 <!-- END -->
 
+<!-- Start -->
+
 * Construct a `Nullable` object.
 > * `Nullable`オブジェクトを構築します。
+
 <!-- END -->
 <!-- Start -->
+
 * Check if a `Nullable` object has a missing value.
 > * `Nullable`オブジェクトに欠損値があるかどうかを確認してください。
+
 <!-- END -->
 <!-- Start -->
+
 * Access the value of a `Nullable` object with a guarantee that a [`NullException`](@ref) will be thrown if the object's value is missing.
 > * `Nullable`オブジェクトの値にアクセスすると、オブジェクトの値がない場合には` `NullException`(@ ref)がスローされることが保証されます。
+
 <!-- END -->
 <!-- Start -->
-*  Access the value of a `Nullable` object with a guarantee that a default value of type `T` will be returned if the object's value is missing.
+
+* Access the value of a `Nullable` object with a guarantee that a default value of type `T` will be returned if the object's value is missing.
 > * `Nullable`オブジェクトの値にアクセスするには、オブジェクトの値がない場合に` T`型のデフォルト値が返されることを保証します。
+
 <!-- END -->
 <!-- Start -->
-*  Perform an operation on the value (if it exists) of a `Nullable` object, getting a `Nullable` result. The result will be missing if the original value was missing.
+
+* Perform an operation on the value (if it exists) of a `Nullable` object, getting a `Nullable` result. The result will be missing if the original value was missing.
 > * `Nullable`オブジェクトの値(存在する場合)に操作を実行し、` Nullable`結果を取得します。 元の値がない場合、結果は失われます。
+
 <!-- END -->
 <!-- Start -->
+
 * Performing a test on the value (if it exists) of a `Nullable` object, getting a result that is missing if either the `Nullable` itself was missing, or the test failed.
 > * `Nullable`オブジェクトの値(存在する場合)のテストを行い、` Nullable`自体が存在しないか、テストが失敗した場合に欠けている結果を取得します。
+
 <!-- END -->
 <!-- Start -->
+
 * Perform general operations on single `Nullable` objects, propagating the missing data.
 > * 単一の `Nullable`オブジェクトに対して一般的な操作を行い、欠落したデータを伝播します。
+
 <!-- END -->
 
 <!-- Start -->

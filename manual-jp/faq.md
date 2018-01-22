@@ -10,7 +10,7 @@
 Juliaには、MATLABの `clear`関数の類推がありません。 Juliaセッション（技術的には `Main`モジュール）で名前が定義されると、それは常に存在します。
 
 <!-- If memory usage is your concern, you can always replace objects with ones that consume less memory.-->
-メモリ使用量が懸念される場合は、オブジェクトを常にメモリを消費するオブジェクトに置き換えることができます。
+メモリ使用量が懸念される場合は、常に低メモリ消費オブジェクトに置き換えることができます。
 <!-- For example, if `A` is a gigabyte-sized array that you no longer need, you can free the memory with `A = 0`.  -->
 たとえば、 `A`が不要なギガバイトサイズの配列である場合、` A = 0`でメモリを解放することができます。
 <!-- The memory will be released the next time the garbage collector runs; you can force this to happen with [`gc()`](@ref).-->
