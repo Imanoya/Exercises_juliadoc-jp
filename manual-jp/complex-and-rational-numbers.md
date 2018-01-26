@@ -7,11 +7,11 @@
 <!-- End -->
 <!-- Start -->
 Julia ships with predefined types representing both complex and rational numbers, and supports all standard [Mathematical Operations and Elementary Functions](@ref) on them.
-> Juliaは、複素数と有理数の両方を表す定義済みの型とともに出荷され、標準の[Mathematical Operations and Elementary Functions](@ref)をサポートしています。
+> Juliaは、複素数と有理数を表す型の両方を定義済みで提供し、標準の[Mathematical Operations and Elementary Functions](@ref)をサポートしています。
 <!-- End -->
 <!-- Start -->
 [Conversion and Promotion](@ref conversion-and-promotion) are defined so that operations on any combination of predefined numeric types, whether primitive or composite, behave as expected.
-> [変換とプロモーション](@ ref変換とプロモーション)は、プリミティブでもコンポジットでも、あらかじめ定義された数値型の任意の組み合わせに対する操作が期待どおりに動作するように定義されています。
+> [変換とプロモーション](@ref 変換とプロモーション) は、プリミティブでもコンポジットでも、あらかじめ定義された数値型の任意の組み合わせに対する操作が期待どおりに動作するように定義されています。
 <!-- End -->
 <!-- Start -->
 
@@ -22,7 +22,7 @@ Julia ships with predefined types representing both complex and rational numbers
 <!-- End -->
 <!-- Start -->
 The global constant [`im`](@ref) is bound to the complex number *i*, representing the principal square root of -1.
-> グローバル定数[`im`](@ref)は、-1の主平方根を表す複素数* i *に束縛されます。
+> グローバル定数 [`im`](@ref) は、-1の平方根を表す複素数 *i* に束縛されます。
 <!-- End -->
 <!-- Start -->
 It was deemed harmful to co-opt the name `i` for a global constant, since it is such a popular index variable name.
@@ -30,7 +30,7 @@ It was deemed harmful to co-opt the name `i` for a global constant, since it is 
 <!-- End -->
 <!-- Start -->
 Since Julia allows numeric literals to be [juxtaposed with identifiers as coefficients](@ref man-numeric-literal-coefficients), this binding suffices to provide convenient syntax for complex numbers, similar to the traditional mathematical notation:-->
-Juliaは数値リテラルを[識別子として係数と並置]することができるので(@ ref man-numeric-literal-coefficients)、この結合は複素数に便利な構文を提供するのに十分です。 伝統的な数学的表記法に似ています：
+> Juliaは数値リテラルを[識別子として係数と並置]することができるので(@ref man-numeric-literal-coefficients)、この結合は複素数に便利な構文を提供するのに十分です。 伝統的な数学的表記法に似ています：
 
 ```jldoctest
 julia> 1 + 2im
@@ -144,11 +144,11 @@ julia> angle(1 + 2im) # phase angle in radians
 
 <!-- Start -->
 As usual, the absolute value ([`abs()`](@ref)) of a complex number is its distance from zero.
-> いつものように、複素数の絶対値([`abs()`](@ ref))はゼロからの距離です。
+> いつものように、複素数の絶対値([`abs()`](@ref))はゼロからの距離です。
 <!-- End -->
 <!-- Start -->
 [`abs2()`](@ref) gives the square of the absolute value, and is of particular use for complex numbers where it avoids taking a square root.
-> [`abs2()`](@ ref)は絶対値の二乗を与え、複素数の場合は特に平方根を避けるために使います。
+> [`abs2()`](@ref) は絶対値の二乗を与え、複素数の場合は特に平方根を避けるために使います。
 <!-- End -->
 <!-- Start -->
 [`angle()`](@ref) returns the phase angle in radians (also known as the *argument* or *arg* function).
@@ -178,10 +178,10 @@ julia> sinh(1 + 2im)
 
 <!-- Start -->
 Note that mathematical functions typically return real values when applied to real numbers and complex values when applied to complex numbers.
-> 数学関数は、複素数に適用されたときに実数と複素数値に適用されると、通常、実数値を返します。
+> 数学関数は、実数に適用されると通常実数値を返します、複素数に適用されたときに複素数値を返します。
 <!-- End -->
 <!-- Start -->
-For example, [`sqrt()`](@ref) behaves differently when applied to `-1` versus `-1 + 0im` even though `-1 == -1 + 0im`:-->
+For example, [`sqrt()`](@ref) behaves differently when applied to `-1` versus `-1 + 0im` even though `-1 == -1 + 0im`:
 > 例えば、 [`sqrt()`](@ref)は `-1 == -1 + 0im` であっても `-1 + 0im` に対して `-1` に適用されたときの動作が異なります。
 <!-- End -->
 
@@ -190,7 +190,7 @@ julia> sqrt(-1)
 ERROR: DomainError:
 
 #sqrt will only return a complex result if called with a complex argument.
-#sqrtは、複雑な引数で呼び出された場合にのみ、複雑な結果を返します。
+#sqrtは、複素数の引数で呼び出された場合にのみ、複素数の結果を返します。
 #Try sqrt(complex(x)).
 #sqrt(complex(x))を試してください。
 #Stacktrace:
@@ -217,7 +217,7 @@ julia> a = 1; b = 2; a + b*im
 
 <!-- Start -->
 However, this is *not* recommended; Use the [`complex()`](@ref) function instead to construct a complex value directly from its real and imaginary parts:
-> しかし、これは推奨されません。 実数部と虚数部から直接複素数値を構築する代わりに、[`complex()`] (@ref) 関数を使用してください：
+> しかし、これはお勧め **できません**。 実数部と虚数部から直接複素数値を構築する代わりに、[`complex()`] (@ref) 関数を使用してください：
 <!-- End -->
 
 ```jldoctest
@@ -227,7 +227,7 @@ julia> a = 1; b = 2; complex(a, b)
 
 <!-- Start -->
 This construction avoids the multiplication and addition operations.
-> この構成は、乗算および加算演算を回避する。
+> この構築は、乗算および加算演算を回避します。
 <!-- End -->
 
 <!-- Start -->
@@ -245,6 +245,7 @@ julia> 1 + NaN*im
 <!-- Start -->
 
 # Rational Numbers
+
 > # 有理数
 
 <!-- End -->
@@ -283,11 +284,11 @@ julia> -4//-12
 
 <!-- Start -->
 This normalized form for a ratio of integers is unique, so equality of rational values can be tested by checking for equality of the numerator and denominator.
-> 整数の比に対するこの正規化された形式は固有であるため、有理値の等価性は、分子と分母の等価性を調べることによってテストできます。
+> 整数の比に対するこの正規化された形式は固有であるため、有理数の等価性は、分子と分母の等価性を調べることによってテストできます。
 <!-- End -->
 <!-- Start -->
 The standardized numerator and denominator of a rational value can be extracted using the [`numerator()`](@ref) and [`denominator()`](@ref) functions:
-> 有理値の標準化された分子と分母は、[`numerator()`] (@ref) と[`denominator()`] (@ref) 関数を使用して抽出することができます：
+> 有理数の標準化された分子と分母は、[`numerator()`] (@ref) と[`denominator()`] (@ref) 関数を使って取り出することができます：
 <!-- End -->
 
 ```jldoctest
@@ -300,7 +301,7 @@ julia> denominator(2//3)
 
 <!-- Start -->
 Direct comparison of the numerator and denominator is generally not necessary, since the standard arithmetic and comparison operations are defined for rational values:
-> 標準的な算術演算と比較演算が有理値のために定義されているので、分子と分母の直接比較は一般に必要ではありません。
+> 一般に分子と分母の直接比較は必要ありません、既に標準的な算術演算と比較演算が有理数のために定義されています。
 <!-- End -->
 
 
@@ -341,9 +342,9 @@ julia> float(3//4)
 ```
 
 <!-- Start -->
-Conversion from rational to floating-point respects the following identity for any integral values of `a` and `b`, with the exception of the case `a == 0` and `b == 0`:-->
-有理式から浮動小数点への変換は、'a == 0' および 'b == 0' の場合を除いて、'a' および 'b' の整数値に対する以下の同一性を尊重する。
-
+Conversion from rational to floating-point respects the following identity for any integral values of `a` and `b`, with the exception of the case `a == 0` and `b == 0`:
+> 有理数から浮動小数点への変換は、'a == 0' および 'b == 0' の場合を除いて、'a' および 'b' の整数値に対する以下の同一性を尊重します。
+<!-- End -->
 
 ```jldoctest
 julia> a = 1; b = 2;
@@ -354,7 +355,7 @@ true
 
 <!-- Start -->
 Constructing infinite rational values is acceptable:
-> 無限の合理的な値を構築することは許容されます：
+> 有理数の無限値を構築することは許容されます：
 <!-- End -->
 
 ```jldoctest
@@ -370,7 +371,7 @@ Rational{Int64}
 
 <!-- Start -->
 Trying to construct a [`NaN`](@ref) rational value, however, is not:
-> しかし、[`NaN`] (@ref) 有理値を構築しようとすると、以下のようになりません：
+> しかし、有理数で [`NaN`] (@ref) を構築すると、以下のようにできません：
 <!-- End -->
 
 ```jldoctest
