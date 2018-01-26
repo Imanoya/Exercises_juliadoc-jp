@@ -1274,7 +1274,7 @@ This `REQUIRE` file has the same specification as the standard `REQUIRE` file.
 <!-- End -->
 <!-- Start -->
 Package names should be sensible to most Julia users, *even to those who are not domain experts*.
-> パッケージ名は、ドメイン専門家でない人でも*ほとんどのジュリアユーザーにとって賢明であるべきです*。
+> パッケージ名は、ドメイン専門家でない *ほとんどのジュリアユーザー* にとって賢明であるべきです*。
 <!-- End -->
 <!-- Start -->
 When you submit your package to METADATA, you can expect a little back and forth about the package name with collaborators, especially if it's ambiguous or can be confused with something other than what it is. 
@@ -1299,7 +1299,7 @@ Here are some guidelines to follow in naming your package:
 
 <!-- Start -->
 1. Avoid jargon. 
-  > 専門用語を避けてください。
+  > ジャーゴンを避けてください。
   <!-- End -->
   <!-- Start -->
   In particular, avoid acronyms unless there is minimal possibility of confusion.
@@ -1311,7 +1311,7 @@ Here are some guidelines to follow in naming your package:
 <!-- End -->
 <!-- Start -->
 * It's not ok to say `PMA`, even if you're talking about positive mental attitude.
-  > 肯定的な精神的な態度について話しているとしても、「PMA」と言うのは大丈夫じゃない。
+  > 肯定的な精神的な態度について話しているとしても、「PMA」と言うのはよくありません。
 <!-- End -->
 <!-- Start -->
 2. Avoid using `Julia` in your package name.
@@ -1323,11 +1323,11 @@ Here are some guidelines to follow in naming your package:
 <!-- End -->
 <!-- Start -->
 * Having Julia in the name can imply that the package is connected to, or endorsed by, contributors to the Julia language itself.
-  > ジュリアを名前につけることは、パッケージがジュリア言語そのものへの貢献者と結びついているか、それによって支持されていることを暗示することができます。
+  > ジュリアを名前につけることは、パッケージがジュリア言語へ結びついているか、の貢献者とそのものそれによって支持されていることを暗示することができます。
 <!-- End -->
 <!-- Start -->
 3. Packages that provide most of their functionality in association with a new type should have pluralized names.
-  > 新しいタイプに関連して機能の大部分を提供するパッケージは、複数の名前を持つ必要があります。
+  > 新しいタイプに関連して機能の大部分を提供するパッケージは、複数形の名前が必要です。
 <!-- End -->
 <!-- Start -->
 *  `DataFrames` provides the `DataFrame` type.
