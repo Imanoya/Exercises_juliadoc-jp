@@ -12,7 +12,7 @@ Julia enables package developers and users to document functions, types and othe
 <!-- End -->
 <!-- Start-->
 The basic syntax is very simple: any string appearing at the top-level right before an object (function, macro, type or instance) will be interpreted as documenting it (these are called *docstrings*).
-> 基本的な構文は非常に単純です。オブジェクト（関数、マクロ、タイプまたはインスタンス）がドキュメント化する前に最上位に現れる文字列（ *docstrings* と呼ばれます）
+> 基本的な構文は非常に単純です。オブジェクト(関数、マクロ、タイプまたはインスタンス)がドキュメント化する前に最上位に現れる文字列( *docstrings* と呼ばれます)
 <!-- End -->
 <!-- Start-->
 Here is a very simple example:
@@ -26,7 +26,7 @@ foo(xs::Array) = ...
 
 <!-- Start-->
 Documentation is interpreted as [Markdown](https://en.wikipedia.org/wiki/Markdown), so you can use indentation and code fences to delimit code examples from text. 
-> ドキュメントは[Markdown]（https://en.wikipedia.org/wiki/Markdown）として解釈されるため、インデントとコードフェンスを使用してテキストのコード例を区切ります。
+> ドキュメントは[Markdown](https://en.wikipedia.org/wiki/Markdown)として解釈されるため、インデントとコードフェンスを使用してテキストのコード例を区切ります。
 <!-- End -->
 <!-- Start-->
 Technically, any object can be associated with any other as metadata; Markdown happens to be the default, but one can construct other string macros and pass them to the `@doc` macro just as well.
@@ -63,54 +63,84 @@ As in the example above, we recommend following some simple conventions when wri
 > 上記の例のように、ドキュメントを書くときの簡単な慣習に従うことをお勧めします：
 <!-- End -->
 
+<!-- Start-->
 1.  Always show the signature of a function at the top of the documentation, with a four-space indent so that it is printed as Julia code.
-
-  > 文書の上部には、関数の署名を常に表示し、4桁のインデントを付けてJuliaコードとして出力します。
+> 1. 文書の上部には、関数の署名を常に表示し、4桁のインデントを付けてJuliaコードとして出力します。
+<!-- End -->
+<!-- Start-->
   This can be identical to the signature present in the Julia code (like `mean(x::AbstractArray)`), or a simplified form.
-  > これはジュリアコード（ `mean（x :: AbstractArray）`のような）、または簡略化された形式のシグネチャと同じです。
+  > これはジュリアコード( `mean(x :: AbstractArray)`のような)、または簡略化された形式のシグネチャと同じです。
+<!-- End -->
+<!-- Start-->
   Optional arguments should be represented with their default values (i.e. `f(x, y=1)`) when possible, following the actual Julia syntax. 
-  > 可能な場合は、実際のJulia構文に従い、任意の引数をデフォルト値（つまり `f（x、y = 1）`）で表す必要があります。
+  > 可能な場合は、実際のJulia構文に従い、任意の引数をデフォルト値(つまり `f(x、y = 1)`)で表す必要があります。
+<!-- End -->
+<!-- Start-->
   Optional arguments which do not have a default value should be put in brackets (i.e. `f(x[, y])` and `f(x[, y[, z]])`). 
-  > デフォルトの値を持たない任意の引数は角括弧（ `` f [x [、y]） `と` f（x [、y [、z]]）で囲む必要があります。
+  > デフォルトの値を持たない任意の引数は角括弧( `` f [x [、y]) `と` f(x [、y [、z]])で囲む必要があります。
+<!-- End -->
+<!-- Start-->
   An alternative solution is to use several lines: one without optional arguments, the other(s) with them. 
   > 別の解決方法は、いくつかの行を使用することです：オプション引数を持たない行と、それ以外の行を使用する行です。
+<!-- End -->
+<!-- Start-->
   This solution can also be used to document several related methods of a given function. 
   > このソリューションは、特定の関数のいくつかの関連するメソッドを文書化するためにも使用できます。
+<!-- End -->
+<!-- Start-->
   When a function accepts many keyword arguments, only include a `<keyword arguments>` placeholder in the signature (i.e. `f(x; <keyword arguments>)`), and give the complete list under an `# Arguments` section (see point 4 below).
-  > 関数が多くのキーワード引数を受け入れる場合、 `<keyword arguments>`プレースホルダ（すなわち `f（x; <keyword arguments>）`）を含めるだけで、 `＃Arguments`セクション 以下のポイント4）。
-
-2. Include a single one-line sentence describing what the function does or what the object represents after the simplified signature block. 
-
-  > 簡略化された署名ブロックの後に、関数が何を表すか、またはオブジェクトが表すものを記述する単一の1行の文を含めます。
+  > 関数が多くのキーワード引数を受け入れる場合、 `<keyword arguments>`プレースホルダ(すなわち `f(x; <keyword arguments>)`)を含めるだけで、 `＃Arguments`セクション 以下のポイント4)。
+<!-- End -->
+<!-- Start-->
+2.  Include a single one-line sentence describing what the function does or what the object represents after the simplified signature block. 
+> 2. 簡略化された署名ブロックの後に、関数が何を表すか、またはオブジェクトが表すものを記述する単一の1行の文を含めます。
+<!-- End -->
+<!-- Start-->
   If needed, provide more details in a second paragraph, after a blank line.
   > 必要に応じて、空白行の後ろの2番目の段落に詳細を入力します。
-
+<!-- End -->
   The one-line sentence should use the imperative form ("Do this", "Return that") instead of the third person (do not write "Returns the length...") when documenting functions. 
-  > 関数を文書化するときに、3行目の代わりに必須の形式（「これを実行」、「返す」）を使用する必要があります（「長さを返します...」）。
+  > 関数を文書化するときに、3行目の代わりに必須の形式(「これを実行」、「返す」)を使用する必要があります(「長さを返します...」)。
+<!-- Start-->
   It should end with a period. If the meaning of a function cannot be summarized easily, splitting it into separate composable parts could be beneficial (this should not be taken as an absolute requirement for every single case though).
-  > 期間が終了するはずです。 関数の意味を簡単に要約することができない場合、それを別々の構成可能な部分に分割することは有益です（ただし、単一のケースごとに絶対的な要件とはみなされません）。
-
+  > 期間が終了するはずです。 関数の意味を簡単に要約することができない場合、それを別々の構成可能な部分に分割することは有益です(ただし、単一のケースごとに絶対的な要件とはみなされません)。
+<!-- End -->
+<!-- Start-->
 3.  Do not repeat yourself.
-
-  > 繰り返さないでください。
+> 3. 繰り返さないでください。
+<!-- End -->
+<!-- Start-->
   Since the function name is given by the signature, there is no need to start the documentation with "The function `bar`...": go straight to the point. 
   > 関数名は署名によって与えられているので、「関数 `bar` ...」でドキュメントを開始する必要はありません。ポイントにまっすぐ進みます。
+<!-- End -->
+<!-- Start-->
   Similarly, if the signature specifies the types of the arguments, mentioning them in the description is redundant.
   > 同様に、シグネチャが引数の型を指定している場合、その記述でそれらを記述することは冗長です。
-
-4. Only provide an argument list when really necessary.
-
-  > 本当に必要なときにのみ引数リストを提供してください。
+<!-- End -->
+<!-- Start-->
+4.  Only provide an argument list when really necessary.
+> 4. 本当に必要なときにのみ引数リストを提供してください。
+<!-- End -->
+<!-- Start-->
   For simple functions, it is often clearer to mention the role of the arguments directly in the description of the function's purpose. 
   > 単純な関数の場合、関数の目的の記述の中で引数の役割を直接言及することがしばしば明らかです。
+<!-- End -->
+<!-- Start-->
   An argument list would only repeat information already provided elsewhere. 
   > 引数リストは既に他の場所で提供されている情報を繰り返すだけです。
+<!-- End -->
+<!-- Start-->
   However, providing an argument list can be a good idea for complex functions with many arguments (in particular keyword arguments). 
-  > しかし、引数リストを提供することは、多くの引数（特にキーワード引数）を持つ複雑な関数に対しては良い考えです。
+  > しかし、引数リストを提供することは、多くの引数(特にキーワード引数)を持つ複雑な関数に対しては良い考えです。
+<!-- End -->
+<!-- Start-->
   In that case, insert it after the general description of the function, under an `# Arguments` header, with one `-` bullet for each argument.
   > その場合は、関数の一般的な説明の後に、 `＃Arguments`ヘッダーの下に挿入し、各引数に1つの` -`記号を付けます。
+<!-- End -->
+<!-- Start-->
   The list should mention the types and default values (if any) of the arguments:
-  > リストには、引数の型とデフォルト値（存在する場合）が記載されている必要があります。
+  > リストには、引数の型とデフォルト値(存在する場合)が記載されている必要があります。
+<!-- End -->
 
    ```julia
    """
@@ -121,17 +151,22 @@ As in the example above, we recommend following some simple conventions when wri
    ...
    """
    ```
-5. 
-   # Include any code examples in an `# Examples` section.
-   `＃Examples`セクションにコード例を含めてください。
-
-   # Examples should, whenever possible, be written as *doctests*. 
-   例は可能な限り、* doctests *と書くべきです。
-   # A *doctest* is a fenced code block (see [Code blocks](@ref)) starting with ````` ```jldoctest````` and contains any number of `julia>` prompts together with inputs and expected outputs that mimic the Julia REPL.
-   A * doctest *は、 `` `` `` `` `` `` jldoctest``````で始まる分離コードブロック（[コードブロック]（@ref）参照）であり、いくつかの `julia>`プロンプトが入力と Julia REPLを模倣する期待される出力。
-
-   # For example in the following docstring a variable `a` is defined and the expected result, as printed in a Julia REPL, appears afterwards:
-   たとえば、次のdocstringでは、変数 `a`が定義され、Julia REPLに出力されている期待される結果がその後に表示されます。
+<!-- Start-->
+5.  Include any code examples in an `# Examples` section.
+> 5.  `＃Examples`セクションにコード例を含めてください。
+<!-- End -->
+<!-- Start-->
+   Examples should, whenever possible, be written as *doctests*. 
+   > 例は可能な限り、* doctests *と書くべきです。
+<!-- End -->
+<!-- Start-->
+  A *doctest* is a fenced code block (see [Code blocks](@ref)) starting with ````` ```jldoctest````` and contains any number of `julia>` prompts together with inputs and expected outputs that mimic the Julia REPL.
+  > A * doctest *は、 `` `` `` `` `` `` jldoctest``````で始まる分離コードブロック([コードブロック](@ref)参照)であり、いくつかの `julia>`プロンプトが入力と Julia REPLを模倣する期待される出力。
+<!-- End -->
+<!-- Start-->
+  For example in the following docstring a variable `a` is defined and the expected result, as printed in a Julia REPL, appears afterwards:
+  > たとえば、次のdocstringでは、変数 `a`が定義され、Julia REPLに出力されている期待される結果がその後に表示されます。
+<!-- End -->
 
    ````julia
    """
@@ -148,49 +183,65 @@ As in the example above, we recommend following some simple conventions when wri
    """
    ````
 
-
 <!-- Start-->
 > !!! warning
 <!-- End -->
-
-!!!警告
-   # Calling `rand` and other RNG-related functions should be avoided in doctests since they will not produce consistent outputs during different Julia sessions. 
-    `rand`と他のRNG関連関数を呼び出すことは、異なるJuliaセッション中に一貫した出力を生成しないので、doctestでは避けるべきです。
-   # If you would like to show some random number generation related functionality, one option is to explicitly construct and seed your own [`MersenneTwister`](@ref) (or other pseudorandom number generator) and pass it to the functions you are doctesting.
-   乱数生成関連の機能をいくつか表示したい場合は、独自の[`MersenneTwister`]（@ ref）（または他の擬似乱数生成器）を明示的に構築してシードし、それをあなたが作っている関数に渡すことです。
-
-   # Operating system word size ([`Int32`](@ref) or [`Int64`](@ref)) as well as path separator differences (`/` or `\`) will also affect the reproducibility of some doctests.
-   オペレーティングシステムのワードサイズ（[`Int32`]（@ref）または[` Int64`]（@ref））とパス区切りの違い（ `/`または `\`）もいくつかのdoctestの再現性に影響します。
-
-   # Note that whitespace in your doctest is significant! The doctest will fail if you misalign the output of pretty-printing an array, for example.
-   doctestの空白が重要であることに注意してください。例えば、pretty-printing配列の出力の位置をずらすとdoctestが失敗します。
-
-   # You can then run `make -C doc doctest` to run all the doctests in the Julia Manual, which will ensure that your example works.
-   Julia Manualの `do-do docest`を実行すると、すべてのdoctestを実行することができます。これにより、あなたの例が確実に動作するようになります。
-
-   # Examples that are untestable should be written within fenced code blocks starting with ````` ```julia````` so that they are highlighted correctly in the generated documentation.
-   テストできない例は、 `` `` `` `julia``````で始まるfencedコードブロック内に、生成された文書で正しく強調表示されるように記述する必要があります。
-
-# !!! tip
-  !!!先端
-       Wherever possible examples should be **self-contained** and **runnable** so that readers are able to try them out without having to include any dependencies.
-       可能な限りの例は、**自己完結型**と**実行可能**でなければなりません。そうすれば、読者は依存関係を含まなくてもそれらを試すことができます。
-6. 
-   # Use backticks to identify code and equations.
-   コードと方程式を識別するためにバッククォートを使用します。
-
-   # Julia identifiers and code excerpts should always appear between backticks ``` ` ``` to enable highlighting. 
-   ジュリア識別子とコードの抜粋は、強調表示を有効にするバッククォートの間に必ず現れます。
-   # Equations in the LaTeX syntax can be inserted between double backticks ``` `` ```. 
-   LaTeX構文の方程式は、ダブルバッククォート `` `` `` ``の間に挿入できます。
-   # Use Unicode characters rather than their LaTeX escape sequence, i.e. ``` ``α = 1`` ``` rather than ``` ``\\alpha = 1`` ```.
-   LaTeXのエスケープシーケンスではなく、 ``` `` \\ alpha = 1`` ``` ではなく `` ``α= 1`` `` `のUnicode文字を使用してください。
-7. 
-   # Place the starting and ending `"""` characters on lines by themselves.
-   最初と最後の `` ""文字をそれ自身で行に配置します。
-
-   # That is, write
-    つまり、次のように書く：
+<!-- Start -->
+   Calling `rand` and other RNG-related functions should be avoided in doctests since they will not produce consistent outputs during different Julia sessions. 
+   > `rand`と他のRNG関連関数を呼び出すことは、異なるJuliaセッション中に一貫した出力を生成しないので、doctestでは避けるべきです。
+<!-- End -->
+<!-- Start -->
+   If you would like to show some random number generation related functionality, one option is to explicitly construct and seed your own [`MersenneTwister`](@ref) (or other pseudorandom number generator) and pass it to the functions you are doctesting.
+   > 乱数生成関連の機能をいくつか表示したい場合は、独自の[`MersenneTwister`](@ ref)(または他の擬似乱数生成器)を明示的に構築してシードし、それをあなたが作っている関数に渡すことです。
+<!-- End -->
+<!-- Start -->
+   Operating system word size ([`Int32`](@ref) or [`Int64`](@ref)) as well as path separator differences (`/` or `\`) will also affect the reproducibility of some doctests.
+   > オペレーティングシステムのワードサイズ([`Int32`](@ref)または[` Int64`](@ref))とパス区切りの違い( `/`または `\`)もいくつかのdoctestの再現性に影響します。
+<!-- End -->
+<!-- Start -->
+   Note that whitespace in your doctest is significant! The doctest will fail if you misalign the output of pretty-printing an array, for example.
+   > doctestの空白が重要であることに注意してください。例えば、pretty-printing配列の出力の位置をずらすとdoctestが失敗します。
+<!-- End -->
+<!-- Start -->
+   You can then run `make -C doc doctest` to run all the doctests in the Julia Manual, which will ensure that your example works.
+   > Julia Manualの `do-do docest`を実行すると、すべてのdoctestを実行することができます。これにより、あなたの例が確実に動作するようになります。
+<!-- End -->
+<!-- Start -->
+   Examples that are untestable should be written within fenced code blocks starting with ````` ```julia````` so that they are highlighted correctly in the generated documentation.
+   > テストできない例は、 ```` ```julia````` で始まるfencedコードブロック内に、生成された文書で正しく強調表示されるように記述する必要があります。
+<!-- End -->
+<!-- Start -->
+!!! tip
+<!-- End -->
+<!-- Start -->
+   Wherever possible examples should be **self-contained** and **runnable** so that readers are able to try them out without having to include any dependencies.
+   > 可能な限りの例は、**自己完結型**と**実行可能**でなければなりません。そうすれば、読者は依存関係を含まなくてもそれらを試すことができます。
+<!-- End -->
+<!-- Start -->
+6.Use backticks to identify code and equations.
+  > コードと方程式を識別するためにバッククォートを使用します。
+<!-- End -->
+<!-- Start -->
+  Julia identifiers and code excerpts should always appear between backticks ``` ` ``` to enable highlighting. 
+  > ジュリア識別子とコードの抜粋は、強調表示を有効にするバッククォートの間に必ず現れます。
+<!-- End -->
+<!-- Start -->
+  Equations in the LaTeX syntax can be inserted between double backticks ``` `` ```. 
+  > LaTeX構文の方程式は、ダブルバッククォート `` `` `` ``の間に挿入できます。
+<!-- End -->
+<!-- Start -->
+  Use Unicode characters rather than their LaTeX escape sequence, i.e. ``` ``α = 1`` ``` rather than ``` ``\\alpha = 1`` ```.
+  > LaTeXのエスケープシーケンスではなく、 ``` `` \\ alpha = 1`` ``` ではなく `` ``α= 1`` `` `のUnicode文字を使用してください。
+<!-- End -->
+<!-- Start -->
+7.Place the starting and ending `"""` characters on lines by themselves.
+  > 最初と最後の `` ""文字をそれ自身で行に配置します。
+<!-- End -->
+<!-- Start -->
+  That is, write
+  > つまり、次のように書く：
+<!-- End -->
+<!-- Start -->
 
    ```julia
    """
@@ -209,39 +260,43 @@ As in the example above, we recommend following some simple conventions when wri
    ..."""
    f(x, y) = ...
    ```
-
-   # This makes it more clear where docstrings start and end.
-   これにより、ドキュメントストリングの開始と終了の場所が明確になります。
-8. 
-   # Respect the line length limit used in the surrounding code.
-   周囲のコードで使用される行の長さの制限を尊重します。
-
-   # Docstrings are edited using the same tools as code. 
-   コード化と同じツールを使用してコードを編集します。
-   # Therefore, the same conventions should apply. 
-   したがって、同じ規則が適用されるはずです。
-   # It it advised to add line breaks after 92 characters.
-   それは92文字の後に改行を加えることを勧めました。
-
-
-<!-- Start-->
-## Accessing Documentation
 <!-- End -->
+<!-- Start -->
+   This makes it more clear where docstrings start and end.
+   > これにより、ドキュメントストリングの開始と終了の場所が明確になります。
+<!-- End -->
+<!-- Start -->
+8.Respect the line length limit used in the surrounding code.
+  > 周囲のコードで使用される行の長さの制限を尊重します。
+<!-- End -->
+<!-- Start -->
+  Docstrings are edited using the same tools as code. 
+  > コード化と同じツールを使用してコードを編集します。
+<!-- End -->
+<!-- Start -->
+  Therefore, the same conventions should apply. 
+  > したがって、同じ規則が適用されるはずです。
+<!-- End -->
+<!-- Start -->
+  It it advised to add line breaks after 92 characters.
+  > それは92文字の後に改行を加えることを勧めました。
+<!-- End -->
+<!-- Start-->
+
+## Accessing Documentation
 
 ### ドキュメントへのアクセス
 
-
+<!-- End -->
 <!-- Start-->
 Documentation can be accessed at the REPL or in [IJulia](https://github.com/JuliaLang/IJulia.jl) by typing `?` followed by the name of a function or macro, and pressing `Enter`. 
+> ドキュメンテーションは、REPL または [IJulia](https://github.com/JuliaLang/IJulia.jl) で、 `?` と続けて関数またはマクロの名前を入力し、Enterキーを押してアクセスできます。
 <!-- End -->
-
-ドキュメンテーションは、REPL または [IJulia](https://github.com/JuliaLang/IJulia.jl) で、 `?` と続けて関数またはマクロの名前を入力し、Enterキーを押してアクセスできます。
 
 <!-- Start-->
 For example,
+> 例えば、
 <!-- End -->
-
-例えば、
 
 ```julia
 ?cos
@@ -249,36 +304,42 @@ For example,
 ?r""
 ```
 
-
 <!-- Start-->
 will bring up docs for the relevant function, macro or string macro respectively. 
-<!-- End -->
-
 それぞれ関連する関数、マクロ、または文字列マクロのドキュメントを表示します。
-#In [Juno](http://junolab.org) using `Ctrl-J, Ctrl-D` will bring up documentation for the object under the cursor.
-`Ctrl-J` を使用している [Juno](http://junolab.org) では、`Ctrl-D` を押すと、オブジェクトのドキュメントがカーソルの下に表示されます。
-
-
-<!-- Start-->
-## Functions & Methods
 <!-- End -->
+
+<!-- Start -->
+In [Juno](http://junolab.org) using `Ctrl-J, Ctrl-D` will bring up documentation for the object under the cursor.
+> `Ctrl-J` を使用している [Juno](http://junolab.org) では、`Ctrl-D` を押すと、オブジェクトのドキュメントがカーソルの下に表示されます。
+<!-- End -->
+<!-- Start-->
+
+## Functions & Methods
 
 ## 関数とメソッド
 
-
+<!-- End -->
 <!-- Start-->
 Functions in Julia may have multiple implementations, known as methods. 
+> Juliaの関数には、メソッドと呼ばれる複数の実装があります。
 <!-- End -->
-
-Juliaの関数には、メソッドと呼ばれる複数の実装があります。
-#While it's good practice for generic functions to have a single purpose, Julia allows methods to be documented individually if necessary. 
-ジェネリック関数が単一の目的を持つのがよい習慣ですが、Juliaは必要に応じてメソッドを個別に文書化することができます。
-#In general, only the most generic method should be documented, or even the function itself (i.e. the object created without any methods by `function bar end`). 
-一般的に、最も一般的な方法のみを文書化するか、または関数自体（すなわち、「関数バー終了」によってメソッドを一切使用しないで作成されたオブジェクト）さえも記述する必要があります。
-#Specific methods should only be documented if their behaviour differs from the more generic ones. 
-具体的な方法は、その動作がより一般的なものと異なる場合にのみ文書化されるべきである。
-#In any case, they should not repeat the information provided elsewhere. For example:
-いずれにしても、他の場所で提供されている情報を繰り返すべきではありません。 例えば：
+<!-- Start -->
+While it's good practice for generic functions to have a single purpose, Julia allows methods to be documented individually if necessary. 
+> ジェネリック関数が単一の目的を持つのがよい習慣ですが、Juliaは必要に応じてメソッドを個別に文書化することができます。
+<!-- End -->
+<!-- Start -->
+In general, only the most generic method should be documented, or even the function itself (i.e. the object created without any methods by `function bar end`). 
+> 一般的に、最も一般的な方法のみを文書化するか、または関数自体(すなわち、「関数バー終了」によってメソッドを一切使用しないで作成されたオブジェクト)さえも記述する必要があります。
+<!-- End -->
+<!-- Start -->
+Specific methods should only be documented if their behaviour differs from the more generic ones. 
+> 具体的な方法は、その動作がより一般的なものと異なる場合にのみ文書化されるべきである。
+<!-- End -->
+<!-- Start -->
+In any case, they should not repeat the information provided elsewhere. For example:
+> いずれにしても、他の場所で提供されている情報を繰り返すべきではありません。 例えば：
+<!-- End -->
 
 ```julia
 """
@@ -313,45 +374,55 @@ search: * .*
   When applied to strings, concatenates them.
 ```
 
-#When retrieving documentation for a generic function, the metadata for each method is concatenated with the `catdoc` function, which can of course be overridden for custom types.
-ジェネリック関数のドキュメンテーションを取得するとき、各メソッドのメタデータは `catdoc`関数と連結されますが、これはもちろんカスタムタイプに対してオーバーライドすることもできます。
-
-
-<!-- Start-->
-## Advanced Usage
+<!-- Start -->
+When retrieving documentation for a generic function, the metadata for each method is concatenated with the `catdoc` function, which can of course be overridden for custom types.
+> ジェネリック関数のドキュメンテーションを取得するとき、各メソッドのメタデータは `catdoc`関数と連結されますが、これはもちろんカスタムタイプに対してオーバーライドすることもできます。
 <!-- End -->
+<!-- Start-->
 
-## 高度な使い方
+## Advanced Usage
 
+> ## 高度な使い方
 
+<!-- End -->
 <!-- Start-->
 The `@doc` macro associates its first argument with its second in a per-module dictionary called `META`. 
+> `@doc` マクロは `META` と呼ばれるモジュールごとの辞書で第一引数と第二引数を関連付けます。
 <!-- End -->
 
-`@doc` マクロは `META` と呼ばれるモジュールごとの辞書で第一引数と第二引数を関連付けます。
-#By default, documentation is expected to be written in Markdown, and the `doc""` string macro simply creates an object representing the Markdown content. 
-デフォルトでは、ドキュメンテーションはMarkdownで記述され、 `doc""` 文字列マクロは単に Markdown コンテンツを表すオブジェクトを作成します。
-#In the future it is likely to do more advanced things such as allowing for relative image or link paths.
-将来的には、相対的な画像やリンクのパスを許可するなど、より高度な処理を行う可能性があります。
+<!-- Start -->
+By default, documentation is expected to be written in Markdown, and the `doc""` string macro simply creates an object representing the Markdown content. 
+> デフォルトでは、ドキュメンテーションはMarkdownで記述され、 `doc""` 文字列マクロは単に Markdown コンテンツを表すオブジェクトを作成します。
+<!-- End -->
+<!-- Start -->
+In the future it is likely to do more advanced things such as allowing for relative image or link paths.
+> 将来的には、相対的な画像やリンクのパスを許可するなど、より高度な処理を行う可能性があります。
+<!-- End -->
 
-#When used for retrieving documentation, the `@doc` macro (or equally, the `doc` function) will search all `META` dictionaries for metadata relevant to the given object and return it. 
-`@doc` マクロ（あるいは `doc` 関数）は、ドキュメントの検索に使用すると、指定されたオブジェクトに関連するメタデータのすべての `META` 辞書を検索し、それを返します。
+<!-- Start -->
+When used for retrieving documentation, the `@doc` macro (or equally, the `doc` function) will search all `META` dictionaries for metadata relevant to the given object and return it. 
+> `@doc` マクロ(あるいは `doc` 関数)は、ドキュメントの検索に使用すると、指定されたオブジェクトに関連するメタデータのすべての `META` 辞書を検索し、それを返します。
+<!-- End -->
 
 <!-- Start-->
 The returned object (some Markdown content, for example) will by default display itself intelligently. 
+> 返されたオブジェクト(例えば、Markdown の内容など)は、デフォルトでそれ自身をインテリジェントに表示します。
 <!-- End -->
 
-返されたオブジェクト（例えば、Markdown の内容など）は、デフォルトでそれ自身をインテリジェントに表示します。
-#This design also makes it easy to use the doc system in a programmatic way; for example, to re-use documentation between different versions of a function:
-また、この設計により、プログラマチックな方法で doc システムを使いやすくなります。 たとえば、関数の異なるバージョン間でドキュメントを再利用するには：
+<!-- Start -->
+This design also makes it easy to use the doc system in a programmatic way; for example, to re-use documentation between different versions of a function:
+> また、この設計により、プログラマチックな方法で doc システムを使いやすくなります。 たとえば、関数の異なるバージョン間でドキュメントを再利用するには：
+<!-- End -->
 
 ```julia
 @doc "..." foo!
 @doc (@doc foo!) foo
 ```
 
-#Or for use with Julia's metaprogramming functionality:
-Juliaのメタプログラミング機能と併用する場合：
+<!-- Start -->
+Or for use with Julia's metaprogramming functionality:
+> Juliaのメタプログラミング機能と併用する場合：
+<!-- End -->
 
 ```julia
 for (f, op) in ((:add, :+), (:subtract, :-), (:multiply, :*), (:divide, :/))
@@ -363,10 +434,14 @@ end
 @doc "`subtract(a,b)` subtracts `b` from `a`" subtract
 ```
 
-#Documentation written in non-toplevel blocks, such as `begin`, `if`, `for`, and `let`, is added to the documentation system as blocks are evaluated. 
-`begin`、` if`、for、および `let`のような非トップレベルブロックで書かれたドキュメントは、ブロックが評価されるときにドキュメンテーションシステムに追加されます。
-#For example:
-例えば：
+<!-- Start -->
+Documentation written in non-toplevel blocks, such as `begin`, `if`, `for`, and `let`, is added to the documentation system as blocks are evaluated. 
+> `begin`、` if`、for、および `let`のような非トップレベルブロックで書かれたドキュメントは、ブロックが評価されるときにドキュメンテーションシステムに追加されます。
+<!-- End -->
+<!-- Start -->
+For example:
+> 例えば：
+<!-- End -->
 
 ```julia
 if VERSION > v"0.5"
@@ -375,26 +450,31 @@ if VERSION > v"0.5"
 end
 ```
 
-#will add documentation to `f(x)` when the condition is `true`. Note that even if `f(x)` goes out of scope at the end of the block, its documentation will remain.
-条件が `true`のときに` f（x） `に文書を追加します。 `f（x）`がブロックの最後に範囲外になっても、その文書は残っていることに注意してください。
-
-
+<!-- Start -->
+will add documentation to `f(x)` when the condition is `true`. Note that even if `f(x)` goes out of scope at the end of the block, its documentation will remain.
+> 条件が `true`のときに` f(x) `に文書を追加します。 `f(x)`がブロックの最後に範囲外になっても、その文書は残っていることに注意してください。
+<!-- End -->
 <!-- Start-->
+
 ### Dynamic documentation
+
+> ### 動的ドキュメント
+
 <!-- End -->
 
-### 動的ドキュメント
-
-#Sometimes the appropriate documentation for an instance of a type depends on the field values of that instance, rather than just on the type itself. 
-場合によっては、型のインスタンスの適切なドキュメントは、型自体ではなく、そのインスタンスのフィールド値によって異なります。
-#In these cases, you can add a method to `Docs.getdoc` for your custom type that returns the documentation on a per-instance basis. 
-このような場合には、ドキュメンテーションをインスタンス単位で返すカスタム型のメソッドを `Docs.getdoc` に追加することができます。
+<!-- Start -->
+Sometimes the appropriate documentation for an instance of a type depends on the field values of that instance, rather than just on the type itself. 
+> 場合によっては、型のインスタンスの適切なドキュメントは、型自体ではなく、そのインスタンスのフィールド値によって異なります。
+<!-- End -->
+<!-- Start -->
+In these cases, you can add a method to `Docs.getdoc` for your custom type that returns the documentation on a per-instance basis. 
+> このような場合には、ドキュメンテーションをインスタンス単位で返すカスタム型のメソッドを `Docs.getdoc` に追加することができます。
+<!-- End -->
 
 <!-- Start-->
 For instance,
-<!-- End -->
-
 例えば、
+<!-- End -->
 
 ```julia
 struct MyType
@@ -407,21 +487,26 @@ x = MyType("x")
 y = MyType("y")
 ```
 
-#`?x` will display "Documentation for MyType with value x" while `?y` will display "Documentation for MyType with value y".
-`？x`は` `xの値を持つMy Typeのドキュメンテーションを表示し、` `y``は` `yの値を持つMy Typeのドキュメンテーションを表示します。
-
-
-<!-- Start-->
-## Syntax Guide
+<!-- Start -->
+`?x` will display "Documentation for MyType with value x" while `?y` will display "Documentation for MyType with value y".
+> `?x` は *`x` の値を持つ My Typeの ドキュメンテーション* を表示し、`y` は *yの値を持つMy Typeのドキュメンテーション* を表示します。
 <!-- End -->
+<!-- Start-->
+
+## Syntax Guide
 
 ## 構文ガイド
 
-#A comprehensive overview of all documentable Julia syntax.
-すべての文書化可能なJulia構文の包括的な概要。
+<!-- End -->
+<!-- Start -->
+A comprehensive overview of all documentable Julia syntax.
+> すべての文書化可能なJulia構文の包括的な概要。
+<!-- End -->
 
-#In the following examples `"..."` is used to illustrate an arbitrary docstring which may be one of the follow four variants and contain arbitrary text:
-次の例では、 `` ... "`は、以下の4つの変種のうちの1つで、任意のテキストを含む任意のdocstringを示すために使用されています。
+<!-- Start -->
+In the following examples `"..."` is used to illustrate an arbitrary docstring which may be one of the follow four variants and contain arbitrary text:
+> 次の例では、 `` ... "`は、以下の4つの変種のうちの1つで、任意のテキストを含む任意のdocstringを示すために使用されています。
+<!-- End -->
 
 ```julia
 "..."
@@ -437,15 +522,17 @@ doc"""
 """
 ```
 
-#`@doc_str` should only be used when the docstring contains `$` or `\` characters that should not be parsed by Julia such as LaTeX syntax or Julia source code examples containing interpolation.
-`@ doc_str`は、docstringがLaTeX構文や補間を含むJuliaソースコードの例のように、Juliaによって解析されるべきでない` $ `または` \ `文字を含む場合にのみ使用されるべきです。
-
-
-<!-- Start-->
-## Functions and Methods
+<!-- Start -->
+`@doc_str` should only be used when the docstring contains `$` or `\` characters that should not be parsed by Julia such as LaTeX syntax or Julia source code examples containing interpolation.
+> `@ doc_str`は、docstringがLaTeX構文や補間を含むJuliaソースコードの例のように、Juliaによって解析されるべきでない` $ `または` \ `文字を含む場合にのみ使用されるべきです。
 <!-- End -->
+<!-- Start-->
 
-## 関数とメソッド
+## Functions and Methods
+
+> ## 関数とメソッド
+
+<!-- End -->
 
 ```julia
 "..."
@@ -455,8 +542,10 @@ function f end
 f
 ```
 
-#Adds docstring `"..."` to `Function``f`. The first version is the preferred syntax, however both are equivalent.
-docstring `"..."``を `Function``f`に追加します。 最初のバージョンが優先する構文ですが、どちらも同等です。
+<!-- Start -->
+Adds docstring `"..."` to `Function``f`. The first version is the preferred syntax, however both are equivalent.
+> docstring `"..."` を `Function``f` に追加します。 最初のバージョンが優先する構文ですが、どちらも同等です。
+<!-- End -->
 
 ```julia
 "..."
@@ -471,38 +560,56 @@ end
 f(x)
 ```
 
-#Adds docstring `"..."` to `Method``f(::Any)`.
-docstring `` ... ... ``を `Method``f（:: Any）`に追加します。
+<!-- Start -->
+Adds docstring `"..."` to `Method``f(::Any)`.
+> docstring `` ... ... ``を `Method``f(:: Any)`に追加します。
+<!-- End -->
 
 ```julia
 "..."
 f(x, y = 1) = x + y
 ```
 
-#Adds docstring `"..."` to two `Method`s, namely `f(::Any)` and `f(::Any, ::Any)`.
-docstring `` ... ... ``を `f（:: Any）`と `f（:: Any、:: Any）`の2つの `Method`sに追加します。
+<!-- Start -->
+Adds docstring `"..."` to two `Method`s, namely `f(::Any)` and `f(::Any, ::Any)`.
+> docstring `"..."` を `f(::Any)` と `f(::Any, ::Any)` の2つの `Method`s に追加します。
+<!-- End -->
+<!-- Start -->
 
 ### Macros
+
+> ### マクロ
+
+<!-- End -->
 
 ```julia
 "..."
 macro m(x) end
 ```
 
-#Adds docstring `"..."` to the `@m(::Any)` macro definition.
-`@m（:: Any）`マクロ定義にdocstring `` ... ... ``を追加します。
+<!-- Start -->
+Adds docstring `"..."` to the `@m(::Any)` macro definition.
+> `@m(::Any)` マクロ定義に docstring `" ..."` を追加します。
+<!-- End -->
 
 ```julia
 "..."
 :(@m)
 ```
 
-#Adds docstring `"..."` to the macro named `@m`.
-`@ m`というマクロにdocstring` `... ...` `を追加します。
+<!-- Start -->
+Adds docstring `"..."` to the macro named `@m`.
+> `@m` というマクロにdocstring `"..."` を追加します。
+<!-- End -->
+<!-- Start -->
 
 ### Types
 
-```
+>### タイプ
+
+<!-- End -->
+
+```julia
 "..."
 abstract type T1 end
 
@@ -517,8 +624,10 @@ struct T3
 end
 ```
 
-#Adds the docstring `"..."` to types `T1`, `T2`, and `T3`.
-ドキュメントストリング `` ... "を` `T1```、` `T2``、` `T3``型に追加します。
+<!-- Start -->
+Adds the docstring `"..."` to types `T1`, `T2`, and `T3`.
+> ドキュメントストリング `"..."` を `T1`,`T2`,`T3` 型に追加します。
+<!-- End -->
 
 ```julia
 "..."
@@ -530,10 +639,17 @@ struct T
 end
 ```
 
-#Adds docstring `"..."` to type `T`, `"x"` to field `T.x` and `"y"` to field `T.y`. Also applicable to `mutable struct` types.
-docstring `` ... '`を` T`、 `` x "` `T.x`と` `y" `をフィールド` T.y`に追加します。 `mutable struct`型にも適用可能です。
+<!-- Start -->
+Adds docstring `"..."` to type `T`, `"x"` to field `T.x` and `"y"` to field `T.y`. Also applicable to `mutable struct` types.
+> docstring `"..."` を `T`, `"x"` をフィールド`T.x` そして `"y"` をフィールド `T.y` に追加します。`mutable struct` 型にも適用可能です。
+<!-- End -->
+<!-- Start -->
 
 ### Modules
+
+>### モジュール
+
+<!-- End -->
 
 ```julia
 "..."
@@ -547,8 +663,10 @@ M
 end
 ```
 
-#Adds docstring `"..."` to the `Module``M`. Adding the docstring above the `Module` is the preferred syntax, however both are equivalent.
-`` M``にdocstring `` ... ... `を追加します。 `Module`の上にdocstringを追加するのが好ましい構文ですが、どちらも同等です。
+<!-- Start -->
+Adds docstring `"..."` to the `Module``M`. Adding the docstring above the `Module` is the preferred syntax, however both are equivalent.
+> `module``M` にdocstring `"..."` を追加します。 `Module` の上にdocstringを追加するのが好ましい構文ですが、どちらも同等です。
+<!-- End -->
 
 ```julia
 "..."
@@ -566,12 +684,21 @@ f(x) = x
 end
 ```
 
-#Documenting a `baremodule` by placing a docstring above the expression automatically imports `@doc` into the module. 
-ドキュメントストリングを式の上に置いて `baremodule`を文書化すると自動的に` @ doc`がモジュールにインポートされます。
-#These imports must be done manually when the module expression is not documented. Empty `baremodule`s cannot be documented.
-これらのインポートは、モジュール式が文書化されていない場合は手動で行う必要があります。 空の `baremodule`sは文書化できません。
+<!-- Start -->
+Documenting a `baremodule` by placing a docstring above the expression automatically imports `@doc` into the module. 
+> ドキュメントストリングを式の上に置いて `baremodule`を文書化すると自動的に` @ doc`がモジュールにインポートされます。
+<!-- End -->
+<!-- Start -->
+These imports must be done manually when the module expression is not documented. Empty `baremodule`s cannot be documented.
+> これらのインポートは、モジュール式が文書化されていない場合は手動で行う必要があります。 空の `baremodule`sは文書化できません。
+<!-- End -->
+<!-- Start -->
 
 ### Global Variables
+
+>### グローバル変数
+
+<!-- End -->
 
 ```julia
 "..."
@@ -584,22 +711,29 @@ b = 2
 global c = 3
 ```
 
-#Adds docstring `"..."` to the `Binding`s `a`, `b`, and `c`.
-`Binding`sの` a`、 `b`、` c`にdocstring `` ... ... ``を追加します。
+<!-- Start -->
+Adds docstring `"..."` to the `Binding`s `a`, `b`, and `c`.
+> `Binding`s の `a`, `b`, `c` にdocstring `"..."` を追加します。
+<!-- End -->
 
-#`Binding`s are used to store a reference to a particular `Symbol` in a `Module` without storing the referenced value itself.
-`Binding`は、参照された値自体を格納せずに、` Module`内の特定の `Symbol`への参照を格納するために使用されます。
+<!-- Start -->
+`Binding`s are used to store a reference to a particular `Symbol` in a `Module` without storing the referenced value itself.
+> `Binding`は、参照された値自体を格納せずに、` Module`内の特定の `Symbol`への参照を格納するために使用されます。
+<!-- End -->
 
-#!!! note
-!!! 注意
-   # When a `const` definition is only used to define an alias of another definition, such as is the case with the function `div` and its alias `÷` in `Base`, do not document the alias and instead document the actual function.
-   `const`定義が別の定義のエイリアスを定義するためだけに使用される場合（例えば、` div`関数と `Base`のエイリアス`÷ `の場合）、エイリアスを文書化せず、代わりに実際の関数 。
-
-   # If the alias is documented and not the real definition then the docsystem (`?` mode) will not return the docstring attached to the alias when the real definition is searched for.
-   エイリアスが文書化されていて実際の定義ではない場合、実際の定義が検索されるとき、docsystem（ `？` mode）はエイリアスに付加されたdocstringを返しません。
-
-   # For example you should write
-     たとえば、
+!!! note
+<!-- Start -->
+   When a `const` definition is only used to define an alias of another definition, such as is the case with the function `div` and its alias `÷` in `Base`, do not document the alias and instead document the actual function.
+   > `const`定義が別の定義のエイリアスを定義するためだけに使用される場合(例えば、` div`関数と `Base`のエイリアス`÷ `の場合)、エイリアスを文書化せず、代わりに実際の関数 。
+<!-- End -->
+<!-- Start -->
+   If the alias is documented and not the real definition then the docsystem (`?` mode) will not return the docstring attached to the alias when the real definition is searched for.
+   > エイリアスが文書化されていて実際の定義ではない場合、実際の定義が検索されるとき、docsystem( `？` mode)はエイリアスに付加されたdocstringを返しません。
+<!-- End -->
+<!-- Start -->
+   For example you should write
+   > たとえば、
+<!-- End -->
 
     ```julia
     "..."
@@ -620,21 +754,31 @@ global c = 3
 sym
 ```
 
-#Adds docstring `"..."` to the value associated with `sym`. Users should prefer documenting `sym` at it's definition.
-docstring `` ... ... ``を `sym`に関連付けられた値に追加します。 ユーザは `sym`の定義を文書化することを好むべきです。
+<!-- Start -->
+Adds docstring `"..."` to the value associated with `sym`. Users should prefer documenting `sym` at it's definition.
+> docstring `"..."` を `sym` に関連付けられた値に追加します。 ユーザは `sym` の定義を文書化することを好むべきです。
+<!-- End -->
+<!-- Start -->
 
 ### Multiple Objects
-### 複数のオブジェクト
+
+> ### 複数のオブジェクト
+
+<!-- End -->
 
 ```julia
 "..."
 a, b
 ```
 
-#Adds docstring `"..."` to `a` and `b` each of which should be a documentable expression. 
-docstring `` ... ... ``をそれぞれ文書化可能な式である `a`と` b`に追加します。
-#This syntax is equivalent to
-この構文は、
+<!-- Start -->
+Adds docstring `"..."` to `a` and `b` each of which should be a documentable expression. 
+> docstring `"..."` をそれぞれ文書化可能な式である `a` と `b` に追加します。
+<!-- End -->
+<!-- Start -->
+This syntax is equivalent to
+> この構文は、
+<!-- End -->
 
 ```julia
 "..."
@@ -644,335 +788,321 @@ a
 b
 ```
 
-#Any number of expressions many be documented together in this way. This syntax can be useful when two functions are related, such as non-mutating and mutating versions `f` and `f!`.
-このようにして、多くの表現が多数記述されています。 この構文は、バージョン `f`と` f！ `を変更したり変更したりするなど、2つの関数が関連している場合に便利です。
+<!-- Start Check-->
+Any number of expressions many be documented together in this way. This syntax can be useful when two functions are related, such as non-mutating and mutating versions `f` and `f!`.
+> このようにして、多くの表現が多数記述されています。 この構文は、2つの関数が関連している場合にバージョン `f` と `f!` を変更したりするなど、便利です。
+<!-- End -->
+<!-- Start -->
 
 ### Macro-generated code
-### マクロ生成コード
+
+> ### マクロ生成コード
+
+<!-- End -->
 
 ```julia
 "..."
 @m expression
 ```
 
-
 <!-- Start-->
 Adds docstring `"..."` to expression generated by expanding `@m expression`.
+> `@m式`を展開して生成した式にdocstring `"..."` を追加します。
 <!-- End -->
 
-`@m式`を展開して生成した式にdocstring `` ... ... ``を追加します。
 
 <!-- Start-->
 This allows for expressions decorated with `@inline`, `@noinline`, `@generated`, or any other macro to be documented in the same way as undecorated expressions.
+> これにより、 `@inline`,` @noinline`, `@ generated`, または他のマクロで装飾された式は、装飾されていない式と同じ方法で文書化できます。
 <!-- End -->
-
-これにより、 `@inline`、` @noinline`、 `@ generated`、または他のマクロで装飾された式は、装飾されていない式と同じ方法で文書化できます。
-
-
 <!-- Start-->
 Macro authors should take note that only macros that generate a single expression will automatically support docstrings.
+> マクロ作成者は、単一の式を生成するマクロだけが自動的にドキュメントストリングをサポートすることに注意する必要があります。
 <!-- End -->
-
-マクロ作成者は、単一の式を生成するマクロだけが自動的にドキュメントストリングをサポートすることに注意する必要があります。
-
 <!-- Start-->
 If a macro returns a block containing multiple subexpressions then the subexpression that should be documented must be marked using the [`@__doc__`](@ref Core.@__doc__) macro.
+> マクロが複数の部分式を含むブロックを返す場合、文書化すべき部分式は[@ __ doc__](@ ref Core。@ __ doc__)マクロを使ってマークする必要があります。
 <!-- End -->
-
-マクロが複数の部分式を含むブロックを返す場合、文書化すべき部分式は[@ __ doc__]（@ ref Core。@ __ doc__）マクロを使ってマークする必要があります。
-
 
 <!-- Start-->
 The `@enum` macro makes use of `@__doc__` to allow for documenting `Enum`s.
+> `@enum`マクロは `@__ doc__` を利用して `Enum` を文書化します。
 <!-- End -->
-
-`@ enum`マクロは` @__ doc__`を利用して `Enum`を文書化します。
-
 <!-- Start-->
 Examining it's definition should serve as an example of how to use `@__doc__` correctly.
+> 定義を調べることは、 `@__ doc__` を正しく使う方法の例として役立つはずです。
 <!-- End -->
-
-定義を調べることは、 `@__ doc__`を正しく使う方法の例として役立つはずです。
 
 ```@docs
 Core.@__doc__
 ```
 
-
 <!-- Start-->
+
 ## Markdown syntax
+
+> ## マークダウン構文
+
 <!-- End -->
-
-## マークダウン構文
-
-#The following markdown syntax is supported in Julia.
-Juliaでは、次のマークダウン構文がサポートされています。
+<!-- Start -->
+The following markdown syntax is supported in Julia.
+> Juliaでは、次のマークダウン構文がサポートされています。
+<!-- End -->
 
 
 <!-- Start-->
+
 ### Inline elements
+
+> ### インライン要素
+
 <!-- End -->
-
-### インライン要素
-
-#Here "inline" refers to elements that can be found within blocks of text, i.e. paragraphs. 
-ここで、「インライン」とは、テキストのブロック、すなわち段落内で見つかることができる要素を指す。
-#These include the following elements.
-これらには、以下の要素が含まれます。
+<!-- Start -->
+Here "inline" refers to elements that can be found within blocks of text, i.e. paragraphs. 
+> ここで、「インライン」とは、テキストのブロック、すなわち段落内で見つかることができる要素を指す。
+<!-- End -->
+<!-- Start -->
+These include the following elements.
+> これらには、以下の要素が含まれます。
+<!-- End -->
+<!-- Start -->
 
 ### Bold
 
-#Surround words with two asterisks, `**`, to display the enclosed text in boldface.
-囲まれたテキストを太字で表示するには、2つのアスタリスク「**」で囲む単語を囲みます。
+<!-- End -->
+<!-- Start -->
+Surround words with two asterisks, `**`, to display the enclosed text in boldface.
+> 囲まれたテキストを太字で表示するには、2つのアスタリスク `**` で囲む単語を囲みます。
+<!-- End -->
 
-```
+```Markdown
 A paragraph containing a **bold** word.
 ```
 
-
 <!-- Start-->
-#### Italics
+
+### Italics
+
+> ### イタリック体
+
 <!-- End -->
 
-### イタリック体
+<!-- Start -->
+Surround words with one asterisk, `*`, to display the enclosed text in italics.
+> 1つのアスタリスク( `*`)で囲まれた単語を囲み、囲まれたテキストをイタリック体で表示します。
+<!-- End -->
 
-#Surround words with one asterisk, `*`, to display the enclosed text in italics.
-1つのアスタリスク（ `*`）で囲まれた単語を囲み、囲まれたテキストをイタリック体で表示します。
-
-```
+```Markdown
 A paragraph containing an *emphasised* word.
 ```
 
-
 <!-- Start-->
-#### Literals
+
+### Literals
+
+> ### リテラル
+
+<!-- End -->
+<!-- Start -->
+Surround text that should be displayed exactly as written with single backticks, ``` ` ``` .
+> 単一のバッククォート ``` ` ``` で書かれたとおりに表示されるサラウンドテキスト。
 <!-- End -->
 
-#### リテラル
-
-#Surround text that should be displayed exactly as written with single backticks, ``` ` ``` .
-単一のバッククォート `` `` `` `で書かれたとおりに表示されるサラウンドテキスト。
-
-```
+```Markdown
 A paragraph containing a `literal` word.
 ```
 
-#Literals should be used when writing text that refers to names of variables, functions, or other parts of a Julia program.
-Juliaプログラムの変数、関数、またはその他の部分の名前を参照するテキストを記述するときには、リテラルを使用する必要があります。
+<!-- Start -->
+Literals should be used when writing text that refers to names of variables, functions, or other parts of a Julia program.
+> Juliaプログラムの変数、関数、またはその他の部分の名前を参照するテキストを記述するときには、リテラルを使用する必要があります。
+<!-- End -->
 
 #!!! tip
-!!! 先端
-   # To include a backtick character within literal text use three backticks rather than one to enclose the text.
-    リテラルテキスト内にバックティック文字を含めるには、テキストを囲むバッククィックを使用するのではなく、3つのバッククィックを使用します。
+<!-- Start -->
+   To include a backtick character within literal text use three backticks rather than one to enclose the text.
+   > リテラルテキスト内にバックティック文字を含めるには、テキストを囲むバッククィックを使用するのではなく、3つのバッククィックを使用します。
+<!-- End -->
 
-    ```
+    ```REPL
     A paragraph containing a ``` `backtick` character ```.
     ```
 
-   # By extension any odd number of backticks may be used to enclose a lesser number of backticks.
-   拡張によって、任意の数のバックティックを使用してより少ない数のバックティックを囲むことができる。
+<!-- Start -->
+   By extension any odd number of backticks may be used to enclose a lesser number of backticks.
+   > 拡張によって、任意の数のバックティックを使用してより少ない数のバックティックを囲むことができます。
+<!-- End -->
+<!-- Start -->
 
-#### ``\LaTeX``
+### ``\LaTeX``
 
-
-<!-- Start-->
-
-Surround text that should be displayed as mathematics using ``\LaTeX`` syntax with double backticks, ``` `` ``` .
+> ### ``\LaTeX``
 
 <!-- End -->
+<!-- Start-->
+Surround text that should be displayed as mathematics using ``\LaTeX`` syntax with double backticks, ``` `` ``` .
+>二重backtick、 ``` `` ```で囲まれたテキストは ``\LaTeX`` の構文を使って数学的に表示されます。
+<!-- End -->
 
-二重backtick、 `` `` `` ``で `` \ LaTeX``の構文を使って数学的に表示されるべきサラウンドテキスト。
-
-```
+```Tex
 A paragraph containing some ``\LaTeX`` markup.
 ```
 
 
 <!-- Start-->
-
 !!! tip
-    As with literals in the previous section, if literal backticks need to be written within double backticks use an even number greater than two. 
-    Note that if a single literal backtick needs to be included within ``\LaTeX`` markup then two enclosing backticks is sufficient.
--->
+<!-- Start -->
+   As with literals in the previous section, if literal backticks need to be written within double backticks use an even number greater than two. 
+   Note that if a single literal backtick needs to be included within ``\LaTeX`` markup then two enclosing backticks is sufficient.
+   > 前のセクションのリテラルと同様に、二重バッククォート内にリテラルバッククォートを記述する必要がある場合は、2より大きい偶数を使用します。
+   > 単一のリテラルバックティックを `` \ LaTeX ``マークアップに含める必要がある場合は、2つの囲みバッククイックで十分です。
 
-!!! 先端
-    前のセクションのリテラルと同様に、二重バッククォート内にリテラルバッククォートを記述する必要がある場合は、2より大きい偶数を使用します。
-    単一のリテラルバックティックを `` \ LaTeX``マークアップに含める必要がある場合は、2つの囲みバッククイックで十分です。
-
-
-
-
-<!-- Start-->
-#### Links
 <!-- End -->
+<!-- Start-->
 
-#### リンク
+### Links
 
+> ### リンク
+
+<!-- End -->
 
 <!-- Start-->
 Links to either external or internal addresses can be written using the following syntax, where the text enclosed in square brackets, `[ ]`, is the name of the link and the text enclosed in parentheses, `( )`, is the URL.
+> 外部アドレスまたは内部アドレスへのリンクは、次の構文を使用して記述することができます。ここで、角括弧[]で囲まれたテキストはリンクの名前で、括弧で囲まれたテキスト `()`は URL です。
 <!-- End -->
-
-外部アドレスまたは内部アドレスへのリンクは、次の構文を使用して記述することができます。ここで、角括弧[]で囲まれたテキストはリンクの名前で、括弧で囲まれたテキストは `（）`です。
-
-
 <!-- Start-->
 
-```
+```Markdown
 A paragraph containing a link to [Julia](http://www.julialang.org).
 ```
--->
-```
-[Julia]（http://www.julialang.org）へのリンクを含むパラグラフ。
-```
 
+>```Markdown
+>[Julia](http://www.julialang.org)へのリンクを含むパラグラフ。
+>```
 
 <!-- Start-->
 It's also possible to add cross-references to other documented functions/methods/variables within the Julia documentation itself.
+> また、Juliaのドキュメント自体に、他のドキュメント化された関数/メソッド/変数への相互参照を追加することもできます。
 <!-- End -->
-
-また、Juliaのドキュメント自体に、他のドキュメント化された関数/メソッド/変数への相互参照を追加することもできます。
 
 <!-- Start-->
 For example:
+>例えば：
 <!-- End -->
 
-例えば：
-
-
-<!-- Start-->
-```julia
+```Julia
     eigvals!(A,[irange,][vl,][vu]) -> values
 
 Same as [`eigvals`](@ref), but saves space by overwriting the input `A`, instead of creating a copy.
 
 ```
+
 -->
 
-```julia
+```Julia
     eigvals!(A,[irange,][vl,][vu]) -> values
 
-[`eigvals`]（@ ref）と同じですが、コピーを作成する代わりに入力` A`を上書きしてスペースを節約します。
+[`eigvals`](@ ref)と同じですが、コピーを作成する代わりに入力` A`を上書きしてスペースを節約します。
 
 ```
 
 
 <!-- Start-->
 This will create a link in the generated docs to the `eigvals` documentation (which has more information about what this function actually does).
+> これは、生成されたドキュメント内の `eigvals`ドキュメントへのリンクを作成します(この関数が実際に何をするかについての詳細があります)。
 <!-- End -->
-
-これは、生成されたドキュメント内の `eigvals`ドキュメントへのリンクを作成します（この関数が実際に何をするかについての詳細があります）。
 
 <!-- Start-->
 It's good to include cross references to mutating/non-mutating versions of a function, or to highlight a difference between two similar-seeming functions.
+> 関数の突然変異/非突然変異バージョンへの相互参照を組み込むことや、類似した2つの関数の違いを強調することは良いことです。
 <!-- End -->
 
-関数の突然変異/非突然変異バージョンへの相互参照を組み込むことや、類似した2つの関数の違いを強調することは良いことです。
-
-
 <!-- Start-->
-
 !!! note
-    The above cross referencing is *not* a Markdown feature, and relies on [Documenter.jl](https://github.com/JuliaDocs/Documenter.jl), which is used to build base Julia's documentation.
--->
-!!! 注意
-   上記の相互参照はMarkdown機能ではなく、基本的なJuliaのドキュメントを構築するために使用される[Documenter.jl]（https://github.com/JuliaDocs/Documenter.jl）に依存しています。
-
-
-<!-- Start-->
-### Footnote references
+  The above cross referencing is *not* a Markdown feature, and relies on [Documenter.jl](https://github.com/JuliaDocs/Documenter.jl), which is used to build base Julia's documentation.
+  > 上記の相互参照はMarkdown機能ではなく、基本的なJuliaのドキュメントを構築するために使用される[Documenter.jl](https://github.com/JuliaDocs/Documenter.jl)に依存しています。
 <!-- End -->
+<!-- Start-->
 
-#### 脚注
+### Footnote references
 
+> ### 脚注
 
+<!-- End -->
 <!-- Start-->
 Named and numbered footnote references can be written using the following syntax.
+> 名前付きおよび番号付きの脚注の参照は、次の構文を使用して記述することができます。
 <!-- End -->
-
-名前付きおよび番号付きの脚注の参照は、次の構文を使用して記述することができます。
 
 <!-- Start-->
 A footnote name must be a single alphanumeric word containing no punctuation.
+> 脚注名は、句読点を含まない単一の英数字の単語でなければなりません。
 <!-- End -->
 
-脚注名は、句読点を含まない単一の英数字の単語でなければなりません。
-
-```
+```Markdown
 A paragraph containing a numbered footnote [^1] and a named one [^named].
 ```
 
-番号付きの脚注[^ 1]と名前付きの[^名前付き]を含む段落。
-
+> ```Markdown
+> 番号付きの脚注[^ 1]と名前付きの[^名前付き]を含む段落。
+> ```
 
 <!-- Start-->
-
 !!! note
-    The text associated with a footnote can be written anywhere within the same page as the footnote reference. 
-    The syntax used to define the footnote text is discussed in the [Footnotes](@ref) section below.
--->
-!!! 注意
-     脚注に関連付けられたテキストは、脚注の参照と同じページ内のどこにでも書くことができます。
-     脚注テキストの定義に使用する構文については、下記の[脚注]（@ ref）セクションで説明しています。
-
-
-<!-- Start-->
-## Toplevel elements
+  The text associated with a footnote can be written anywhere within the same page as the footnote reference. 
+  The syntax used to define the footnote text is discussed in the [Footnotes](@ref) section below.
+  > 脚注に関連付けられたテキストは、脚注の参照と同じページ内のどこにでも書くことができます。
+  > 脚注テキストの定義に使用する構文については、下記の [脚注](@ref) セクションで説明しています。
 <!-- End -->
+<!-- Start-->
+
+## Toplevel elements
 
 ### トップレベル要素
 
+<!-- End -->
 
 <!-- Start-->
 The following elements can be written either at the "toplevel" of a document or within another "toplevel" element.
+> 次の要素は、文書の "トップレベル"または別の "トップレベル"要素のいずれかに書き込むことができます。
 <!-- End -->
-
-次の要素は、文書の "トップレベル"または別の "トップレベル"要素のいずれかに書き込むことができます。
-
-
 <!-- Start-->
+
 ### Paragraphs
-<!-- End -->
 
 ### 段落
 
-
+<!-- End -->
 <!-- Start-->
 A paragraph is a block of plain text, possibly containing any number of inline elements defined in the [Inline elements](@ref) section above, with one or more blank lines above and below it.
+> パラグラフは、上記の [Inline elements](@ref) セクションで定義された任意の数のインライン要素を含み、その上と下に空白行が1つ以上あるプレーンテキストのブロックです。
 <!-- End -->
-
-パラグラフは、上記の[Inline elements]（@ ref）セクションで定義された任意の数のインライン要素を含み、その上と下に空白行が1つ以上あるプレーンテキストのブロックです。
-
-
 <!-- Start-->
->
-```
+```Markdown
 This is a paragraph.
 
-And this is *another* one containing some emphasised text.
+And this is *another* one containing some emphasised text.  
 A new line, but still part of the same paragraph.
 ```
--->
-```
+
+```Markdown
 これは段落です。
 
-そして、これはいくつかの強調されたテキストを含む*別のものです。
+そして、これはいくつかの強調されたテキストを含む *別の* ものです。  
 新しい行ですが、それでも同じ段落の一部です。
 ```
 
-
-<!-- Start-->
-### Headers
 <!-- End -->
+<!-- Start-->
+
+### Headers
 
 #### ヘッダー
 
-
+<!-- End -->
 <!-- Start-->
 A document can be split up into different sections using headers.
-<!-- End -->
-
 ドキュメントは、ヘッダーを使用して異なるセクションに分割できます。
+<!-- End -->
 
 <!-- Start-->
 Headers use the following syntax:
@@ -1126,24 +1256,23 @@ The syntax for images is similar to the link syntax mentioned above.
 
 <!-- Start-->
 Prepending a `!` character to a link will display an image from the specified URL rather than a link to it.
+> `！ '文字をリンクに先行させると、リンクではなく指定されたURLからのイメージが表示されます。
 <!-- End -->
-
-`！ '文字をリンクに先行させると、リンクではなく指定されたURLからのイメージが表示されます。
 
 ```julia
 ![alternative text](link/to/image.png)
 ```
 
-
 <!-- Start-->
+
 ### Lists
-<!-- End -->
 
 ### リスト
 
+<!-- End -->
 <!-- Start-->
 Unordered lists can be written by prepending each item in a list with either `*`, `+`, or `-`.
-順序付けられていないリストは、各項目を `*`、 `+`、または `--`のいずれかでリストに追加することで記述できます。
+> 順序付けられていないリストは、各項目を `*`、 `+`、または `--`のいずれかでリストに追加することで記述できます。
 <!-- End -->
 
 ```
@@ -1156,7 +1285,7 @@ A list of items:
 
 <!-- Start-->
 Note the two spaces before each `*` and the single space after each one.
-各 `*`の前の2つのスペースと、それぞれの後に1つのスペースがあることに注意してください。
+> 各 `*` の前の2つのスペースと、それぞれの後に1つのスペースがあることに注意してください。
 <!-- End -->
 <!-- Start-->
 Lists can contain other nested toplevel elements such as lists, code blocks, or quoteblocks.
@@ -1164,10 +1293,10 @@ Lists can contain other nested toplevel elements such as lists, code blocks, or 
 <!-- End -->
 <!-- Start-->
 A blank line should be left between each list item when including any toplevel elements within a list.
-リスト内に最上位の要素を含めるときは、各リスト項目の間に空白行を残す必要があります。
+> リスト内に最上位の要素を含めるときは、各リスト項目の間に空白行を残す必要があります。
 <!-- End -->
 
-```
+```Markdown
 Another list:
 
   * item one
@@ -1197,7 +1326,7 @@ Ordered lists are written by replacing the "bullet" character, either `*`, `+`, 
 > 順序付きリストは、 "*"、 "+"、または " - "のいずれかの "箇条書き"文字を、正の整数とそれに続く `.`または` ``で置き換えることによって作成されます。
 <!-- End -->
 
-```
+```Markdown
 Two ordered lists:
 
  1. item one
@@ -1211,7 +1340,7 @@ Two ordered lists:
 
 <!-- Start-->
 An ordered list may start from a number other than one, as in the second list of the above example, where it is numbered from five.
-順序付きリストは、上記の例の2番目のリストのように、1以外の番号から開始することができます。ここでは、5から番号が付けられています。
+> 順序付きリストは、上記の例の2番目のリストのように、1以外の番号から開始することができます。ここでは、5から番号が付けられています。
 <!-- End -->
 <!-- Start-->
 As with unordered lists, ordered lists can contain nested toplevel elements.
@@ -1245,11 +1374,11 @@ f(a) = \frac{1}{2\pi}\int_{0}^{2\pi} (\alpha+R\cos(\theta))d\theta
 <!-- End -->
 <!-- Start-->
 This syntax is paired with the inline syntax for [Footnote references](@ref).
-> この構文は、[脚注の参照]（@ref）のインライン構文と対になっています。
+> この構文は、[脚注の参照](@ref)のインライン構文と対になっています。
 <!-- End -->
 <!-- Start-->
 Make sure to read that section as well.
-そのセクションも必ず読んでください。
+> そのセクションも必ず読んでください。
 <!-- End -->
 <!-- Start-->
 Footnote text is defined using the following syntax, which is similar to footnote reference syntax, aside from the `:` character that is appended to the footnote label.
@@ -1276,8 +1405,8 @@ Footnote text is defined using the following syntax, which is similar to footnot
 
 !!! note
 <!-- Start-->
-   No checks are done during parsing to make sure that all footnote references have matching footnotes.
-   > すべての脚注の参照に一致する脚注があることを確認するために、解析中にチェックは行われません。
+  No checks are done during parsing to make sure that all footnote references have matching footnotes.
+  > すべての脚注の参照に一致する脚注があることを確認するために、解析中にチェックは行われません。
 <!-- End -->
 
 <!-- Start-->
@@ -1292,7 +1421,7 @@ The equivalent of an `<hr>` HTML tag can be written using the following syntax:
 > `<hr>` HTMLタグに相当するものは、次の構文を使って書くことができます：
 <!-- End -->
 
-```
+```Markdown
 Text above the line.
 
 ---
@@ -1324,7 +1453,7 @@ Cells cannot span multiple rows or columns of the table.
 > セルは、表の複数の行または列にまたがることはできません。
 <!-- End -->
 
-```
+```Markdown
 | Column One | Column Two | Column Three |
 |:---------- | ---------- |:------------:|
 | Row `1`    | Column `2` |              |
@@ -1341,7 +1470,7 @@ Cells cannot span multiple rows or columns of the table.
 
 ### Admonitions
 
-### 警告
+> ### 警告
 
 <!-- End -->
 
@@ -1384,7 +1513,7 @@ When no title text, specified after the admonition type in double quotes, is inc
 <!-- End -->
 <!-- Start-->
 Julia's markdown supports interpolation in a very similar way to basic string literals, with the difference that it will store the object itself in the Markdown tree (as opposed to converting it to a string).
-> Juliaのマークダウンは、基本的な文字列リテラルと非常によく似た方法で補間をサポートしています。オブジェクト自体をMarkdownツリーに格納するという違いがあります（文字列に変換するのではなく）。
+> Juliaのマークダウンは、基本的な文字列リテラルと非常によく似た方法で補間をサポートしています。オブジェクト自体をMarkdownツリーに格納するという違いがあります(文字列に変換するのではなく)。
 <!-- End -->
 <!-- Start-->
 When the Markdown content is rendered the usual `show` methods will be called, and these can be overridden as usual.
@@ -1392,7 +1521,7 @@ When the Markdown content is rendered the usual `show` methods will be called, a
 <!-- End -->
 <!-- Start-->
 This design allows the Markdown to be extended with arbitrarily complex features (such as references) without cluttering the basic syntax.
-> この設計により、Markdownを任意の複雑なフィーチャ（参照など）で拡張することができ、基本構文が乱雑になりません。
+> この設計により、Markdownを任意の複雑なフィーチャ(参照など)で拡張することができ、基本構文が乱雑になりません。
 <!-- End -->
 <!-- Start-->
 In principle, the Markdown parser itself can also be arbitrarily extended by packages, or an entirely custom flavour of Markdown can be used, but this should generally be unnecessary.

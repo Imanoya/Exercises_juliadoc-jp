@@ -1636,7 +1636,7 @@ Provided there is enough memory for the copies, the cost of copying the view to 
 
 <!-- Start -->
 ## Avoid string interpolation for I/O
-> ## I/Oの文字列補間を避ける
+> ## I/O の文字列補間を避ける
 <!-- End -->
 
 <!-- Start -->

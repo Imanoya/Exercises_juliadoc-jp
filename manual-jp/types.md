@@ -2176,7 +2176,7 @@ You can create your own custom types that take values as parameters, and use the
 <!-- END -->
 <!-- Start -->
 By way of illustration of this idea, let's introduce a parametric type, `Val{x}`, and a constructor `Val(x) = Val{x}()`, which serves as a customary way to exploit this technique for cases where you don't need a more elaborate hierarchy.
-> この考え方を説明するために、パラメータ型「Val {x}」とコンストラクタ「Val(x)= Val {x}()」を導入しましょう。 あなたはもっと精巧な階層を必要としません。
+> この考え方を説明するために、パラメータ型 `Val {x}` とコンストラクタ `Val(x)= Val {x}()` を導入しましょう。 あなたはもっと精巧な階層を必要としません。
 <!-- END -->
 
 <!-- Start -->

@@ -8,14 +8,14 @@
 
 <!-- Start -->
 A variable, in Julia, is a name associated (or bound) to a value. 
-Juliaの変数は、値に関連付けられた（またはバインドされた）名前です。
+>Juliaの変数は、値に関連付けられた（またはバインドされた）名前です。
 <!--End -->
 <!-- Start -->
 It's useful when you want to store a value (that you obtained after some math, for example) for later use.
-後で使用するために値（たとえば、数学の後に得た値）を保存する場合に便利です。 
+>後で使用するために値（たとえば、数学の後に得た値）を保存する場合に便利です。 
 <!-- Start -->
 For example:
-例えば：
+>例えば：
 <!--End -->
 
 ```julia-repl

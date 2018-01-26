@@ -1826,7 +1826,7 @@ Here's how these files are parsed and interpreted.
 <!-- End -->
   <!-- Start -->
   * verything after a `#` mark is stripped from each line as a comment.
-  > `＃` マークのあとはコメントとして各行から削除されます。
+  > `#` マークのあとはコメントとして各行から削除されます。
   <!-- End -->
   <!-- Start -->
   * If nothing but whitespace is left, the line is ignored.
@@ -1867,8 +1867,8 @@ Distributions 0.1
 ```
 
 <!-- Start -->
-is satisfied by any version of `Distributions` greater than or equal to `0.1.0`. Suffixing a version with `-` allows any pre-release versions as well. 
-> 「0.1.0」以上の「分布」の任意のバージョンによって満たされる。 `--`でバージョンに接尾辞を付けると、リリース前のバージョンも可能になります。 
+is satisfied by any version of `Distributions` greater than or equal to `0.1.0`. Suffixing a version with `-` allows any pre-release versions as well.
+> `0.1.0` 以上の `Distributions` の任意のバージョンによって満たされる。 `-` でバージョンに接尾辞を付けると、リリース前のバージョンも可能になります。
 <!-- End -->
 <!-- Start -->
 For example:
@@ -1881,7 +1881,7 @@ Distributions 0.1-
 
 <!-- Start -->
  is satisfied by pre-release versions such as `0.1-dev` or `0.1-rc1`, or by any version greater than or equal to `0.1.0`.
-> 0.1-dev」または「0.1-rc1」のようなプレリリースバージョン、または「0.1.0」以上の任意のバージョンによって満たされる。
+> `0.1-dev` または `0.1-rc1` のようなプレリリースバージョン、または `0.1.0` 以上の任意のバージョンによって満たされる。
 <!-- End -->
 <!-- Start -->
 
@@ -1935,7 +1935,7 @@ For example:
 
 <!-- Start -->
 will require the `Homebrew` package only on systems where the operating system is OS X. 
-> オペレーティングシステムがOS Xのシステムでのみ `Homebrew`パッケージが必要になります。
+> オペレーティングシステムがOS Xのシステムでのみ `Homebrew` パッケージが必要になります。
 <!-- End -->
 <!-- Start -->
 The system conditions that are currently supported are (hierarchically):

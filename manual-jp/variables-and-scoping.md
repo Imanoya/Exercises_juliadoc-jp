@@ -10,7 +10,7 @@ Variable scoping helps avoid variable naming conflicts.
 <!-- End -->
 <!-- start -->
 The concept is intuitive: two functions can both have arguments called `x` without the two `x`'s referring to the same thing.
-> この概念は直感的です.2つの関数は、同じことを指す2つの `x`がなくても、` x`という引数を持つことができます。
+> この概念は直感的です.2つの関数は、同じことを指す2つの `x`がなくても、`x` という引数を持つことができます。
 <!-- End -->
 <!-- start -->
 Similarly there are many other cases where different blocks of code can use the same name without referring to the same thing.
@@ -75,8 +75,10 @@ julia> module Bar
        end;
 ```
 
-<!--Start--> and not a `x` in the scope where `foo` is used:<!-- End -->
-`foo`が使用されているスコープの` x`ではなく：
+<!--Start-->
+and not a `x` in the scope where `foo` is used:
+>`foo`が使用されているスコープの` x`ではなく：
+<!-- End -->
 
 ```jldoctest moduleBar
 julia> import .Bar
@@ -87,12 +89,18 @@ julia> Bar.foo()
 1
 ```
 
-<!--Start--> Thus *lexical scope* means that the scope of variables can be inferred from the source code alone.<!-- End -->
-したがって、*レキシカルスコープ*は、変数のスコープがソースコードだけから推測できることを意味します。
+<!--Start-->
+Thus *lexical scope* means that the scope of variables can be inferred from the source code alone.
+>したがって、*レキシカルスコープ*は、変数のスコープがソースコードだけから推測できることを意味します。
+<!-- End -->
 
-<!--Start--> # Global Scope<!-- End -->
-##グローバルスコープ
+<!--Start-->
 
+## Global Scope
+
+>## グローバルスコープ
+
+<!-- End -->
 <!--Start-->
 *Each module introduces a new global scope*, separate from the global scope of all other modules; there is no all-encompassing global scope.
 *各モジュールは、他のすべてのモジュールのグローバルスコープとは別の新しいグローバルスコープ*を導入しています。 すべての包括的なスコープは存在しません。

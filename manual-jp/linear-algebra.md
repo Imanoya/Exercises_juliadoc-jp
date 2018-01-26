@@ -1,10 +1,17 @@
-## Linear algebra
-＃線形代数
+<!-- Start -->
 
-#In addition to (and as part of) its support for multi-dimensional arrays, Julia provides native implementations of many common and useful linear algebra operations. 
-Juliaは、多次元配列に対するサポートに加えて、その一部として、多くの一般的かつ有用な線形代数演算のネイティブ実装を提供しています。
-#Basic operations, such as [`trace`](@ref), [`det`](@ref), and [`inv`](@ref) are all supported:
-[trace]（@ ref）、[det]（@ ref）、[`inv`]（@ ref）などの基本的な操作はすべてサポートされています：
+# Linear algebra
+
+> # 線形代数
+
+<!-- End -->
+In addition to (and as part of) its support for multi-dimensional arrays, Julia provides native implementations of many common and useful linear algebra operations. 
+> Juliaは、多次元配列に対するサポートに加えて、その一部として、多くの一般的かつ有用な線形代数演算のネイティブ実装を提供しています。
+<!-- End -->
+<!-- Start -->
+Basic operations, such as [`trace`](@ref), [`det`](@ref), and [`inv`](@ref) are all supported:
+> [trace]（@ ref）、[det]（@ ref）、[`inv`]（@ ref）などの基本的な操作はすべてサポートされています：
+<!-- End -->
 
 ```jldoctest
 julia> A = [1 2 3; 4 1 6; 7 8 1]
@@ -26,8 +33,10 @@ julia> inv(A)
   0.240385   0.0576923  -0.0673077
 ```
 
-#As well as other useful operations, such as finding eigenvalues or eigenvectors:
-固有値や固有ベクトルの発見などの他の有用な演算と同様に、
+<!-- Start -->
+As well as other useful operations, such as finding eigenvalues or eigenvectors:
+> 固有値や固有ベクトルの発見などの他の有用な演算と同様に、
+<!-- End -->
 
 ```jldoctest
 julia> A = [1.5 2 -4; 3 -1 -6; -10 2.3 4]
@@ -49,12 +58,18 @@ julia> eigvecs(A)
    0.68501+0.0im  0.254058-0.513301im  0.254058+0.513301im
 ```
 
-#In addition, Julia provides many [factorizations](@ref man-linalg-factorizations) which can be used to speed up problems such as linear solve or matrix exponentiation by pre-factorizing a matrix into a form more amenable (for performance or memory reasons) to the problem. 
-さらに、Juliaは行列をより適切な形にプリファクトリ化することで、線形解法や行列のべき乗などの問題を高速化するために使用できる多くの[因数分解]（@ ref man-linalg-factorizations）を提供しています ）問題に。
-#See the documentation on [`factorize`](@ref) for more information.
-詳細は、[`factorize`]（@ ref）のドキュメントを参照してください。
-#As an example:
-例として：
+<!-- Start -->
+In addition, Julia provides many [factorizations](@ref man-linalg-factorizations) which can be used to speed up problems such as linear solve or matrix exponentiation by pre-factorizing a matrix into a form more amenable (for performance or memory reasons) to the problem. 
+> さらに、Juliaは行列をより適切な形にプリファクトリ化することで、線形解法や行列のべき乗などの問題を高速化するために使用できる多くの[因数分解]（@ ref man-linalg-factorizations）を提供しています ）問題に。
+<!-- End -->
+<!-- Start -->
+See the documentation on [`factorize`](@ref) for more information.
+> 詳細は、[`factorize`]（@ ref）のドキュメントを参照してください。
+<!-- End -->
+<!-- Start -->
+As an example:
+>例として：
+<!-- End -->
 
 ```jldoctest
 julia> A = [1.5 2 -4; 3 -1 -6; -10 2.3 4]
@@ -69,10 +84,14 @@ Base.LinAlg.LU{Float64,Array{Float64,2}} with factors L and U:
 [-10.0 2.3 4.0; 0.0 2.345 -3.4; 0.0 0.0 -5.24947]
 ```
 
-#Since `A` is not Hermitian, symmetric, triangular, tridiagonal, or bidiagonal, an LU factorization may be the best we can do. 
-「A」はエルミート、対称、三角形、三重対角、二重対角線ではないので、LU分解は可能な限り最善の方法かもしれません。
-#Compare with:
-と比べて：
+<!-- Start -->
+Since `A` is not Hermitian, symmetric, triangular, tridiagonal, or bidiagonal, an LU factorization may be the best we can do. 
+> `A` はエルミート、対称、三角形、三重対角、二重対角線ではないので、LU分解は可能な限り最善の方法かもしれません。
+<!-- End -->
+<!-- Start -->
+Compare with:
+> と比べて：
+<!-- End -->
 
 ```jldoctest
 julia> B = [1.5 2 -4; 2 -1 -3; -4 -3 5]
@@ -101,14 +120,22 @@ permutation:
 successful: true
 ```
 
-#Here, Julia was able to detect that `B` is in fact symmetric, and used a more appropriate factorization.
-ここで、Juliaは、「B」が実際に対称であることを検出し、より適切な分解を使用した。
-#Often it's possible to write more efficient code for a matrix that is known to have certain properties e.g. it is symmetric, or tridiagonal. 
-例えば、特定の特性を有することが知られているマトリックスに対して、より効率的なコードを書くことができる。 それは対称または三重対角です。
-#Julia provides some special types so that you can "tag" matrices as having these properties. 
-Juliaにはいくつかの特殊な型が用意されているため、行列にこれらのプロパティを持つものとして「タグ付け」することができます。
-#For instance:
-例えば：
+<!-- Start -->
+Here, Julia was able to detect that `B` is in fact symmetric, and used a more appropriate factorization.
+> ここで、Juliaは、「B」が実際に対称であることを検出し、より適切な分解を使用した。
+<!-- End -->
+<!-- Start -->
+Often it's possible to write more efficient code for a matrix that is known to have certain properties e.g. it is symmetric, or tridiagonal. 
+> 例えば、特定の特性を有することが知られているマトリックスに対して、より効率的なコードを書くことができる。 それは対称または三重対角です。
+<!-- End -->
+<!-- Start -->
+Julia provides some special types so that you can "tag" matrices as having these properties. 
+> Juliaにはいくつかの特殊な型が用意されているため、行列にこれらのプロパティを持つものとして「タグ付け」することができます。
+<!-- End -->
+<!-- Start -->
+For instance:
+> 例えば：
+<!-- End -->
 
 ```jldoctest
 julia> B = [1.5 2 -4; 2 -1 -3; -4 -3 5]
@@ -124,10 +151,14 @@ julia> sB = Symmetric(B)
  -4.0  -3.0   5.0
 ```
 
-#`sB` has been tagged as a matrix that's (real) symmetric, so for later operations we might perform on it, such as eigenfactorization or computing matrix-vector products, efficiencies can be found by only referencing half of it.
-`sB`は（実際の）対称の行列としてタグ付けされていますので、後の演算で固有値化や行列ベクトル積の計算などの演算を実行することがあります。効率は半分を参照するだけで見つけることができます。
-#For example:
-例えば：
+<!-- Start -->
+`sB` has been tagged as a matrix that's (real) symmetric, so for later operations we might perform on it, such as eigenfactorization or computing matrix-vector products, efficiencies can be found by only referencing half of it.
+> `sB`は（実際の）対称の行列としてタグ付けされていますので、後の演算で固有値化や行列ベクトル積の計算などの演算を実行することがあります。効率は半分を参照するだけで見つけることができます。
+<!-- End -->
+<!-- Start -->
+For example:
+> 例えば：
+<!-- End -->
 
 ```jldoctest
 julia> B = [1.5 2 -4; 2 -1 -3; -4 -3 5]
@@ -154,27 +185,47 @@ julia> sB\x
  -1.1087
  -1.45652
 ```
-#The `\` operation here performs the linear solution. Julia's parser provides convenient dispatch to specialized methods for the *transpose* of a matrix left-divided by a vector, or for the various combinations of transpose operations in matrix-matrix solutions. 
-ここでの `\ '操作は線形解を実行します。 Juliaのパーサーは、ベクトルで左分割された行列の*転置*、または行列 - 行列解の転置演算のさまざまな組み合わせに対して、特殊なメソッドへの便利なディスパッチを提供します。
-#Many of these are further specialized for certain special matrix types. 
-これらの多くは特定の特殊マトリックスタイプに特化しています。
-#For example, `A\B` will end up calling [`Base.LinAlg.A_ldiv_B!`](@ref) while `A'\B` will end up calling [`Base.LinAlg.Ac_ldiv_B`](@ref), even though we used the same left-division operator. 
-例えば、 `A \ B`は` `Base.LinAlg.A_ldiv_B！`（@ ref）を呼び出して終了し、 `A '\ B`は` `Base.LinAlg.Ac_ldiv_B`'（@ ref） たとえ我々が同じ左 - 除算演算子を使用したとしても。
-#This works for matrices too: `A.'\B.'` would call [`Base.LinAlg.At_ldiv_Bt`](@ref). 
-これは行列に対しても機能します： `A。 '\ B.'`は[` Base.LinAlg.At_ldiv_Bt`]（@ ref）を呼び出します。
-#The left-division operator is pretty powerful and it's easy to write compact, readable code that is flexible enough to solve all sorts of systems of linear equations.
-左辺演算子は非常に強力で、あらゆる種類の線形方程式を解くのに十分柔軟なコンパクトで読みやすいコードを書くのは簡単です。
+
+<!-- Start -->
+The `\` operation here performs the linear solution. Julia's parser provides convenient dispatch to specialized methods for the *transpose* of a matrix left-divided by a vector, or for the various combinations of transpose operations in matrix-matrix solutions. 
+> ここでの `\ '操作は線形解を実行します。 Juliaのパーサーは、ベクトルで左分割された行列の*転置*、または行列 - 行列解の転置演算のさまざまな組み合わせに対して、特殊なメソッドへの便利なディスパッチを提供します。
+<!-- End -->
+<!-- Start -->
+Many of these are further specialized for certain special matrix types. 
+> これらの多くは特定の特殊マトリックスタイプに特化しています。
+<!-- End -->
+<!-- Start -->
+For example, `A\B` will end up calling [`Base.LinAlg.A_ldiv_B!`](@ref) while `A'\B` will end up calling [`Base.LinAlg.Ac_ldiv_B`](@ref), even though we used the same left-division operator. 
+> 例えば、 `A \ B`は` `Base.LinAlg.A_ldiv_B！`（@ ref）を呼び出して終了し、 `A '\ B`は` `Base.LinAlg.Ac_ldiv_B`'（@ ref） たとえ我々が同じ左 - 除算演算子を使用したとしても。
+<!-- End -->
+<!-- Start -->
+This works for matrices too: `A.'\B.'` would call [`Base.LinAlg.At_ldiv_Bt`](@ref). 
+> これは行列に対しても機能します： `A。 '\ B.'`は[` Base.LinAlg.At_ldiv_Bt`]（@ ref）を呼び出します。
+<!-- End -->
+<!-- Start -->
+The left-division operator is pretty powerful and it's easy to write compact, readable code that is flexible enough to solve all sorts of systems of linear equations.
+> 左辺演算子は非常に強力で、あらゆる種類の線形方程式を解くのに十分柔軟なコンパクトで読みやすいコードを書くのは簡単です。
+<!-- End -->
+<!-- Start -->
 
 ### Special matrices
-特殊な行列
 
-#[Matrices with special symmetries and structures](http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=3274) arise often in linear algebra and are frequently associated with various matrix factorizations.
-[特別な対称性と構造を持つ行列]（http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=3274）は、しばしば線形代数で発生し、さまざまな行列分解を頻繁に行います。
-#Julia features a rich collection of special matrix types, which allow for fast computation with specialized routines that are specially developed for particular matrix types.
-Juliaは、特定のマトリックスタイプ用に特別に開発された特殊なルーチンを使用して高速計算を可能にする、特別なマトリックスタイプの豊富なコレクションを備えています。
+> ### 特殊な行列
 
-#The following tables summarize the types of special matrices that have been implemented in Julia, as well as whether hooks to various optimized methods for them in LAPACK are available.
-次の表は、Juliaで実装されている特殊な行列のタイプと、LAPACKのさまざまな最適化されたメソッドへのフックが利用可能かどうかをまとめたものです。
+<!-- End -->
+<!-- Start -->
+[Matrices with special symmetries and structures](http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=3274) arise often in linear algebra and are frequently associated with various matrix factorizations.
+> [特別な対称性と構造を持つ行列]（http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=3274）は、しばしば線形代数で発生し、さまざまな行列分解を頻繁に行います。
+<!-- End -->
+<!-- Start -->
+Julia features a rich collection of special matrix types, which allow for fast computation with specialized routines that are specially developed for particular matrix types.
+> Juliaは、特定のマトリックスタイプ用に特別に開発された特殊なルーチンを使用して高速計算を可能にする、特別なマトリックスタイプの豊富なコレクションを備えています。
+<!-- End -->
+
+<!-- Start -->
+The following tables summarize the types of special matrices that have been implemented in Julia, as well as whether hooks to various optimized methods for them in LAPACK are available.
+> 次の表は、Juliaで実装されている特殊な行列のタイプと、LAPACKのさまざまな最適化されたメソッドへのフックが利用可能かどうかをまとめたものです。
+<!-- End -->
 
 | Type                      | Description                                                                      |
 |:------------------------- |:-------------------------------------------------------------------------------- |
@@ -188,9 +239,13 @@ Juliaは、特定のマトリックスタイプ用に特別に開発された特
 | [`Diagonal`](@ref)        | [Diagonal matrix](https://en.wikipedia.org/wiki/Diagonal_matrix)                 |
 | [`UniformScaling`](@ref)  | [Uniform scaling operator](https://en.wikipedia.org/wiki/Uniform_scaling)        |
 
-### Elementary operations
-###初等オペレーション
+<!-- Start -->
 
+### Elementary operations
+
+> ### 初等オペレーション
+
+<!-- End -->
 | Matrix type               | `+` | `-` | `*` | `\` | Other functions with optimized methods                              |
 |:------------------------- |:--- |:--- |:--- |:--- |:------------------------------------------------------------------- |
 | [`Symmetric`](@ref)       |     |     |     | MV  | [`inv()`](@ref), [`sqrtm()`](@ref), [`expm()`](@ref)                |
@@ -240,30 +295,54 @@ Legend:
 | V (vectors)  | An optimized method to find the characteristic vectors corresponding to the characteristic values `x=[x1, x2,...]` is available |
                                                                                                                              `eigvecs(M, x)`     |
 
-### The uniform scaling operator
-###均等スケーリング演算子
 
-#A [`UniformScaling`](@ref) operator represents a scalar times the identity operator, `λ*I`. 
-[`UniformScaling`]（@ ref）演算子は、スカラーがアイデンティティ演算子「λ* I」を乗じたものを表します。
-#The identity operator `I` is defined as a constant and is an instance of `UniformScaling`. 
-アイデンティティ演算子 `I`は定数として定義され、` UniformScaling`のインスタンスです。
-#The size of these operators are generic and match the other matrix in the binary operations [`+`](@ref), [`-`](@ref), [`*`](@ref) and [`\`](@ref). 
-これらの演算子のサイズは一般的であり、バイナリ演算[`+`]（@ ref）、[` - `]（@ ref）、[`*`]（@ ref）および[`\` ]（@ ref）。
-#For `A+I` and `A-I` this means that `A` must be square. 
-「A + I」と「A-I」の場合、これは「A」が正方形でなければならないことを意味する。
-#Multiplication with the identity operator `I` is a noop (except for checking that the scaling factor is one) and therefore almost without overhead.
-アイデンティティ演算子「I」を使用した乗算はnoop（スケーリング係数が1であることを確認することを除く）であり、したがってオーバーヘッドはほとんどありません。
+<!-- Start -->
+
+### The uniform scaling operator
+
+> ### 均等スケーリング演算子
+
+<!-- End -->
+<!-- Start -->
+A [`UniformScaling`](@ref) operator represents a scalar times the identity operator, `λ*I`. 
+> [`UniformScaling`]（@ref） 演算子は、スカラーがアイデンティティ演算子「λ* I」を乗じたものを表します。
+<!-- End -->
+<!-- Start -->
+The identity operator `I` is defined as a constant and is an instance of `UniformScaling`. 
+> アイデンティティ演算子 `I`は定数として定義され、` UniformScaling`のインスタンスです。
+<!-- End -->
+<!-- Start -->
+The size of these operators are generic and match the other matrix in the binary operations [`+`](@ref), [`-`](@ref), [`*`](@ref) and [`\`](@ref). 
+> これらの演算子のサイズは一般的であり、バイナリ演算[`+`]（@ ref）、[` - `]（@ ref）、[`*`]（@ ref）および[`\` ]（@ ref）。
+<!-- End -->
+<!-- Start -->
+For `A+I` and `A-I` this means that `A` must be square. 
+> 「A + I」と「A-I」の場合、これは「A」が正方形でなければならないことを意味する。
+<!-- End -->
+<!-- Start -->
+Multiplication with the identity operator `I` is a noop (except for checking that the scaling factor is one) and therefore almost without overhead.
+> アイデンティティ演算子「I」を使用した乗算はnoop（スケーリング係数が1であることを確認することを除く）であり、したがってオーバーヘッドはほとんどありません。
+<!-- End -->
+<!-- Start -->
 
 ## [Matrix factorizations](@id man-linalg-factorizations)
+
 ## [行列の因数分解]（@ idの人間の因数分解）
 
-#[Matrix factorizations (a.k.a. matrix decompositions)](https://en.wikipedia.org/wiki/Matrix_decomposition) compute the factorization of a matrix into a product of matrices, and are one of the central concepts in linear algebra.
-[行列分解（a.k.a行列分解）]（https://en.wikipedia.org/wiki/Matrix_decomposition）は、行列の行列分解を計算し、線形代数の中心概念の1つです。
+<!-- End -->
+<!-- Start -->
+[Matrix factorizations (a.k.a. matrix decompositions)](https://en.wikipedia.org/wiki/Matrix_decomposition) compute the factorization of a matrix into a product of matrices, and are one of the central concepts in linear algebra.
+> [行列分解（a.k.a行列分解）]（https://en.wikipedia.org/wiki/Matrix_decomposition）は、行列の行列分解を計算し、線形代数の中心概念の1つです。
+<!-- End -->
 
-#The following table summarizes the types of matrix factorizations that have been implemented in Julia. 
-次の表は、Juliaで実装された行列分解のタイプをまとめたものです。
-#Details of their associated methods can be found in the [Linear Algebra](@ref) section of the standard library documentation.
-関連するメソッドの詳細は、標準ライブラリドキュメントの[Linear Algebra]（@ ref）セクションにあります。
+<!-- Start -->
+The following table summarizes the types of matrix factorizations that have been implemented in Julia. 
+> 次の表は、Juliaで実装された行列分解のタイプをまとめたものです。
+<!-- End -->
+<!-- Start -->
+Details of their associated methods can be found in the [Linear Algebra](@ref) section of the standard library documentation.
+> 関連するメソッドの詳細は、標準ライブラリドキュメントの[Linear Algebra]（@ ref）セクションにあります。
+<!-- End -->
 
 | Type              | Description                                                                                  |
 |:----------------- |:-------------------------------------------------------------------------------------------- |

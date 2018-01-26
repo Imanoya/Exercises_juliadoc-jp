@@ -950,7 +950,7 @@ Rounding should generally behave as expected, but there are a few cases in which
 <!-- End -->
 
 <!-- Start -->
-In many cases, the resolution specified for rounding (e.g., `Dates.Second(30)`) divides evenly into the next largest period (in this case, `Dates.Minute(1)`). 
+In many cases, the resolution specified for rounding (e.g., `Dates.Second(30)`) divides evenly into the next largest period (in this case, `Dates.Minute(1)`).
 > 多くの場合、丸めのために指定された解像度(例えば、Dates.Second(30))は、次に大きい期間(この場合、Dates.Minute(1))に均等に分割されます。
 <!-- End -->
 
@@ -961,7 +961,7 @@ But rounding behaviour in cases in which this is not true may lead to confusion.
 
 <!-- Start -->
 What is the expected result of rounding a [`DateTime`](@ref) to the nearest 10 hours?
-> [`DateTime`](@ref)を10時間単位で四捨五入するとどのような結果になるのでしょうか？
+> [`DateTime`](@ref) を10時間単位で四捨五入するとどのような結果になるのでしょうか？
 <!-- End -->
 
 ```jldoctest
@@ -976,17 +976,17 @@ That may seem confusing, given that the hour (12) is not divisible by 10.
 
 <!-- Start -->
 The reason that `2016-07-17T12:00:00` was chosen is that it is 17,676,660 hours after `0000-01-01T00:00:00`, and 17,676,660 is divisible by 10.
-> 「2016-07-17T12：00：00」を選択した理由は、「0000-01-01T00：00：00」から17676,660時間後であり、17676,660は10で割り切れるからです。
+> `2016-07-17T12：00：00` を選択した理由は、 `0000-01-01T00：00：00` から17676,660時間後であり、17676,660は10で割り切れるからです。
 <!-- End -->
 
 <!-- Start -->
 As Julia [`Date`](@ref) and [`DateTime`](@ref) values are represented according to the ISO 8601 standard, `0000-01-01T00:00:00` was chosen as base (or "rounding epoch") from which to begin the count of days (and milliseconds) used in rounding calculations. 
-> Julia [`Date`](@ref)と[` DateTime`](@ref)の値はISO 8601規格に従って表現されているので、 `0000-01-01T00：00：00`がベースとして選択されたエポック ")を使用して、丸め計算で使用された日数(およびミリ秒)のカウントを開始します。
+> Julia [`Date`](@ref) と[`DateTime`](@ref) の値は ISO 8601 規格に従って表現されているので、 `0000-01-01T00：00：00` がベースとして選択された( "エポック" )を使用して、丸め計算で使用された日数(およびミリ秒)のカウントを開始します。
 <!-- End -->
 
 <!-- Start -->
 (Note that this differs slightly from Julia's internal representation of [`Date`](@ref) s using Rata Die notation; but since the ISO 8601 standard is most visible to the end user, `0000-01-01T00:00:00` was chosen as the rounding epoch instead of the `0000-12-31T00:00:00` used internally to minimize confusion.)
-> (Rata Die表記を使用したJuliaの[Date`](@ref)の内部表現とは若干異なりますが、ISO 8601規格はエンドユーザにとって最も目に見えるので、0000-01-01T00：00：00 `は混乱を最小限に抑えるために内部的に使用される` 0000-12-31T00：00：00`の代わりに丸めエポックとして選ばれました。
+> (Rata Die表記を使用したJuliaの [`Date`](@ref) の内部表現とは若干異なりますが、ISO 8601規格はエンドユーザにとって最も目に見えるので、`0000-01-01T00：00：00` は混乱を最小限に抑えるために内部的に使用される `0000-12-31T00：00：00` の代わりに丸めエポックとして選ばれました。)
 <!-- End -->
 
 <!-- Start -->

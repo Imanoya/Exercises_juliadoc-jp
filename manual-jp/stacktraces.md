@@ -1,14 +1,24 @@
-## Stack Traces
-＃スタックトレース
+<!-- Start -->
 
-#The `StackTraces` module provides simple stack traces that are both human readable and easy to use programmatically.
-`StackTraces`モジュールは、人が読みやすく、プログラム的に使いやすい単純なスタックトレースを提供します。
+# Stack Traces
+> # スタックトレース
 
-### Viewing a stack trace
-##スタックトレースを見る
+<!-- End -->
+<!-- Start -->
+The `StackTraces` module provides simple stack traces that are both human readable and easy to use programmatically.
+> `StackTraces`モジュールは、人が読みやすく、プログラム的に使いやすい単純なスタックトレースを提供します。
+<!-- End -->
+<!-- Start -->
 
-#The primary function used to obtain a stack trace is [`stacktrace()`](@ref):
-スタックトレースを取得するために使用される主要な関数は[`stacktrace（）`]（@ ref）です：
+## Viewing a stack trace
+
+> ## スタックトレースを見る
+
+<!-- End -->
+<!-- Start -->
+The primary function used to obtain a stack trace is [`stacktrace()`](@ref):
+> スタックトレースを取得するために使用される主要な関数は[`stacktrace（）`]（@ ref）です：
+<!-- End -->
 
 ```julia-repl
 julia> stacktrace()
@@ -19,12 +29,18 @@ julia> stacktrace()
  (::Base.REPL.##1#2{Base.REPL.REPLBackend})() at event.jl:73
 ```
 
-#Calling [`stacktrace()`](@ref) returns a vector of [`StackFrame`](@ref) s. 
-[`stacktrace（）`]（@ref）を呼び出すと、[`StackFrame`]（@ ref）のベクトルが返されます。
-#For ease of use, the alias [`StackTrace`](@ref) can be used in place of `Vector{StackFrame}`. 
-使い易さのため、別名[`StackTrace`]（@ ref）は` Vector {StackFrame} 'の代わりに使うことができます。
-#(Examples with `[...]` indicate that output may vary depending on how the code is run.)
-（ `[...]`の例は、コードの実行方法によって出力が異なることを示しています）。
+<!-- Start -->
+Calling [`stacktrace()`](@ref) returns a vector of [`StackFrame`](@ref) s. 
+> [`stacktrace（）`]（@ref）を呼び出すと、[`StackFrame`]（@ ref）のベクトルが返されます。
+<!-- End -->
+<!-- Start -->
+For ease of use, the alias [`StackTrace`](@ref) can be used in place of `Vector{StackFrame}`. 
+> 使い易さのため、別名[`StackTrace`]（@ ref）は` Vector {StackFrame} 'の代わりに使うことができます。
+<!-- End -->
+<!-- Start -->
+(Examples with `[...]` indicate that output may vary depending on how the code is run.)
+> （ `[...]`の例は、コードの実行方法によって出力が異なることを示しています）。
+<!-- End -->
 
 ```julia-repl
 julia> example() = stacktrace()
@@ -53,10 +69,14 @@ julia> grandparent()
 [...]
 ```
 
-#Note that when calling [`stacktrace()`](@ref) you'll typically see a frame with `eval(...) at boot.jl`. 
-[stacktrace（） `]（@ ref）を呼び出すと、通常、` eval（...）at boot.jl`というフレームが表示されることに注意してください。
-#When calling [`stacktrace()`](@ref) from the REPL you'll also have a few extra frames in the stack from `REPL.jl`, usually looking something like this:
-REPLから[`stacktrace（）`]（@ref）を呼び出すときには、スタック内に `REPL.jl`からいくつか余分なフレームがあります。通常は次のようになります：
+<!-- Start -->
+Note that when calling [`stacktrace()`](@ref) you'll typically see a frame with `eval(...) at boot.jl`. 
+> [stacktrace（） `]（@ ref）を呼び出すと、通常、` eval（...）at boot.jl`というフレームが表示されることに注意してください。
+<!-- End -->
+<!-- Start -->
+When calling [`stacktrace()`](@ref) from the REPL you'll also have a few extra frames in the stack from `REPL.jl`, usually looking something like this:
+> REPLから[`stacktrace（）`]（@ref）を呼び出すときには、スタック内に `REPL.jl`からいくつか余分なフレームがあります。通常は次のようになります：
+<!-- End -->
 
 ```julia-repl
 julia> example() = stacktrace()
@@ -70,12 +90,17 @@ julia> example()
  macro expansion at REPL.jl:97 [inlined]
  (::Base.REPL.##1#2{Base.REPL.REPLBackend})() at event.jl:73
 ```
+<!-- Start -->
 
 ### Extracting useful information
-##有用な情報の抽出
 
-#Each [`StackFrame`](@ref) contains the function name, file name, line number, lambda info, a flag indicating whether the frame has been inlined, a flag indicating whether it is a C function (by default C functions do not appear in the stack trace), and an integer representation of the pointer returned by [`backtrace()`](@ref):
-各[`StackFrame`]（@ref）には、関数名、ファイル名、行番号、ラムダ情報、フレームがインライン化されているかどうかを示すフラグ、それがC関数かどうかを示すフラグ（デフォルトではC関数は スタックトレースに現れる）と、[`backtrace（）`]（@ ref）によって返されるポインタの整数表現です：
+> ### 有用な情報の抽出
+
+<!-- End -->
+<!-- Start -->
+Each [`StackFrame`](@ref) contains the function name, file name, line number, lambda info, a flag indicating whether the frame has been inlined, a flag indicating whether it is a C function (by default C functions do not appear in the stack trace), and an integer representation of the pointer returned by [`backtrace()`](@ref):
+> 各[`StackFrame`]（@ref）には、関数名、ファイル名、行番号、ラムダ情報、フレームがインライン化されているかどうかを示すフラグ、それがC関数かどうかを示すフラグ（デフォルトではC関数は スタックトレースに現れる）と、[`backtrace（）`]（@ ref）によって返されるポインタの整数表現です：
+<!-- End -->
 
 ```julia-repl
 julia> top_frame = stacktrace()[1]
@@ -105,14 +130,18 @@ julia> top_frame.pointer
 0x00007f390d152a59
 ```
 
-#This makes stack trace information available programmatically for logging, error handling, and more.
-これにより、ロギング、エラー処理などのためにスタックトレース情報をプログラムで使用できるようになります。
+<!-- Start -->
+This makes stack trace information available programmatically for logging, error handling, and more.
+> これにより、ロギング、エラー処理などのためにスタックトレース情報をプログラムで使用できるようになります。
+<!-- End -->
 
 ### Error handling
 ###エラー処理
 
-#While having easy access to information about the current state of the callstack can be helpful in many places, the most obvious application is in error handling and debugging.
-コールスタックの現在の状態に関する情報に簡単にアクセスできることは、多くの場面で役立ちますが、最も明白なアプリケーションはエラー処理とデバッグです。
+<!-- Start -->
+While having easy access to information about the current state of the callstack can be helpful in many places, the most obvious application is in error handling and debugging.
+> コールスタックの現在の状態に関する情報に簡単にアクセスできることは、多くの場面で役立ちますが、最も明白なアプリケーションはエラー処理とデバッグです。
+<!-- End -->
 
 ```julia-repl
 julia> @noinline bad_function() = undeclared_variable
@@ -132,17 +161,27 @@ julia> example()
 [...]
 ```
 
-#You may notice that in the example above the first stack frame points points at line 4, where [`stacktrace()`](@ref) is called, rather than line 2, where *bad_function* is called, and `bad_function`'s frame is missing entirely. 
-上記の例では、最初のスタックフレームが、bad_function *が呼び出される2行目ではなく[`stacktrace（）`]（@ ref）が呼び出される4行目の点を指していることに気付くかもしれません。 sのフレームが完全に欠落しています。
-#This is understandable, given that [`stacktrace()`](@ref) is called from the context of the *catch*. 
-これは、[stacktrace（） `]（@ ref）が* catch *のコンテキストから呼び出されたことを考えると分かります。
-#While in this example it's fairly easy to find the actual source of the error, in complex cases tracking down the source of the error becomes nontrivial.
-この例では、エラーの実際の原因を見つけるのはかなり簡単ですが、複雑なケースでは、エラーの原因を突き止めることは重要ではありません。
+<!-- Start -->
+You may notice that in the example above the first stack frame points points at line 4, where [`stacktrace()`](@ref) is called, rather than line 2, where *bad_function* is called, and `bad_function`'s frame is missing entirely. 
+>上記の例では、最初のスタックフレームが、bad_function *が呼び出される2行目ではなく[`stacktrace（）`]（@ ref）が呼び出される4行目の点を指していることに気付くかもしれません。 sのフレームが完全に欠落しています。
+<!-- End -->
+<!-- Start -->
+This is understandable, given that [`stacktrace()`](@ref) is called from the context of the *catch*. 
+> これは、[stacktrace（） `]（@ ref）が* catch *のコンテキストから呼び出されたことを考えると分かります。
+<!-- End -->
+<!-- Start -->
+While in this example it's fairly easy to find the actual source of the error, in complex cases tracking down the source of the error becomes nontrivial.
+> この例では、エラーの実際の原因を見つけるのはかなり簡単ですが、複雑なケースでは、エラーの原因を突き止めることは重要ではありません。
+<!-- End -->
 
-#This can be remedied by calling [`catch_stacktrace()`](@ref) instead of [`stacktrace()`](@ref).
-これは[stacktrace（） `]（@ ref）の代わりに[` catch_stacktrace（） `]（@ ref）を呼び出すことで解決できます。
-#Instead of returning callstack information for the current context, [`catch_stacktrace()`](@ref) returns stack information for the context of the most recent exception:
-現在のコンテキストの呼び出しスタック情報を返す代わりに、[`catch_stacktrace（）`]（@ ref）は最新の例外のコンテキストのスタック情報を返します：
+<!-- Start -->
+This can be remedied by calling [`catch_stacktrace()`](@ref) instead of [`stacktrace()`](@ref).
+> これは[stacktrace（） `]（@ ref）の代わりに[` catch_stacktrace（） `]（@ ref）を呼び出すことで解決できます。
+<!-- End -->
+<!-- Start -->
+Instead of returning callstack information for the current context, [`catch_stacktrace()`](@ref) returns stack information for the context of the most recent exception:
+> 現在のコンテキストの呼び出しスタック情報を返す代わりに、[`catch_stacktrace（）`]（@ ref）は最新の例外のコンテキストのスタック情報を返します：
+<!-- End -->
 
 ```julia-repl
 julia> @noinline bad_function() = undeclared_variable
@@ -162,8 +201,10 @@ julia> example()
 [...]
 ```
 
-#Notice that the stack trace now indicates the appropriate line number and the missing frame.
-スタックトレースは、適切な行番号と欠落しているフレームを示していることに注意してください。
+<!-- Start -->
+Notice that the stack trace now indicates the appropriate line number and the missing frame.
+> スタックトレースは、適切な行番号と欠落しているフレームを示していることに注意してください。
+<!-- End -->
 
 ```julia-repl
 julia> @noinline child() = error("Whoops!")
@@ -191,11 +232,17 @@ ERROR: Whoops!
 [...]
 ```
 
-## Comparison with [`backtrace()`](@ref)
-## [`backtrace（）`]との比較（@ ref）
+<!-- Start -->
 
-#A call to [`backtrace()`](@ref) returns a vector of `Ptr{Void}`, which may then be passed into [`stacktrace()`](@ref) for translation:
+## Comparison with [`backtrace()`](@ref)
+
+> ## [`backtrace（）`]との比較（@ ref）
+
+<!-- End -->
+<!-- Start -->
+A call to [`backtrace()`](@ref) returns a vector of `Ptr{Void}`, which may then be passed into [`stacktrace()`](@ref) for translation:
 [`backtrace（）`]（@ref）の呼び出しは `Ptr {Void}`のベクトルを返します。このベクトルは翻訳のために[`stacktrace（）`]（@ ref）に渡されます：
+<!-- End -->
 
 ```julia-repl
 julia> trace = backtrace()
@@ -231,12 +278,18 @@ julia> stacktrace(trace)
  (::Base.REPL.##1#2{Base.REPL.REPLBackend})() at event.jl:73
 ```
 
-#Notice that the vector returned by [`backtrace()`](@ref) had 21 pointers, while the vector returned by [`stacktrace()`](@ref) only has 5. 
-[`backtrace（）`]（@ ref）によって返されるベクトルは21個のポインタを持ち、[`stacktrace（）`]（@ ref）によって返されるベクトルは5個しか持たないことに注意してください。
-#This is because, by default, [`stacktrace()`](@ref) removes any lower-level C functions from the stack. 
-これは、デフォルトで[stacktrace（） `]（@ ref）がスタックから下位レベルのC関数を削除するためです。
-#If you want to include stack frames from C calls, you can do it like this:
-Cコールのスタックフレームを含める場合は、次のようにします。
+<!-- Start -->
+Notice that the vector returned by [`backtrace()`](@ref) had 21 pointers, while the vector returned by [`stacktrace()`](@ref) only has 5. 
+> [`backtrace（）`]（@ ref）によって返されるベクトルは21個のポインタを持ち、[`stacktrace（）`]（@ ref）によって返されるベクトルは5個しか持たないことに注意してください。
+<!-- End -->
+<!-- Start -->
+This is because, by default, [`stacktrace()`](@ref) removes any lower-level C functions from the stack. 
+> これは、デフォルトで[stacktrace（） `]（@ ref）がスタックから下位レベルのC関数を削除するためです。
+<!-- End -->
+<!-- Start -->
+If you want to include stack frames from C calls, you can do it like this:
+> Cコールのスタックフレームを含める場合は、次のようにします。
+<!-- End -->
 
 ```julia-repl
 julia> stacktrace(trace, true)
@@ -270,8 +323,10 @@ julia> stacktrace(trace, true)
  ip:0xffffffffffffffff
 ```
 
-#Individual pointers returned by [`backtrace()`](@ref) can be translated into [`StackFrame`](@ref) s by passing them into [`StackTraces.lookup()`](@ref):
-[`backtrace（）`]（@ ref）によって返された個々のポインタは、 `` StackTraces.lookup（） `]（@ ref）に渡すことで[` StackFrame`]
+<!-- Start -->
+Individual pointers returned by [`backtrace()`](@ref) can be translated into [`StackFrame`](@ref) s by passing them into [`StackTraces.lookup()`](@ref):
+> [`backtrace（）`]（@ ref）によって返された個々のポインタは、 `` StackTraces.lookup（） `]（@ ref）に渡すことで[` StackFrame`]
+<!-- End -->
 
 ```julia-repl
 julia> pointer = backtrace()[1];
