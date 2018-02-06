@@ -906,7 +906,7 @@ julia> div(y3,3) # mirrors integer division
 
 <!-- Start -->
 [`Date`](@ref) and [`DateTime`](@ref) values can be rounded to a specified resolution (e.g., 1 month or 15 minutes) with [`floor()`](@ref), [`ceil()`](@ref), or [`round()`](@ref):
-> [`floor()`](@ref)、[@]、[@]で、[日付](@ref)と[`DateTime`](@ref)の値を指定した解像度(例えば1月または15分) `ceil()`](@ref)、または `` round() `](@ref)：
+> [`floor()`](@ref),['@cell'](@ref)]で、[日付](@ref)と[`DateTime`](@ref)の値を指定した解像度(例えば1月または15分) `ceil()`](@ref)、または `` round() `](@ref)：
 <!-- End -->
 
 ```jldoctest
