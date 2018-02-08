@@ -1,283 +1,378 @@
 # Julia ASTs
 
-Julia has two representations of code. First there is a surface syntax AST returned by the parser
-(e.g. the [`parse`](@ref) function), and manipulated by macros. It is a structured representation
-of code as it is written, constructed by `julia-parser.scm` from a character stream. Next there
-is a lowered form, or IR (intermediate representation), which is used by type inference and code
-generation. In the lowered form there are fewer types of nodes, all macros are expanded, and all
-control flow is converted to explicit branches and sequences of statements. The lowered form is
-constructed by `julia-syntax.scm`.
+Julia has two representations of code. First there is a surface syntax AST returned by the parser (e.g. the [`parse`](@ref) function), and manipulated by macros.
+>Juliaには2つのコードがあります。 最初に、パーサによって返された表面構文AST(例えば、[`parse`](@ ref)関数)があり、マクロによって操作されます。
+It is a structured representation of code as it is written, constructed by `julia-parser.scm` from a character stream.
+>これは、文字ストリームから `julia-parser.scm`によって作成されたコードの構造化された表現です。
+Next there is a lowered form, or IR (intermediate representation), which is used by type inference and code generation.
+>次に、タイプ推論とコード生成によって使用される、lower形式、または IR(中間表現)があります。
+In the lowered form there are fewer types of nodes, all macros are expanded, and all control flow is converted to explicit branches and sequences of statements.
+>lower形式 では、ノードの種類が少なくなり、すべてのマクロが展開され、すべての制御フローが明示的な分岐とステートメントのシーケンスに変換されます。
+The lowered form is constructed by `julia-syntax.scm`.
+>lower形式 は `julia-syntax.scm` によって構築されます。
 
-First we will focus on the lowered form, since it is more important to the compiler. It is also
-less obvious to the human, since it results from a significant rearrangement of the input syntax.
+First we will focus on the lowered form, since it is more important to the compiler.
+>最初に、lower形式 に焦点を当てます、ここがコンパイラーにとりとても重要です。
+It is also less obvious to the human, since it results from a significant rearrangement of the input syntax.
+>人間にとって、入力構文の大幅な再構成の結果であるため判りやすくはありません。
+
 
 ## Lowered form
 
 The following data types exist in lowered form:
+>次のデータ型は、lower形式 で存在します。
 
   * `Expr`
 
-    Has a node type indicated by the `head` field, and an `args` field which is a `Vector{Any}` of
-    subexpressions.
+    Has a node type indicated by the `head` field, and an `args` field which is a `Vector{Any}` of subexpressions.
+    > `head`フィールドで指定されたノード型と、部分式の `Vector{Any}` である `args` フィールドを持っています。
 
   * `Slot`
 
-    Identifies arguments and local variables by consecutive numbering. `Slot` is an abstract type
-    with subtypes `SlotNumber` and `TypedSlot`. Both types have an integer-valued `id` field giving
-    the slot index. Most slots have the same type at all uses, and so are represented with `SlotNumber`.
-    The types of these slots are found in the `slottypes` field of their `MethodInstance` object.
-    Slots that require per-use type annotations are represented with `TypedSlot`, which has a `typ`
-    field.
+   Identifies arguments and local variables by consecutive numbering.
+   > 引数とローカル変数を連続した番号で識別します。
+   `Slot` is an abstract type with subtypes `SlotNumber` and `TypedSlot`.
+   > `Slot` はサブタイプ `SlotNumber` と `TypedSlot` を持つ抽象型です。
+   Both types have an integer-valued `id` field giving the slot index.
+   > どちらの型も、スロットインデックスを与える整数値の `id`フィールドを持っています。
+   Most slots have the same type at all uses, and so are represented with `SlotNumber`.
+   > ほとんどのスロットはすべての用途で同じタイプを持ち、したがって `SlotNumber`で表されます。
+   The types of these slots are found in the `slottypes` field of their `MethodInstance` object.
+   > `MethodInstance` オブジェクトの `slottypes` フィールドにあります。
+   Slots that require per-use type annotations are represented with `TypedSlot`, which has a `typ` field.
+   > per-use型の注釈を必要とするスロットは `TypedSlot`で表され、` typ`フィールドを持ちます。
 
   * `CodeInfo`
 
-    Wraps the IR of a method.
+   Wraps the IR of a method.
+   > メソッドのIRをラップします。
 
   * `LineNumberNode`
 
-    Contains a single number, specifying the line number the next statement came from.
+   Contains a single number, specifying the line number the next statement came from.
+   > 次のステートメントが来た行番号を指定して、単一の数値を含みます。
 
   * `LabelNode`
 
-    Branch target, a consecutively-numbered integer starting at 0.
+   Branch target, a consecutively-numbered integer starting at 0.
+   > 分岐先のターゲット.0から始まる連続番号の整数。
 
   * `GotoNode`
 
-    Unconditional branch.
+   Unconditional branch.
+   > 無条件分岐。
 
   * `QuoteNode`
 
-    Wraps an arbitrary value to reference as data. For example, the function `f() = :a` contains a
-    `QuoteNode` whose `value` field is the symbol `a`, in order to return the symbol itself instead
-    of evaluating it.
+   Wraps an arbitrary value to reference as data.
+   > データとして参照する任意の値をラップします。
+   For example, the function `f() = :a` contains a `QuoteNode` whose `value` field is the symbol `a`, in order to return the symbol itself instead of evaluating it.
+   > 例えば、関数 `f()=：a`は` value`フィールドがシンボル `a`である` QuoteNode`を含んでいます。シンボル自体を評価するのではなく、それを返すためです。
 
   * `GlobalRef`
 
-    Refers to global variable `name` in module `mod`.
+   Refers to global variable `name` in module `mod`.
+   > モジュール `mod`のグローバル変数` name`を参照してください。
 
   * `SSAValue`
 
-    Refers to a consecutively-numbered (starting at 0) static single assignment (SSA) variable inserted
-    by the compiler.
+   Refers to a consecutively-numbered (starting at 0) static single assignment (SSA) variable inserted by the compiler.
+   > コンパイラーによって挿入された連続した番号のスタティック・シングル・アサインメント(SSA)変数を指します。
 
   * `NewvarNode`
 
-    Marks a point where a variable is created. This has the effect of resetting a variable to undefined.
+   Marks a point where a variable is created. This has the effect of resetting a variable to undefined.
+   > 変数が作成されるポイントをマークします。これは、変数を未定義にリセットする効果があります。
 
 
 ### Expr types
 
 These symbols appear in the `head` field of `Expr`s in lowered form.
+> これらのシンボルは `head` フィールドの `Expr` に lower形式 で現れます。
 
   * `call`
 
     Function call (dynamic dispatch). `args[1]` is the function to call, `args[2:end]` are the arguments.
+   > 関数呼び出し(動的ディスパッチ)。 `args[1]` は呼び出す関数であり、 `args [2:end]` は引数です。
 
   * `invoke`
 
-    Function call (static dispatch). `args[1]` is the MethodInstance to call, `args[2:end]` are the
-    arguments (including the function that is being called, at `args[2]`).
+    Function call (static dispatch).
+    > 関数呼び出し(静的ディスパッチ)。
+    `args[1]` is the MethodInstance to call, `args[2:end]` are the arguments (including the function that is being called, at `args[2]`).
+    > `args[1]` は MethodInstance to call であり、 `args [2:end]` は引数( `args[2]` で呼び出されている関数を含む) です。
 
   * `static_parameter`
 
     Reference a static parameter by index.
+   > 静的パラメータをインデックスで参照します。
 
   * `gotoifnot`
 
     Conditional branch. If `args[1]` is false, goes to label identified in `args[2]`.
+   > 条件分岐。 `args [1]`がfalseの場合、 `args [2]`で指定されたラベルに行きます。
 
   * `=`
 
     Assignment.
+   > 割り当て。
 
-  * `method`
+ * `method`
 
     Adds a method to a generic function and assigns the result if necessary.
+    > ジェネリック関数にメソッドを追加し、必要に応じて結果を割り当てます。
 
-    Has a 1-argument form and a 4-argument form. The 1-argument form arises from the syntax `function foo end`.
-    In the 1-argument form, the argument is a symbol. If this symbol already names a function in the
-    current scope, nothing happens. If the symbol is undefined, a new function is created and assigned
-    to the identifier specified by the symbol. If the symbol is defined but names a non-function,
-    an error is raised. The definition of "names a function" is that the binding is constant, and
-    refers to an object of singleton type. The rationale for this is that an instance of a singleton
-    type uniquely identifies the type to add the method to. When the type has fields, it wouldn't
-    be clear whether the method was being added to the instance or its type.
+    Has a 1-argument form and a 4-argument form.
+    > 1引数形式と4引数形式があります。
+    The 1-argument form arises from the syntax `function foo end`.
+    > 1引数形式は `function foo end`という構文から生まれます。
+    In the 1-argument form, the argument is a symbol.
+    > 1引数形式では、引数はシンボルです。
+    If this symbol already names a function in the current scope, nothing happens.
+    > このシンボルが現在のスコープ内の関数の名前を既に持っている場合、何も起こりません。
+    If the symbol is undefined, a new function is created and assigned to the identifier specified by the symbol.
+    > シンボルが未定義の場合、新しい関数が作成され、シンボルで指定された識別子に割り当てられます。
+    If the symbol is defined but names a non-function, an error is raised. The definition of "names a function" is that the binding is constant, and refers to an object of singleton type.
+    > シンボルが定義されていても、関数の名前でない場合、エラーが発生します。 "関数の名前"の定義は、バインディングが一定であり、シングルトン型のオブジェクトを参照することです。
+    The rationale for this is that an instance of a singleton type uniquely identifies the type to add the method to.
+    > これの根拠は、シングルトンタイプのインスタンスがメソッドを追加するタイプを一意に識別することです。
+    When the type has fields, it wouldn't be clear whether the method was being added to the instance or its type.
+    > 型にフィールドがある場合、そのメソッドがインスタンスに追加されているのか、その型に追加されたのかは明らかではありません。
 
     The 4-argument form has the following arguments:
+    > 4引数形式の引数は次のとおりです。
 
       * `args[1]`
 
-        A function name, or `false` if unknown. If a symbol, then the expression first
-        behaves like the 1-argument form above. This argument is ignored from then on. When
-        this is `false`, it means a method is being added strictly by type, `(::T)(x) = x`.
+        A function name, or `false` if unknown.
+        If a symbol, then the expression first behaves like the 1-argument form above.
+        This argument is ignored from then on.
+        When this is `false`, it means a method is being added strictly by type, `(::T)(x) = x`.
+        > 関数名。未知の場合は `false`。
+        > シンボルの場合、式は最初に上記の1引数の形式のように動作します。
+        > その後、この引数は無視されます。
+        > これが `false`の場合、メソッドが`(:: T)(x)= x`型で厳密に追加されていることを意味します。
 
       * `args[2]`
 
-        A `SimpleVector` of argument type data. `args[2][1]` is a `SimpleVector` of the
-        argument types, and `args[2][2]` is a `SimpleVector` of type variables corresponding
-        to the method's static parameters.
+        A `SimpleVector` of argument type data.
+        > 引数型データの `SimpleVector`。
+        `args[2][1]` is a `SimpleVector` of the argument types, and `args[2][2]` is a `SimpleVector` of type variables corresponding to the method's static parameters.
+        >  `args [2] [1]` は引数型の `SimpleVector`であり、 `args [2][2]` はメソッドの静的パラメータに対応する型変数の `SimpleVector` です。
 
       * `args[3]`
 
-        A `CodeInfo` of the method itself. For "out of scope" method definitions (adding a
-        method to a function that also has methods defined in different scopes) this is an
-        expression that evaluates to a `:lambda` expression.
+        A `CodeInfo` of the method itself.
+        > メソッド自体の `CodeInfo`。
+        For "out of scope" method definitions (adding a method to a function that also has methods defined in different scopes) this is an expression that evaluates to a `:lambda` expression.
+        > "範囲外" のメソッド定義(異なるスコープで定義されたメソッドを持つ関数にメソッドを追加する)の場合、これは `:lambda` 式に評価される式です。
 
       * `args[4]`
 
         `true` or `false`, identifying whether the method is staged (`@generated function`).
+        > メソッドがステージングされているかどうかを識別する `true` または `false` を返します( `@generated function`)。
 
   * `const`
 
-    Declares a (global) variable as constant.
+     Declares a (global) variable as constant.
+     > (グローバル)変数を定数として宣言します。
   * `null`
 
     Has no arguments; simply yields the value `nothing`.
+    > 引数はありません。単純に値「nothing」を生成します。
 
   * `new`
 
-    Allocates a new struct-like object. First argument is the type. The [`new`](@ref) pseudo-function is lowered
-    to this, and the type is always inserted by the compiler.  This is very much an internal-only
-    feature, and does no checking. Evaluating arbitrary `new` expressions can easily segfault.
+    Allocates a new struct-like object.
+    > 新しい構造体のようなオブジェクトを割り当てます。
+    First argument is the type. The [`new`](@ref) pseudo-function is lowered to this, and the type is always inserted by the compiler.
+    > 最初の引数は型です。 [`new`](@ref)擬似関数はこれより低くなり、型は常にコンパイラによって挿入されます。
+    This is very much an internal-only feature, and does no checking.
+    > これは内部のみの機能であり、チェックはしません。
+    Evaluating arbitrary `new` expressions can easily segfault.
+    > 任意の `new` 式を評価することで、簡単に分離することができます。
 
   * `return`
 
     Returns its argument as the value of the enclosing function.
+    > 引数を、囲み関数の値として返します。
 
   * `the_exception`
 
-    Yields the caught exception inside a `catch` block. This is the value of the run time system variable
-    `jl_exception_in_transit`.
+    Yields the caught exception inside a `catch` block.
+    > キャッチされた例外を `catch`ブロックの中で生成します。
+    This is the value of the run time system variable `jl_exception_in_transit`.
+    > これは実行時システム変数 `jl_exception_in_transit`の値です。
 
   * `enter`
 
-    Enters an exception handler (`setjmp`). `args[1]` is the label of the catch block to jump to on
-    error.
+    Enters an exception handler (`setjmp`).
+    > 例外ハンドラ( `setjmp`)を入力します。
+    `args[1]` is the label of the catch block to jump to on error.
+    > `args [1]`はエラー時にジャンプするcatchブロックのラベルです。
 
   * `leave`
 
-    Pop exception handlers. `args[1]` is the number of handlers to pop.
+    Pop exception handlers.
+    > ポップ例外ハンドラ。
+    `args[1]` is the number of handlers to pop.
+    > `args [1]` はポップするハンドラの数です。
 
   * `inbounds`
 
-    Controls turning bounds checks on or off. A stack is maintained; if the first argument of this
-    expression is true or false (`true` means bounds checks are disabled), it is pushed onto the stack.
+    Controls turning bounds checks on or off.
+    > 境界チェックをオンまたはオフにするコントロール。
+    A stack is maintained; if the first argument of this expression is true or false (`true` means bounds checks are disabled), it is pushed onto the stack.
+    > スタックは維持されます。この式の最初の引数が真または偽の場合( `true` は境界チェックが無効であることを意味します)、スタックにプッシュされます。
     If the first argument is `:pop`, the stack is popped.
+    > 最初の引数が `:pop` の場合、スタックはポップされます。
 
   * `boundscheck`
 
-    Has the value `false` if inlined into a section of code marked with `@inbounds`,
-    otherwise has the value `true`.
+    Has the value `false` if inlined into a section of code marked with `@inbounds`, otherwise has the value `true`.
+    > `@inbounds` でマークされたコードのセクションにインライン化されている場合は `false` を返し、それ以外の場合は `true` を返します。
+    > `false` を返す場合は、インライン化されているコードのセクションに `@inbounds` でマークされた場合で 、それ以外は `true` を返します。
 
   * `copyast`
 
-    Part of the implementation of quasi-quote. The argument is a surface syntax AST that is simply
-    copied recursively and returned at run time.
+    Part of the implementation of quasi-quote.
+    > 準引用の実装の一部。
+    The argument is a surface syntax AST that is simply copied recursively and returned at run time.
+    > 引数はサーフェス構文ASTで、単純に再帰的にコピーされ、実行時に返されます。
 
   * `meta`
 
-    Metadata. `args[1]` is typically a symbol specifying the kind of metadata, and the rest of the
-    arguments are free-form. The following kinds of metadata are commonly used:
+    Metadata. `args[1]` is typically a symbol specifying the kind of metadata, and the rest of the arguments are free-form.
+    > メタデータ。 `args [1]`は通常、メタデータの種類を指定するシンボルであり、残りの引数は自由形式です。
+    The following kinds of metadata are commonly used:
+    > 次の種類のメタデータが一般的に使用されます。
 
       * `:inline` and `:noinline`: Inlining hints.
+      > * `：inline`と`：noinline`：インラインヒント。
 
       * `:push_loc`: enters a sequence of statements from a specified source location.
+      * > `：push_loc`：指定されたソースの場所から一連のステートメントを入力します。
 
-          * `args[2]` specifies a filename, as a symbol.
-          * `args[3]` optionally specifies the name of an (inlined) function that originally contained the
-            code.
+        * `args[2]` specifies a filename, as a symbol.
+        > * `args [2]`はシンボルとしてファイル名を指定します。
+        * `args[3]` optionally specifies the name of an (inlined) function that originally contained the code.
+        > * `args [3]`は、コードが元々含んでいた(インライン化された)関数の名前をオプションで指定します。
 
       * `:pop_loc`: returns to the source location before the matching `:push_loc`.
+      * > `：pop_loc`：一致する`：push_loc`の前のソース位置に戻ります。
 
           * `args[2]::Int` (optional) specifies the number of `push_loc` to pop
+          > * `args [2] :: Int`(オプション)はpopするための` push_loc`の数を指定します
 
 
 ### Method
 
 A unique'd container describing the shared metadata for a single method.
+> 単一のメソッドの共有メタデータを記述するユニークなコンテナ。
 
   * `name`, `module`, `file`, `line`, `sig`
 
     Metadata to uniquely identify the method for the computer and the human.
+    > コンピュータと人間のためのメソッドを一意に識別するメタデータ。
 
   * `ambig`
 
     Cache of other methods that may be ambiguous with this one.
+    > このメソッドとあいまいな他のメソッドのキャッシュ。
 
   * `specializations`
 
     Cache of all MethodInstance ever created for this Method, used to ensure uniqueness.
-    Uniqueness is required for efficiency, especially for incremental precompile and
-    tracking of method invalidation.
+    > このメソッド用に作成されたすべてのMethodInstanceのキャッシュ。一意性を保証するために使用されます。
+    Uniqueness is required for efficiency, especially for incremental precompile and tracking of method invalidation.
+    > 特にメソッドの無効化のインクリメンタル・プリコンパイルとトラッキングでは、効率のために一意性が必要です。
 
   * `source`
 
     The original source code (usually compressed).
+    > オリジナルのソースコード(通常は圧縮されている)。
 
   * `roots`
 
-    Pointers to non-AST things that have been interpolated into the AST, required by
-    compression of the AST, type-inference, or the generation of native code.
+    Pointers to non-AST things that have been interpolated into the AST, required by compression of the AST, type-inference, or the generation of native code.
+    > ASTの補間、型推論、またはネイティブコードの生成によって必要とされる、ASTに補間された非ASTのものへのポインタ。
 
   * `nargs`, `isva`, `called`, `isstaged`, `pure`
 
     Descriptive bit-fields for the source code of this Method.
+    > このメソッドのソースコードのための記述的なビットフィールド。
 
   * `min_world` / `max_world`
 
     The range of world ages for which this method is visible to dispatch.
+    > このメソッドをディスパッチするために表示できる世界の世代の範囲。
 
 
 ### MethodInstance
 
-A unique'd container describing a single callable signature for a Method. See especially [Proper maintenance and care of multi-threading locks](@ref)
-for important details on how to modify these fields safely.
+A unique'd container describing a single callable signature for a Method.
+> メソッドの単一の呼び出し可能な署名を記述するユニークなコンテナ。
+See especially [Proper maintenance and care of multi-threading locks](@ref) for important details on how to modify these fields safely.
+> これらのフィールドを安全に変更する方法の重要な詳細については、特に[マルチスレッドロックの適切な保守と管理](@ ref)を参照してください。
 
   * `specTypes`
 
-    The primary key for this MethodInstance. Uniqueness is guaranteed through a
-    `def.specializations` lookup.
+    The primary key for this MethodInstance. Uniqueness is guaranteed through a `def.specializations` lookup.
+    > このMethodInstanceの主キー一意性は `def.specializations`ルックアップによって保証されます。
 
   * `def`
 
-    The `Method` that this function describes a specialization of. Or a `Module`,
-    if this is a top-level Lambda expanded in Module, and which is not part of a Method.
+    The `Method` that this function describes a specialization of.
+    > この関数が特殊化を記述する `Method`。
+    Or a `Module`, if this is a top-level Lambda expanded in Module, and which is not part of a Method.
+    > モジュール内で展開されたトップレベルのラムダで、メソッドの一部でない場合は `Module`を返します。
 
   * `sparam_vals`
 
-    The values of the static parameters in `specTypes` indexed by `def.sparam_syms`. For the
-    `MethodInstance` at `Method.unspecialized`, this is the empty `SimpleVector`. But for a
-    runtime `MethodInstance` from the `MethodTable` cache, this will always be defined and
-    indexable.
+    The values of the static parameters in `specTypes` indexed by `def.sparam_syms`.
+    > `def.sparam_syms`によってインデックス付けされた` specTypes`の静的パラメータの値です。
+    For the `MethodInstance` at `Method.unspecialized`, this is the empty `SimpleVector`.
+    > `Method.unspecialized`の` MethodInstance`の場合、これは空の `SimpleVector`です。
+    But for a runtime `MethodInstance` from the `MethodTable` cache, this will always be defined and indexable.
+    > しかし、 `MethodTable`キャッシュからの実行時` MethodInstance`の場合、これは常に定義され、インデックス可能です。
 
   * `rettype`
 
-    The inferred return type for the `specFunctionObject` field, which (in most cases) is
-    also the computed return type for the function in general.
+    The inferred return type for the `specFunctionObject` field, which (in most cases) is also the computed return type for the function in general.
+    > `specFunctionObject`フィールドの推定された戻り値の型です。関数の一般的な戻り値の型です。
 
   * `inferred`
 
-    May contain a cache of the inferred source for this function, or other information about
-    the inference result such as a constant return value may be put here (if `jlcall_api ==
-    2`), or it could be set to `nothing` to just indicate `rettype` is inferred.
+    May contain a cache of the inferred source for this function, or other information about the inference result such as a constant return value may be put here (if `jlcall_api == 2`), or it could be set to `nothing` to just indicate `rettype` is inferred.
+    > この関数の推測されたソースのキャッシュを含むか、または定数戻り値のような推論結果に関するその他の情報がここに置かれるかもしれません( `jlcall_api == 2` ならば)。 `rettype` が推論されることを示します。
 
   * `ftpr`
 
     The generic jlcall entry point.
+    > ジェネリックjlcallエントリポイント。
 
   * `jlcall_api`
 
-    The ABI to use when calling `fptr`. Some significant ones include:
+    The ABI to use when calling `fptr`.
+    > `fptr`を呼び出すときに使うABI。
+    Some significant ones include:
+    > 重要なものには次のものがあります：
 
       * 0 - Not compiled yet
+      > * 0 - まだコンパイルされていません
       * 1 - JL_CALLABLE `jl_value_t *(*)(jl_function_t *f, jl_value_t *args[nargs], uint32_t nargs)`
+      > * 1 - JL_CALLABLE `jl_value_t *(*)(jl_function_t * f、jl_value_t * args [nargs]、uint32_t nargs)`
       * 2 - Constant (value stored in `inferred`)
+      > * 2 - 定数( `推論 'に格納された値)
       * 3 - With Static-parameters forwarded `jl_value_t *(*)(jl_svec_t *sparams, jl_function_t *f, jl_value_t *args[nargs], uint32_t nargs)`
+      > * 3 - 静的パラメータが転送されたとき `jl_value_t *(*)(jl_svec_t * sparams、jl_function_t * f、jl_value_t * args [nargs],uint32_t nargs)`
       * 4 - Run in interpreter `jl_value_t *(*)(jl_method_instance_t *meth, jl_function_t *f, jl_value_t *args[nargs], uint32_t nargs)`
+      > * 4 - インタプリタ `jl_value_t *(*)(jl_method_instance_t * meth、jl_function_t * f、jl_value_t * args [nargs]、uint32_t nargs)` で実行します。
 
   * `min_world` / `max_world`
 
     The range of world ages for which this method instance is valid to be called.
+    > このメソッドインスタンスが呼び出されるのに有効なワールド年代の範囲。
 
 
 ### CodeInfo
@@ -309,8 +404,8 @@ A temporary container for holding lowered source code.
 
     Either an array or an `Int`.
 
-    If an `Int`, it gives the number of compiler-inserted temporary locations in the
-    function. If an array, specifies a type for each location.
+    If an `Int`, it gives the number of compiler-inserted temporary locations in the function.
+    If an array, specifies a type for each location.
 
 Boolean properties:
 
@@ -324,22 +419,25 @@ Boolean properties:
 
   * `propagate_inbounds`
 
-    Whether this should should propagate `@inbounds` when inlined for the purpose of eliding
-    `@boundscheck` blocks.
+    Whether this should should propagate `@inbounds` when inlined for the purpose of eliding `@boundscheck` blocks.
 
   * `pure`
 
-    Whether this is known to be a pure function of its arguments, without respect to the
-    state of the method caches or other mutable global state.
+    Whether this is known to be a pure function of its arguments, without respect to the state of the method caches or other mutable global state.
 
 
 ## Surface syntax AST
 
 Front end ASTs consist almost entirely of `Expr`s and atoms (e.g. symbols, numbers).
+> フロントエンドのASTは、ほとんどが `Expr`とアトム(シンボル、数字など)で構成されています。
 There is generally a different expression head for each visually distinct syntactic form.
+> 一般的には、視覚的に異なる構文的フォームごとに異なる表現ヘッドが存在する。
 Examples will be given in s-expression syntax.
+> 例はs-expression構文で与えられます。
 Each parenthesized list corresponds to an Expr, where the first element is the head.
+> 各括弧で囲まれたリストはExprに対応しています。最初の要素は先頭です。
 For example `(call f x)` corresponds to `Expr(:call, :f, :x)` in Julia.
+> 例えば `(call f x)` はJuliaの  `Expr(:call,;f,:x)` に対応します。
 
 ### Calls
 
@@ -362,11 +460,14 @@ parses as `(do (call f x) (-> (tuple a b) (block body)))`.
 
 ### Operators
 
-Most uses of operators are just function calls, so they are parsed with the head `call`. However
-some operators are special forms (not necessarily function calls), and in those cases the operator
-itself is the expression head. In julia-parser.scm these are referred to as "syntactic operators".
-Some operators (`+` and `*`) use N-ary parsing; chained calls are parsed as a single N-argument
-call. Finally, chains of comparisons have their own special expression structure.
+Most uses of operators are just function calls, so they are parsed with the head `call`.
+> 演算子の大部分の使用は単に関数呼び出しであるため、 `call`という頭で解析されます。
+However some operators are special forms (not necessarily function calls), and in those cases the operator itself is the expression head.
+> しかし、一部の演算子は特別な形式(必ずしも関数呼び出しである必要はない)であり、その場合演算子自体が式の頭です。
+In julia-parser.scm these are referred to as "syntactic operators".
+> julia-parser.scmでは、これらを「構文演算子」と呼びます。
+Some operators (`+` and `*`) use N-ary parsing; chained calls are parsed as a single N-argument call. Finally, chains of comparisons have their own special expression structure.
+> 一部の演算子( `+`と `*`)では、N進解析を使用します。 連鎖された呼び出しは単一のN引数呼び出しとして解析されます。 最後に、比較の連鎖には独自の特殊な表現構造があります。
 
 | Input       | AST                       |
 |:----------- |:------------------------- |
@@ -445,8 +546,8 @@ parses as `(macrocall (|.| Core '@doc) (line) "some docs" (= (call f x) (block x
 
 ### Numbers
 
-Julia supports more number types than many scheme implementations, so not all numbers are represented
-directly as scheme numbers in the AST.
+Julia supports more number types than many scheme implementations, so not all numbers are represented directly as scheme numbers in the AST.
+> Juliaは、多くのスキーマの実装よりも多くの数値タイプをサポートしているため、すべての数値がASTのスキーム番号として直接表されるわけではありません。
 
 | Input                   | AST                                                     |
 |:----------------------- |:------------------------------------------------------- |
@@ -457,8 +558,10 @@ directly as scheme numbers in the AST.
 ### Block forms
 
 A block of statements is parsed as `(block stmt1 stmt2 ...)`.
+> 文のブロックは `(block stmt1 stmt2 ...)`として解析されます。
 
 If statement:
+> ifステートメント:
 
 ```julia
 if a
@@ -471,6 +574,7 @@ end
 ```
 
 parses as:
+> 次のように解析します。
 
 ```
 (if a (block (line 2) b)
@@ -479,16 +583,23 @@ parses as:
 ```
 
 A `while` loop parses as `(while condition body)`.
+> `while`ループは`(while while condition body) `として解析されます。
 
-A `for` loop parses as `(for (= var iter) body)`. If there is more than one iteration specification,
-they are parsed as a block: `(for (block (= v1 iter1) (= v2 iter2)) body)`.
+A `for` loop parses as `(for (= var iter) body)`.
+> `for`ループは`(for(= var iter)body) `として解析されます。
+If there is more than one iteration specification, they are parsed as a block: `(for (block (= v1 iter1) (= v2 iter2)) body)`.
+> 複数の反復仕様がある場合、それらはブロックとして解析されます： `(for(block(= v1 iter1)(= v2 iter2))body)`。
 
 `break` and `continue` are parsed as 0-argument expressions `(break)` and `(continue)`.
+> `break`と` continue`は0引数の式 `(break)`と `(continue)`として解析されます。
 
-`let` is parsed as `(let (= var val) body)` or `(let (block (= var1 val1) (= var2 val2) ...) body)`,
-like `for` loops.
+`let` is parsed as `(let (= var val) body)` or `(let (block (= var1 val1) (= var2 val2) ...) body)`, like `for` loops.
+> `let`は` for(let(= var val)body) `または`(let(ブロック(= var1 val1)(= var2 val2)...)body) `として解析されます。
 
-A basic function definition is parsed as `(function (call f x) body)`. A more complex example:
+A basic function definition is parsed as `(function (call f x) body)`.
+> 基本的な関数定義は `(function(call f x)body)`として解析されます。
+A more complex example:
+> より複雑な例：
 
 ```julia
 function f(x::T; k = 1) where T
@@ -497,6 +608,7 @@ end
 ```
 
 parses as:
+> 次のように解析します。
 
 ```
 (function (where (call f (parameters (kw k 1))
@@ -506,6 +618,7 @@ parses as:
 ```
 
 Type definition:
+> タイプ定義：
 
 ```julia
 mutable struct Foo{T<:S}
@@ -514,6 +627,7 @@ end
 ```
 
 parses as:
+> 次のように解析します。
 
 ```
 (struct true (curly Foo (<: T S))
@@ -521,26 +635,36 @@ parses as:
 ```
 
 The first argument is a boolean telling whether the type is mutable.
+> 最初の引数は、型が変更可能かどうかを示すブール値です。
 
-`try` blocks parse as `(try try_block var catch_block finally_block)`. If no variable is present
-after `catch`, `var` is `#f`. If there is no `finally` clause, then the last argument is not present.
+`try` blocks parse as `(try try_block var catch_block finally_block)`.
+> `try`ブロックは`(try try_block var catch_block finally_blockを試してください) `として解析します。
+If no variable is present after `catch`, `var` is `#f`. If there is no `finally` clause, then the last argument is not present.
+> `catch`の後に変数がない場合、` var`は `#f`です。 `finally`節がなければ、最後の引数は存在しません。
 
 ### Quote expressions
 
 Julia source syntax forms for code quoting (`quote` and `:( )`) support interpolation with `$`.
+> コード引用のためのJuliaソース構文形式( `quote` と `:()` ) は `$` での補間をサポートしています。
 In Lisp terminology, this means they are actually "backquote" or "quasiquote" forms.
+> Lispの用語では、これは実際には "backquote"または "quasiquote"形式であることを意味します。
 Internally, there is also a need for code quoting without interpolation.
+> 内部的には、補間のないコード引用も必要です。
 In Julia's scheme code, non-interpolating quote is represented with the expression head `inert`.
+> Juliaの方式コードでは、非補間式の見積もりは、表現ヘッド `inert` で表されます。
 
 `inert` expressions are converted to Julia `QuoteNode` objects.
+> `inert` 式はJulia `QuoteNode` オブジェクトに変換されます。
 These objects wrap a single value of any type, and when evaluated simply return that value.
+> これらのオブジェクトは任意の型の単一の値をラップし、評価されるとその値を単に返します。
 
 A `quote` expression whose argument is an atom also gets converted to a `QuoteNode`.
+> 引数がアトムである `quote`式も` QuoteNode`に変換されます。
 
 ### Line numbers
 
-Source location information is represented as `(line line_num file_name)` where the third
-component is optional (and omitted when the current line number, but not file name,
-changes).
+Source location information is represented as `(line line_num file_name)` where the third component is optional (and omitted when the current line number, but not file name, changes).
+> ソースの位置情報は `(line line_num file_name)`として表され、第3の要素は任意である(現在の行番号がファイル名ではなく省略された場合は省略される)。
 
 These expressions are represented as `LineNumberNode`s in Julia.
+> これらの式は、Juliaの `LineNumberNode`として表されます。
