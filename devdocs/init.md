@@ -161,13 +161,18 @@ Hello World!
 | `jl_f_top_eval()`              | `builtins.c`    |                                                      |
 
 Since our example has just one function call, which has done its job of printing "Hello World!", the stack now rapidly unwinds back to `main()`.
+> この例では "Hello World！"という印刷を行った関数呼び出しが1つしかないので、スタックはすぐに `main()` に素早く巻き戻されます。
 
 ## jl_atexit_hook()
 
 `main()` calls [`jl_atexit_hook()`](https://github.com/JuliaLang/julia/blob/master/src/init.c).
+> `main()` は [`jl_atexit_hook()`](https://github.com/JuliaLang/julia/blob/master/src/init.c)を呼び出します。
 This calls `_atexit` for each module, then calls [`jl_gc_run_all_finalizers()`](https://github.com/JuliaLang/julia/blob/master/src/gc.c) and cleans up libuv handles.
+> これはモジュールごとに `_atexit` を呼び出し、 [`jl_gc_run_all_finalizers()`](https://github.com/JuliaLang/julia/blob/master/src/gc.c)を呼び出し、libuvハンドルをクリーンアップします。
 
 ## julia_save()
 
 Finally, `main()` calls [`julia_save()`](https://github.com/JuliaLang/julia/blob/master/src/init.c), which if requested on the command line, saves the runtime state to a new system image.
+> 最後に、 `main()` は [`julia_save()`](https://github.com/JuliaLang/julia/blob/master/src/init.c)を呼び出します。コマンドラインで要求された場合、ランタイム 状態を新しいシステムイメージに変更します。
 See [`jl_compile_all()`](https://github.com/JuliaLang/julia/blob/master/src/gf.c) and [`jl_save_system_image()`](https://github.com/JuliaLang/julia/blob/master/src/staticdata.c).
+> [`jl_compile_all()`](https://github.com/JuliaLang/julia/blob/master/src/gf.c) と [`jl_save_system_image()`](https://github.com/JuliaLang/julia/blob/master/src/staticdata.c)  を参照してください。 。
