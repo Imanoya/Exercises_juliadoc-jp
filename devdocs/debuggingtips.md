@@ -2,6 +2,7 @@
 
 ## Displaying Julia variables
 
+<!-- EN -->
 Within `gdb`, any `jl_value_t*` object `obj` can be displayed using
 > `gdb`の中で、` jl_value_t * `オブジェクト` obj`は、
 
@@ -9,11 +10,14 @@ Within `gdb`, any `jl_value_t*` object `obj` can be displayed using
 (gdb) call jl_(obj)
 ```
 
+<!-- EN -->
 The object will be displayed in the `julia` session, not in the gdb session.
 > オブジェクトはgdbセッションではなく `julia`セッションに表示されます。
+<!-- EN -->
 This is a useful way to discover the types and values of objects being manipulated by Julia's C code.
 > これは、JuliaのCコードによって操作されるオブジェクトの型と値を発見するのに便利な方法です。
 
+<!-- EN -->
 Similarly, if you're debugging some of Julia's internals (e.g., `compiler.jl`), you can print `obj` using
 > 同様に、Juliaの内部構造（例えば、 `compiler.jl`）の一部をデバッグする場合、` obj`を使って `
 
@@ -21,44 +25,59 @@ Similarly, if you're debugging some of Julia's internals (e.g., `compiler.jl`), 
 ccall(:jl_, Cvoid, (Any,), obj)
 ```
 
+<!-- EN -->
 This is a good way to circumvent problems that arise from the order in which julia's output streams are initialized.
 > これは、juliaの出力ストリームが初期化される順序から生じる問題を回避する良い方法です。
 
+<!-- EN -->
 Julia's flisp interpreter uses `value_t` objects; these can be displayed with `call fl_print(fl_ctx, ios_stdout, obj)`.
 > Juliaのflispインタプリタは `value_t`オブジェクトを使います。 これらは `call fl_print（fl_ctx、ios_stdout、obj）`で表示することができます。
 
 ## Useful Julia variables for Inspecting
 
+<!-- EN -->
 While the addresses of many variables, like singletons, can be be useful to print for many failures, there are a number of additional variables (see `julia.h` for a complete list) that are even more useful.
 > シングルトンのような多くの変数のアドレスは多くの失敗のために印刷するのに便利ですが、さらに便利ないくつかの変数（完全なリストについては `julia.h`を参照）があります。
 
+  <!-- EN -->
   * (when in `jl_apply_generic`) `mfunc` and `jl_uncompress_ast(mfunc->def, mfunc->code)` :: for figuring out a bit about the call-stack
-  > * （ `jl_apply_generic`のとき）` mfunc`と `jl_uncompress_ast（mfunc-> def、mfunc-> code）` ::コールスタックについて少し分かります
+  * > ( `jl_apply_generic`のとき) `mfunc` と `jl_uncompress_ast(mfunc->def, mfunc->code)` :: コールスタックについて少し分かります
+  <!-- EN -->
   * `jl_lineno` and `jl_filename` :: for figuring out what line in a test to go start debugging from (or figure out how far into a file has been parsed)
-  > * `jl_lineno`と` jl_filename` ::テストのどの行からデバッグを開始するか（またはファイルがどのくらいまで解析されたかを調べる）
+  * > `jl_lineno` と `jl_filename`:: テストのどの行からデバッグを開始するか（またはファイルがどのくらいまで解析されたかを調べます）
+  <!-- EN -->
   * `$1` :: not really a variable, but still a useful shorthand for referring to the result of the last gdb command (such as `print`)
-  > * `$ 1` ::実際には変数ではありませんが、最後のgdbコマンドの結果を参照するのに便利な省略形（` print`など）
+  * > `$1` :: 実際には変数ではありませんが、最後のgdbコマンドの結果を参照するのに便利な省略形です (`print` など)
+  <!-- EN -->
   * `jl_options` :: sometimes useful, since it lists all of the command line options that were successfully parsed
-  > * `jl_options` ::成功した場合、解析に成功したすべてのコマンドラインオプション
+  * > `jl_options` :: 成功した場合、解析に成功したすべてのコマンドラインオプション
+  <!-- EN -->
   * `jl_uv_stderr` :: because who doesn't like to be able to interact with stdio
-  > * `jl_uv_stderr` ::誰がstdioと対話できるのが好きではないからです
+  * > `jl_uv_stderr` ::標準入出力と対話するのが好ましくありません。
 
 ## Useful Julia functions for Inspecting those variables
 
+  <!-- EN -->
   * `jl_gdblookup($rip)` :: For looking up the current function and line. (use `$eip` on i686 platforms)
-  > * `jl_gdblookup（$ rip）` ::現在の関数と行を検索します。 （i686プラットフォームでは `$ eip`を使います）
+  * > `jl_gdblookup（$ rip）` ::現在の関数と行を検索します。 （i686プラットフォームでは `$ eip`を使います）
+  <!-- EN -->
   * `jlbacktrace()` :: For dumping the current Julia backtrace stack to stderr. Only usable after `record_backtrace()` has been called.
-  > * `jlbacktrace（）` ::現在のJulia backtraceスタックをstderrにダンプします。 `record_backtrace（）`の後にのみ使用可能です。
+  * > `jlbacktrace（）` ::現在のJulia backtraceスタックをstderrにダンプします。 `record_backtrace（）`の後にのみ使用可能です。
+  <!-- EN -->
   * `jl_dump_llvm_value(Value*)` :: For invoking `Value->dump()` in gdb, where it doesn't work natively.
-  > * `jl_dump_llvm_value（Value *）` :: gdbで `Value-> dump（）`を呼び出すために、ネイティブでは動作しません。
+  * > `jl_dump_llvm_value（Value *）` :: gdbで `Value-> dump（）`を呼び出すために、ネイティブでは動作しません。
+    <!-- EN -->
     For example, `f->linfo->functionObject`, `f->linfo->specFunctionObject`, and `to_function(f->linfo)`.
-  >   たとえば、 `f-> linfo-> functionObject`、` f-> linfo-> specFunctionObject`、および `to_function（f-> linfo）`のようになります。
+    > たとえば、 `f->linfo->functionObject`, `f->linfo->specFunctionObject`, および `to_function(f->linfo)` のようになります。
+  <!-- EN -->
   * `Type->dump()` :: only works in lldb. Note: add something like `;1` to prevent lldb from printing its prompt over the output
-  > * `Type-> dump（）` :: lldbでのみ動作します。 注：lldbがプロンプトを出力しないように `; 1`のようなものを追加してください
+  * > `Type->dump()` :: lldb でのみ動作します。 注：lldb がプロンプトを出力しないように `;1` のようなものを追加してください
+  <!-- EN -->
   * `jl_eval_string("expr")` :: for invoking side-effects to modify the current state or to lookup symbols
-  > * `jl_eval_string（" expr "）` ::副作用を呼び出して現在の状態を変更したり、シンボルを検索したりするためのもの
+  * > `jl_eval_string("expr")` :: 副作用を呼び出して現在の状態を変更したり、シンボルを検索したりするためのもの
+  <!-- EN -->
   * `jl_typeof(jl_value_t*)` :: for extracting the type tag of a Julia value (in gdb, call `macro define jl_typeof jl_typeof` first, or pick something short like `ty` for the first arg to define a shorthand)
-  > * `jl_typeof（jl_value_t *）` :: Julia値の型タグを抽出するため（gdbでは、 `macro define jl_typeof jl_typeof`を最初に呼び出すか、
+  * > `jl_typeof(jl_value_t*)` :: Julia値の型タグを抽出するため（ gdb では、 `macro define jl_typeof jl_typeof` を最初に呼び出すか、 最初の引数が省略形を定義するために `ty` のような短いものを選んでください）
 
 ## Inserting breakpoints for inspection from gdb
 
